@@ -4,15 +4,15 @@
 
 **A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code.**
 
-[![npm version](https://img.shields.io/npm/v/@kata/cli?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/@kata/cli)
-[![npm downloads](https://img.shields.io/npm/dm/@kata/cli?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/@kata/cli)
+[![npm version](https://img.shields.io/npm/v/@gannonh/kata?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/@gannonh/kata)
+[![npm downloads](https://img.shields.io/npm/dm/@gannonh/kata?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/@gannonh/kata)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/gannonh/kata?style=for-the-badge&logo=github&color=181717)](https://github.com/gannonh/kata)
 
 <br>
 
 ```bash
-npx @kata/cli
+npx @gannonh/kata
 ```
 
 **Works on Mac, Windows, and Linux.**
@@ -39,7 +39,7 @@ People who want to describe what they want and have it built correctly — witho
 ## Getting Started
 
 ```bash
-npx @kata/cli (coming soon)
+npx @gannonh/kata (coming soon)
 ```
 
 That's it. Verify with `/kata:help` inside your Claude Code interface.
@@ -55,15 +55,15 @@ Kata evolves fast. Check for updates periodically:
 Update with:
 
 ```bash
-npx @kata/cli@latest
+npx @gannonh/kata@latest
 ```
 
 <details>
 <summary><strong>Non-interactive Install (Docker, CI, Scripts)</strong></summary>
 
 ```bash
-npx @kata/cli --global   # Install to ~/.claude/
-npx @kata/cli --local    # Install to ./.claude/
+npx @gannonh/kata --global   # Install to ~/.claude/
+npx @gannonh/kata --local    # Install to ./.claude/
 ```
 
 Use `--global` (`-g`) or `--local` (`-l`) to skip the interactive prompt.
@@ -409,18 +409,18 @@ You're never locked in. The system adapts.
 
 **Commands not working as expected?**
 - Run `/kata:help` to verify installation
-- Re-run `npx @kata/cli` to reinstall
+- Re-run `npx @gannonh/kata` to reinstall
 
 **Updating to the latest version?**
 ```bash
-npx @kata/cli@latest
+npx @gannonh/kata@latest
 ```
 
 **Using Docker or containerized environments?**
 
 If file reads fail with tilde paths (`~/.claude/...`), set `CLAUDE_CONFIG_DIR` before installing:
 ```bash
-CLAUDE_CONFIG_DIR=/home/youruser/.claude npx @kata/cli --global
+CLAUDE_CONFIG_DIR=/home/youruser/.claude npx @gannonh/kata --global
 ```
 This ensures absolute paths are used instead of `~` which may not expand correctly in containers.
 

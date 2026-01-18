@@ -36,7 +36,7 @@ Kata evolves fast. Check for updates periodically:
 Shows what changed since your installed version. Update with:
 
 ```bash
-npx @kata/cli@latest
+npx @gannonh/kata@latest
 ```
 
 ## Core Workflow
