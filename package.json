@@ -1,6 +1,6 @@
 {
   "name": "@gannonh/kata",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Development framework for Claude Code.",
   "bin": {
     "kata": "bin/install.js"
