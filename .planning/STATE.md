@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-17)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** Phase 1 - Integration Architecture
+**Current focus:** Phase 00.1 - Antigravity Adapter (INSERTED)
 
 ## Current Position
 
-Phase: 1 of 7 (Integration Architecture)
-Plan: 0 of 3 in current phase
-Status: Ready to start Phase 1
-Last activity: 2026-01-18 - Removed Phase 0.1, ready for Phase 1
+Phase: 00.1 (Antigravity Adapter) - INSERTED
+Plan: 0 of ? in current phase (not planned yet)
+Status: Ready to plan Phase 00.1
+Last activity: 2026-01-18 - Phase 00.1 inserted for urgent Antigravity adapter work
 
 Progress: [=====...............] 14%
 
@@ -57,10 +57,12 @@ Recent decisions affecting current work:
 
 - Phase 0 inserted before Phase 1: Hard Fork & Rebrand (vision diverged from upstream)
 - Phase 0 completed 2026-01-18 - all 5 plans executed successfully
+- Phase 00.1 inserted after Phase 0: Antigravity Adapter (URGENT)
 
 ### Pending Todos
 
-None.
+1 pending todo:
+- `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
 
 ### Blockers/Concerns
 
@@ -69,5 +71,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Removed Phase 0.1 - Ready to start Phase 1
+Stopped at: Inserted Phase 00.1 - Antigravity Adapter
 Resume file: None
