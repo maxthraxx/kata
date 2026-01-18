@@ -61,11 +61,27 @@ process.stdin.on('end', () => {
 
     // Kata update available?
     let kataUpdate = '';
-    const cacheFile = path.join(homeDir, '.claude', 'cache', 'kata-update-check.json');
+    const currentDir = dir;
+
+    // Detect local vs global installation by checking VERSION file
+    const localVersionFile = path.join(currentDir, '.claude', 'kata', 'VERSION');
+    const currentIsLocalInstall = fs.existsSync(localVersionFile);
+
+    // Read cache from location matching current context
+    const cacheFile = currentIsLocalInstall
+      ? path.join(currentDir, '.claude', 'kata', 'cache', 'update-check.json')
+      : path.join(homeDir, '.claude', 'kata', 'cache', 'update-check.json');
+
     if (fs.existsSync(cacheFile)) {
       try {
         const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-        if (cache.update_available) {
+
+        // Validate cache matches current context (sanity check)
+        const cacheIsRelevant = currentIsLocalInstall
+          ? (cache.isLocalInstall && cache.cwd === currentDir)
+          : !cache.isLocalInstall;
+
+        if (cache.update_available && cacheIsRelevant) {
           kataUpdate = '\x1b[33m⬆ /kata:update\x1b[0m │ ';
         }
       } catch (e) {}

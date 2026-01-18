@@ -10,17 +10,21 @@ const { execSync, spawn } = require('child_process');
 const homeDir = os.homedir();
 const cwd = process.cwd();
 
-// Detect local vs global installation
-const localKataDir = path.join(cwd, '.claude', 'commands', 'kata');
-const isLocalInstall = fs.existsSync(localKataDir);
+// Detect local vs global installation by checking VERSION file
+// This single check tells us both: existence = local install, contents = version
+const localVersionFile = path.join(cwd, '.claude', 'kata', 'VERSION');
+const globalVersionFile = path.join(homeDir, '.claude', 'kata', 'VERSION');
+const isLocalInstall = fs.existsSync(localVersionFile);
 
-// Use appropriate VERSION path based on installation type
-// Cache always goes to home dir (statusline reads from there)
-const cacheDir = path.join(homeDir, '.claude', 'cache');
-const cacheFile = path.join(cacheDir, 'kata-update-check.json');
-const versionFile = isLocalInstall
-  ? path.join(cwd, '.claude', 'kata', 'VERSION')
-  : path.join(homeDir, '.claude', 'kata', 'VERSION');
+// Use paths based on installation type - cache location matches install context
+const versionFile = isLocalInstall ? localVersionFile : globalVersionFile;
+const cacheDir = isLocalInstall
+  ? path.join(cwd, '.claude', 'kata', 'cache')
+  : path.join(homeDir, '.claude', 'kata', 'cache');
+const cacheFile = path.join(cacheDir, 'update-check.json');
+
+// Store cwd in cache so statusline can detect stale cache
+const checkedCwd = cwd;
 
 // Ensure cache directory exists
 if (!fs.existsSync(cacheDir)) {
@@ -34,6 +38,8 @@ const child = spawn(process.execPath, ['-e', `
 
   const cacheFile = ${JSON.stringify(cacheFile)};
   const versionFile = ${JSON.stringify(versionFile)};
+  const checkedCwd = ${JSON.stringify(checkedCwd)};
+  const isLocalInstall = ${JSON.stringify(isLocalInstall)};
 
   let installed = '0.0.0';
   try {
@@ -49,7 +55,9 @@ const child = spawn(process.execPath, ['-e', `
     update_available: latest && installed !== latest,
     installed,
     latest: latest || 'unknown',
-    checked: Math.floor(Date.now() / 1000)
+    checked: Math.floor(Date.now() / 1000),
+    cwd: checkedCwd,
+    isLocalInstall: isLocalInstall
   };
 
   fs.writeFileSync(cacheFile, JSON.stringify(result));
