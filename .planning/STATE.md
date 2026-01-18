@@ -60,8 +60,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-1. **Rename CLI package from kata-cli** (tooling) - npm name conflict with existing package
-2. **Create npm publishing GitHub Action** (tooling) - automate publishing on merge to main
+1. **Create npm publishing GitHub Action** (tooling) - automate publishing on merge to main
 
 ### Blockers/Concerns
 
