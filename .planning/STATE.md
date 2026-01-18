@@ -60,8 +60,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-1. **Update command should check local installation first** (tooling)
-   - `commands/kata/update.md` - detect local vs global install
+None.
 
 ### Blockers/Concerns
 
