@@ -60,7 +60,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-1. **Create npm publishing GitHub Action** (tooling) - automate publishing on merge to main
+None.
 
 ### Blockers/Concerns
 
