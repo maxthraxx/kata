@@ -18,7 +18,6 @@ Kata is an independent meta-prompting and context engineering system for Claude 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Hard Fork & Rebrand** - Sever ties from upstream, establish independent Kata identity
-- [ ] **Phase 0.1: Rebrand from Kata to Katana** - Complete rename of project identity (INSERTED)
 - [ ] **Phase 1: Integration Architecture** - Establish extensible integration system with GitHub as first integration
 - [ ] **Phase 2: GitHub Issues Core** - Bidirectional sync and lifecycle tracking
 - [ ] **Phase 3: GitHub Issues Polish** - Auto-labeling and issue templates
@@ -47,26 +46,6 @@ Plans:
 - [x] 00-03-PLAN.md — Support files (FUNDING, CHANGELOG, assets, scripts)
 - [x] 00-04-PLAN.md — Internal references (commands, hooks, planning docs)
 - [x] 00-05-PLAN.md — Verification and human approval
-
-### Phase 0.1: Rebrand from Kata to Katana (INSERTED)
-**Goal**: Complete rename from Kata to Katana across entire codebase
-**Depends on**: Phase 0 (clean codebase established)
-**Requirements**: Update all Kata references to Katana
-**Success Criteria** (what must be TRUE):
-  1. All "Kata" references updated to "Katana" in code and documentation
-  2. Directory names updated (kata/ -> katana/)
-  3. Command prefixes updated (/gsd:* or /kata:* -> /katana:*)
-  4. Project branding consistent with Katana identity
-  5. No orphaned Kata references remain
-**Plans**: 6 plans
-
-Plans:
-- [ ] 00.1-01-PLAN.md — Directory renames (kata/ -> katana/, commands/kata/ -> commands/katana/)
-- [ ] 00.1-02-PLAN.md — File renames (agent files, hook files, root files)
-- [ ] 00.1-03-PLAN.md — Critical identity files (package.json, install.js, README.md)
-- [ ] 00.1-04-PLAN.md — Command and agent content updates
-- [ ] 00.1-05-PLAN.md — Workflow, template, reference, and hook content updates
-- [ ] 00.1-06-PLAN.md — Planning files update and final verification
 
 ### Phase 1: Integration Architecture
 **Goal**: Extensible integration system exists and GitHub integration proves the pattern
@@ -182,12 +161,11 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 0 -> 0.1 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+Phases execute in numeric order: 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Hard Fork & Rebrand | 5/5 | Complete | 2026-01-18 |
-| 0.1. Rebrand from Kata to Katana | 0/6 | Planned | - |
 | 1. Integration Architecture | 0/3 | Planned | - |
 | 2. GitHub Issues Core | 0/3 | Not started | - |
 | 3. GitHub Issues Polish | 0/2 | Not started | - |
@@ -198,4 +176,4 @@ Phases execute in numeric order: 0 -> 0.1 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 ---
 *Roadmap created: 2026-01-17*
-*Last updated: 2026-01-18 - Phase 0.1 planned with 6 plans*
+*Last updated: 2026-01-18*
