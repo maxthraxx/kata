@@ -8,9 +8,19 @@ const os = require('os');
 const { execSync, spawn } = require('child_process');
 
 const homeDir = os.homedir();
+const cwd = process.cwd();
+
+// Detect local vs global installation
+const localKataDir = path.join(cwd, '.claude', 'commands', 'kata');
+const isLocalInstall = fs.existsSync(localKataDir);
+
+// Use appropriate VERSION path based on installation type
+// Cache always goes to home dir (statusline reads from there)
 const cacheDir = path.join(homeDir, '.claude', 'cache');
 const cacheFile = path.join(cacheDir, 'kata-update-check.json');
-const versionFile = path.join(homeDir, '.claude', 'kata', 'VERSION');
+const versionFile = isLocalInstall
+  ? path.join(cwd, '.claude', 'kata', 'VERSION')
+  : path.join(homeDir, '.claude', 'kata', 'VERSION');
 
 // Ensure cache directory exists
 if (!fs.existsSync(cacheDir)) {
