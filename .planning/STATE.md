@@ -61,9 +61,10 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-2 pending todos:
+3 pending todos:
 - `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
 - `.planning/todos/pending/2026-01-18-distribute-as-claude-code-plugin.md` - Distribute Kata as Claude Code plugin for CC users
+- `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
 
 ### Blockers/Concerns
 
