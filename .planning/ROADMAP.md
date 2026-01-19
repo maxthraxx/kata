@@ -9,6 +9,11 @@ Kata is an independent meta-prompting and context engineering system for Claude 
 - **Integration** — Code that connects Kata to an external system (GitHub integration, Linear integration)
 - **"Kata for VS Code"** — User-facing name for VS Code adapter
 
+## Milestones
+
+- **v0.1.4 Hard Fork & Rebrand** — Phase 0 (shipped 2026-01-18) — [archive](milestones/v0.1.4-ROADMAP.md)
+- **v1.0 GitHub Integration** — Phases 01-6 (in progress)
+
 ## Phases
 
 **Phase Numbering:**
@@ -17,8 +22,16 @@ Kata is an independent meta-prompting and context engineering system for Claude 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 0: Hard Fork & Rebrand** - Sever ties from upstream, establish independent Kata identity
-- [ ] **Phase 00.1: Antigravity Adapter** (INSERTED) - Adapter layer for Antigravity IDE integration
+<details>
+<summary> v0.1.4 Hard Fork & Rebrand (Phase 0) — SHIPPED 2026-01-18</summary>
+
+- [x] Phase 0: Hard Fork & Rebrand (5/5 plans) — completed 2026-01-18
+
+</details>
+
+### v1.0 GitHub Integration (In Progress)
+
+- [ ] **Phase 01: Antigravity Adapter** (INSERTED) - Adapter layer for Antigravity IDE integration
 - [ ] **Phase 1: GitHub Issues Core** - Bidirectional sync and lifecycle tracking
 - [ ] **Phase 2: GitHub Issues Polish** - Auto-labeling and issue templates
 - [ ] **Phase 3: GitHub PR Creation** - Automated PR workflow with conventions enforced
@@ -28,39 +41,20 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ## Phase Details
 
-### Phase 0: Hard Fork & Rebrand
-**Goal**: Complete separation from upstream with new identity and clean codebase
-**Depends on**: Nothing (first phase)
-**Requirements**: Remove all upstream references, establish gannonh/kata identity
-**Success Criteria** (what must be TRUE):
-  1. All references to original project (glittercowboy) removed or updated
-  2. Project branding applied consistently (Kata by gannonh)
-  3. Git history preserved but upstream remote removed
-  4. CLAUDE.md updated to reflect standalone project (no upstream sync)
-  5. Package author and repository updated to gannonh
-**Plans**: 5 plans
-
-Plans:
-- [x] 00-01-PLAN.md — Git configuration and package.json identity
-- [x] 00-02-PLAN.md — Core documentation (CLAUDE.md, README.md, install.js)
-- [x] 00-03-PLAN.md — Support files (FUNDING, CHANGELOG, assets, scripts)
-- [x] 00-04-PLAN.md — Internal references (commands, hooks, planning docs)
-- [x] 00-05-PLAN.md — Verification and human approval
-
-### Phase 00.1: Antigravity Adapter (INSERTED)
+### Phase 01: Antigravity Adapter (INSERTED)
 **Goal:** [Urgent work - to be planned]
 **Depends on:** Phase 0
 **Plans:** 0 plans
 
 Plans:
-- [ ] TBD (run /kata:plan-phase 00.1 to break down)
+- [ ] TBD (run /kata:plan-phase 01 to break down)
 
 **Details:**
 [To be added during planning]
 
 ### Phase 1: GitHub Issues Core
 **Goal**: Kata milestones and phases sync bidirectionally with GitHub Issues
-**Depends on**: Phase 00.1 (Antigravity Adapter)
+**Depends on**: Phase 01 (Antigravity Adapter)
 **Requirements**: GHISS-01, GHISS-02
 **Success Criteria** (what must be TRUE):
   1. Creating a milestone/phase in Kata creates corresponding GitHub issues
@@ -156,20 +150,20 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 0 -> 00.1 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
+Phases execute in numeric order: 01 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 0. Hard Fork & Rebrand | 5/5 | Complete | 2026-01-18 |
-| 00.1. Antigravity Adapter | 0/? | Not planned | - |
-| 1. GitHub Issues Core | 0/3 | Not started | - |
-| 2. GitHub Issues Polish | 0/2 | Not started | - |
-| 3. GitHub PR Creation | 0/3 | Not started | - |
-| 4. GitHub PR Collaboration | 0/2 | Not started | - |
-| 5. GitHub CI/CD | 0/2 | Not started | - |
-| 6. VS Code Adapter | 0/3 | Not started | - |
+| Phase                      | Milestone | Plans Complete | Status      | Completed  |
+| -------------------------- | --------- | -------------- | ----------- | ---------- |
+| 0. Hard Fork & Rebrand     | v0.1.4    | 5/5            | Complete    | 2026-01-18 |
+| 01. Antigravity Adapter    | v1.0      | 0/?            | Not planned | -          |
+| 1. GitHub Issues Core      | v1.0      | 0/3            | Not started | -          |
+| 2. GitHub Issues Polish    | v1.0      | 0/2            | Not started | -          |
+| 3. GitHub PR Creation      | v1.0      | 0/3            | Not started | -          |
+| 4. GitHub PR Collaboration | v1.0      | 0/2            | Not started | -          |
+| 5. GitHub CI/CD            | v1.0      | 0/2            | Not started | -          |
+| 6. VS Code Adapter         | v1.0      | 0/3            | Not started | -          |
 
 
 ---
 *Roadmap created: 2026-01-17*
-*Last updated: 2026-01-18*
+*Last updated: 2026-01-18 — v0.1.4 milestone complete*

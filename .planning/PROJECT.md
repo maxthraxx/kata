@@ -2,7 +2,9 @@
 
 ## What This Is
 
-A hard fork of GSD, rebranded and restructured for team workflows. Brings structured, reliable AI development to teams without changing their existing tools. Adapts the Kata workflow to VS Code and GitHub's native capabilities. Teams use Kata's quality-producing process inside the tools they already love.
+A spec-driven development framework for Claude Code. Brings structured, reliable AI development to teams without changing their existing tools. Teams use Kata's quality-producing process inside the tools they already love.
+
+**Current state:** v0.1.4 shipped — hard fork complete, independent identity established. Next: Antigravity Adapter then GitHub Integration.
 
 ## Core Value
 
@@ -12,7 +14,7 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 
 ### Validated
 
-(None yet — ship to validate)
+- Hard fork from upstream — v0.1.4 (independent identity, gannonh/kata)
 
 ### Active
 
@@ -32,6 +34,11 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 - Building an agent framework — use platform-native capabilities (subagents, Skills, MCPs)
 
 ## Context
+
+**v0.1.4 shipped (2026-01-18):**
+- 130 files modified, ~68k LOC (md, js, json, sh)
+- Tech stack: Node.js installer, Claude Code slash commands, markdown workflows
+- Complete rebrand from GSD to Kata with gannonh/kata identity
 
 **Fork rationale:**
 - Original GSD was firmly solo-dev focused
@@ -70,11 +77,11 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | ~~Start as extension, not hard fork~~ | ~~Maximize leverage of upstream velocity~~ | Superseded |
-| **Hard fork and rebrand** | Vision diverged significantly; clean break enables independent evolution | Active |
+| **Hard fork and rebrand** | Vision diverged significantly; clean break enables independent evolution | Good — v0.1.4 |
 | VS Code first, other IDEs later | Proves the adaptation pattern, largest market share | — Pending |
 | GitHub plugin first | Most teams use GitHub, validates plugin architecture | — Pending |
-| Native PR reviews (not CodeRabbit) | Full GSD context makes reviews smarter than diff-only tools | — Pending |
+| Native PR reviews (not CodeRabbit) | Full Kata context makes reviews smarter than diff-only tools | — Pending |
 | Plugin architecture from v1 | Teams can extend without waiting for us, enables ecosystem | — Pending |
 
 ---
-*Last updated: 2026-01-17 — hard fork decision*
+*Last updated: 2026-01-18 after v0.1.4 milestone*

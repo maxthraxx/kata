@@ -2,19 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-17)
+See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** Phase 01 - Antigravity Adapter (INSERTED)
+**Current focus:** v1.0 GitHub Integration (starting with Phase 01 - Antigravity Adapter)
 
 ## Current Position
 
+Milestone: v1.0 GitHub Integration (Phases 01-6)
 Phase: 01 (Antigravity Adapter) - INSERTED
 Plan: 0 of ? in current phase (not planned yet)
 Status: Ready to plan Phase 01
-Last activity: 2026-01-18 - Phase 01 inserted for urgent Antigravity adapter work
+Last activity: 2026-01-18 - v0.1.4 milestone complete
 
-Progress: [=====...............] 14%
+Progress: [=====...............] 14% (1/7 phases complete)
 
 ## Performance Metrics
 
@@ -57,6 +58,7 @@ Recent decisions affecting current work:
 
 - Phase 0 inserted before Phase 1: Hard Fork & Rebrand (vision diverged from upstream)
 - Phase 0 completed 2026-01-18 - all 5 plans executed successfully
+- **v0.1.4 milestone archived 2026-01-18** - Hard Fork & Rebrand shipped
 - Phase 01 inserted after Phase 0: Antigravity Adapter (URGENT)
 
 ### Pending Todos
@@ -74,5 +76,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Inserted Phase 01 - Antigravity Adapter
+Stopped at: v0.1.4 milestone complete, ready for Phase 01
 Resume file: None
