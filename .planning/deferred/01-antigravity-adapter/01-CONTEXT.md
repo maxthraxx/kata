@@ -1,4 +1,4 @@
-# Phase 00.1: Antigravity Adapter - Context
+# Phase 01: Antigravity Adapter - Context
 
 **Gathered:** 2026-01-18
 **Status:** Ready for planning
@@ -61,14 +61,14 @@ Adapter layer to make Kata run within Antigravity IDE. This phase focuses on **c
 
 ### Platform Mapping
 
-| Claude Code | Antigravity | Kata Adapter Approach |
-|-------------|-------------|----------------------|
-| SlashCommands | Workflows | 1:1 mapping |
-| Custom Agents | No equivalent | Inline in workflows OR separate workflow files |
-| Task tool (subagents) | Not available | Sequential + workflow chaining |
-| `/clear` | Not available | "Open new chat" guidance |
-| @ file references | Supported | Same syntax works |
-| Hooks | No equivalent | Not supported initially |
+| Claude Code           | Antigravity   | Kata Adapter Approach                          |
+| --------------------- | ------------- | ---------------------------------------------- |
+| SlashCommands         | Workflows     | 1:1 mapping                                    |
+| Custom Agents         | No equivalent | Inline in workflows OR separate workflow files |
+| Task tool (subagents) | Not available | Sequential + workflow chaining                 |
+| `/clear`              | Not available | "Open new chat" guidance                       |
+| @ file references     | Supported     | Same syntax works                              |
+| Hooks                 | No equivalent | Not supported initially                        |
 
 ### Current State
 - User has a working sync script (`~/.claude/scripts/sync-antigravity.sh`) that copies skills and symlinks commands as proof-of-concept
@@ -97,5 +97,5 @@ These belong in a separate "System" phase after capabilities are proven.
 
 ---
 
-*Phase: 00.1-antigravity-adapter*
+*Phase: 01-antigravity-adapter*
 *Context gathered: 2026-01-18*
