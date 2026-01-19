@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v1.0 GitHub Integration (starting with Phase 01 - Antigravity Adapter)
+**Current focus:** v0.1.5 GitHub Integration (starting with Phase 1 - Audit & Config Foundation)
 
 ## Current Position
 
-Milestone: v1.0 GitHub Integration (Phases 01-6)
-Phase: 01 (Antigravity Adapter) - INSERTED
+Milestone: v0.1.5 GitHub Integration (Phases 1-5)
+Phase: 1 (Audit & Config Foundation) - Ready to plan
 Plan: 0 of ? in current phase (not planned yet)
-Status: Ready to plan Phase 01
-Last activity: 2026-01-18 - v0.1.4 milestone complete
+Status: Ready to plan Phase 1
+Last activity: 2026-01-18 - v0.1.5 roadmap created
 
-Progress: [=====...............] 14% (1/7 phases complete)
+Progress: [=====...............] 17% (1/6 phases complete)
 
 ## Performance Metrics
 
@@ -43,33 +43,27 @@ Progress: [=====...............] 14% (1/7 phases complete)
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- ~~Project initialized with extension/wrapper approach (not hard fork)~~ **SUPERSEDED**
 - **2026-01-17: Hard fork decision** - Severing all ties from upstream GSD, full rebrand
-- Build GitHub Integration first (Phases 1-5), then VS Code Adapter (Phase 6)
-- "Adapter" = IDE-specific code (VS Code Adapter, Claude Code Adapter)
-- "Integration" = external system connection (GitHub Integration, Linear Integration)
-- Claude Code first (where GSD already runs), then port to VS Code
-- **00-03:** FUNDING.yml removed (can add gannonh funding later when public)
-- **00-03:** CHANGELOG.md reset to v0.1.0 clean slate
-- **00-04:** All glittercowboy/get-shit-done references removed from commands, hooks, planning docs
-- **00-05:** Phase 0 verified complete with human approval
+- **2026-01-18: v0.1.5 roadmap** - 5 phases derived from 17 requirements
+- Phase-level PRs (one PR per phase, not per plan)
+- Config-driven integrations (modular enable/disable)
 
 ### Roadmap Evolution
 
-- Phase 0 inserted before Phase 1: Hard Fork & Rebrand (vision diverged from upstream)
 - Phase 0 completed 2026-01-18 - all 5 plans executed successfully
 - **v0.1.4 milestone archived 2026-01-18** - Hard Fork & Rebrand shipped
-- Phase 01 inserted after Phase 0: Antigravity Adapter (URGENT)
+- **v0.1.5 milestone started 2026-01-18** - GitHub Integration (5 phases)
 
 ### Pending Todos
 
-6 pending todos:
+7 pending todos:
 - `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
 - `.planning/todos/pending/2026-01-18-distribute-as-claude-code-plugin.md` - Distribute Kata as Claude Code plugin for CC users
 - `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
 - `.planning/todos/pending/2026-01-18-command-subagent-noun-verb-naming.md` - Change command and subagent naming to noun-verb
 - `.planning/todos/pending/2026-01-18-npm-release-workflow-support.md` - Add optional npm release workflow to Kata
 - `.planning/todos/pending/2026-01-18-separate-new-project-from-first-milestone.md` - Separate new-project from first milestone creation
+- `.planning/todos/pending/2026-01-18-model-config-options.md` - Add model configuration options for workflows
 
 ### Blockers/Concerns
 
@@ -78,5 +72,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: v0.1.4 milestone complete, ready for Phase 01
+Stopped at: v0.1.5 roadmap created, ready for Phase 1 planning
 Resume file: None

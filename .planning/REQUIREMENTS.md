@@ -77,29 +77,29 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CFG-01 | TBD | Pending |
-| CFG-02 | TBD | Pending |
-| CFG-03 | TBD | Pending |
-| GHM-01 | TBD | Pending |
-| GHM-02 | TBD | Pending |
-| GHI-01 | TBD | Pending |
-| GHI-02 | TBD | Pending |
-| GHI-03 | TBD | Pending |
-| GHI-04 | TBD | Pending |
-| GHI-05 | TBD | Pending |
-| GHP-01 | TBD | Pending |
-| GHP-02 | TBD | Pending |
-| GHP-03 | TBD | Pending |
-| GHP-04 | TBD | Pending |
-| WFA-01 | TBD | Pending |
-| WFA-02 | TBD | Pending |
-| WFA-03 | TBD | Pending |
+| CFG-01 | Phase 1 | Pending |
+| CFG-02 | Phase 1 | Pending |
+| CFG-03 | Phase 2 | Pending |
+| GHM-01 | Phase 2 | Pending |
+| GHM-02 | Phase 2 | Pending |
+| GHI-01 | Phase 3 | Pending |
+| GHI-02 | Phase 3 | Pending |
+| GHI-03 | Phase 3 | Pending |
+| GHI-04 | Phase 4 | Pending |
+| GHI-05 | Phase 4 | Pending |
+| GHP-01 | Phase 5 | Pending |
+| GHP-02 | Phase 5 | Pending |
+| GHP-03 | Phase 5 | Pending |
+| GHP-04 | Phase 5 | Pending |
+| WFA-01 | Phase 1 | Pending |
+| WFA-02 | Phase 4 | Pending |
+| WFA-03 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 17 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 17
+- Mapped to phases: 17
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-18*
-*Last updated: 2026-01-18 after initial definition*
+*Last updated: 2026-01-18 — traceability updated for v0.1.5 roadmap*

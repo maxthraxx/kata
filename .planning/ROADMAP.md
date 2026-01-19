@@ -1,169 +1,129 @@
-# Roadmap: Kata
+# Roadmap: Kata v0.1.5 GitHub Integration
 
 ## Overview
 
-Kata is an independent meta-prompting and context engineering system for Claude Code. The roadmap begins with establishing the independent project identity, then builds complete GitHub Integration (tested in Claude Code), and finally creates a VS Code Adapter for broader adoption.
-
-**Terminology:**
-- **Adapter** — Code that makes Kata run in a specific IDE (Claude Code adapter, VS Code adapter)
-- **Integration** — Code that connects Kata to an external system (GitHub integration, Linear integration)
-- **"Kata for VS Code"** — User-facing name for VS Code adapter
+v0.1.5 adds optional, modular GitHub integration to Kata. The integration syncs Kata milestones, phases, and plans with GitHub Milestones, Issues, and PRs. All GitHub features are config-driven and can be enabled/disabled without affecting core Kata workflows.
 
 ## Milestones
 
 - **v0.1.4 Hard Fork & Rebrand** — Phase 0 (shipped 2026-01-18) — [archive](milestones/v0.1.4-ROADMAP.md)
-- **v1.0 GitHub Integration** — Phases 01-6 (in progress)
+- **v0.1.5 GitHub Integration** — Phases 1-5 (in progress)
 
 ## Phases
 
 **Phase Numbering:**
-- Integer phases (0, 1, 2, 3): Planned milestone work
+- Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 Decimal phases appear between their surrounding integers in numeric order.
 
 <details>
-<summary> v0.1.4 Hard Fork & Rebrand (Phase 0) — SHIPPED 2026-01-18</summary>
+<summary>v0.1.4 Hard Fork & Rebrand (Phase 0) — SHIPPED 2026-01-18</summary>
 
 - [x] Phase 0: Hard Fork & Rebrand (5/5 plans) — completed 2026-01-18
 
 </details>
 
-### v1.0 GitHub Integration (In Progress)
+### v0.1.5 GitHub Integration (In Progress)
 
-- [ ] **Phase 01: Antigravity Adapter** (INSERTED) - Adapter layer for Antigravity IDE integration
-- [ ] **Phase 1: GitHub Issues Core** - Bidirectional sync and lifecycle tracking
-- [ ] **Phase 2: GitHub Issues Polish** - Auto-labeling and issue templates
-- [ ] **Phase 3: GitHub PR Creation** - Automated PR workflow with conventions enforced
-- [ ] **Phase 4: GitHub PR Collaboration** - Native reviews and team comment response
-- [ ] **Phase 5: GitHub CI/CD** - Orchestrate checks and generate changelogs
-- [ ] **Phase 6: VS Code Adapter** - Kata for VS Code with full GitHub Integration
+- [ ] **Phase 1: Audit & Config Foundation** - Understand integration points, establish config schema
+- [ ] **Phase 2: Onboarding & Milestones** - Config during new-project, GitHub Milestone creation
+- [ ] **Phase 3: Phase Issues** - Create GitHub Issues for phases with labels and metadata
+- [ ] **Phase 4: Plan Sync** - Checklist items in issues, update as plans complete
+- [ ] **Phase 5: PR Integration** - Create PRs at phase completion with auto-linking
 
 ## Phase Details
 
-### Phase 01: Antigravity Adapter (INSERTED)
-**Goal:** [Urgent work - to be planned]
-**Depends on:** Phase 0
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /kata:plan-phase 01 to break down)
-
-**Details:**
-[To be added during planning]
-
-### Phase 1: GitHub Issues Core
-**Goal**: Kata milestones and phases sync bidirectionally with GitHub Issues
-**Depends on**: Phase 01 (Antigravity Adapter)
-**Requirements**: GHISS-01, GHISS-02
+### Phase 1: Audit & Config Foundation
+**Goal**: Understand where GitHub integration hooks into existing Kata workflows and establish config schema
+**Depends on**: Phase 0 (independent project identity)
+**Requirements**: WFA-01, CFG-01, CFG-02
 **Success Criteria** (what must be TRUE):
-  1. Creating a milestone/phase in Kata creates corresponding GitHub issues
-  2. Updating a GitHub issue reflects in Kata state
-  3. Issue status transitions (New, In Progress, In Review, Done) are tracked
-  4. Closing an issue in GitHub marks the phase complete in Kata
+  1. Integration points documented for new-milestone, execute-phase, execute-plan commands
+  2. `.planning/config.json` includes `github.enabled` boolean toggle
+  3. `.planning/config.json` includes `github.issueMode` with values `auto | ask | never`
+  4. Kata commands read config and branch on `github.enabled`
 **Plans**: TBD
 
 Plans:
 - [ ] 01-01: TBD
 - [ ] 01-02: TBD
-- [ ] 01-03: TBD
 
-### Phase 2: GitHub Issues Polish
-**Goal**: Issues are automatically labeled and templates standardize creation
-**Depends on**: Phase 1
-**Requirements**: GHISS-03, GHISS-04
+### Phase 2: Onboarding & Milestones
+**Goal**: New projects can configure GitHub integration and milestones create corresponding GitHub Milestones
+**Depends on**: Phase 1 (config schema exists)
+**Requirements**: CFG-03, GHM-01, GHM-02
 **Success Criteria** (what must be TRUE):
-  1. New issues automatically receive type labels (bug, feature, task)
-  2. Priority and size labels are applied based on requirements metadata
-  3. Bug report template captures reproduction steps, expected/actual behavior
-  4. Feature request template captures user story, acceptance criteria
+  1. `/kata:new-project` prompts for GitHub integration preferences
+  2. Config choices saved to `.planning/config.json` during onboarding
+  3. `/kata:new-milestone` creates GitHub Milestone when `github.enabled = true`
+  4. GitHub Milestone includes version number and description from ROADMAP.md
 **Plans**: TBD
 
 Plans:
 - [ ] 02-01: TBD
 - [ ] 02-02: TBD
 
-### Phase 3: GitHub PR Creation
-**Goal**: Execute-phase automatically creates well-formed PRs with conventions enforced
-**Depends on**: Phase 1 (PRs link to issues)
-**Requirements**: GHPR-01, GHPR-02, GHPR-03, GHPR-04, GHPR-05
+### Phase 3: Phase Issues
+**Goal**: Phases become GitHub Issues with proper labels, metadata, and milestone assignment
+**Depends on**: Phase 2 (milestones exist to assign issues to)
+**Requirements**: GHI-01, GHI-02, GHI-03
 **Success Criteria** (what must be TRUE):
-  1. Completing execute-phase automatically creates a PR
-  2. Branch names follow conventions (feature/, fix/, doc/, chore/, refactor/)
-  3. Commits use conventional format (feat, fix, docs, style, refactor, test, chore)
-  4. Draft PRs can be created for early feedback
-  5. PR descriptions include linked issues, change summary, and testing steps
+  1. Phase issues created with `phase` label when milestone created
+  2. Issue body includes phase goal and success criteria from ROADMAP.md
+  3. Phase issues assigned to corresponding GitHub Milestone
+  4. Issues created respecting `github.issueMode` config setting
 **Plans**: TBD
 
 Plans:
 - [ ] 03-01: TBD
 - [ ] 03-02: TBD
-- [ ] 03-03: TBD
 
-### Phase 4: GitHub PR Collaboration
-**Goal**: Claude conducts PR reviews and responds to team feedback
-**Depends on**: Phase 3
-**Requirements**: GHPR-06, GHPR-07
+### Phase 4: Plan Sync
+**Goal**: Phase issues track plan progress as checklist items that update during execution
+**Depends on**: Phase 3 (phase issues exist)
+**Requirements**: GHI-04, GHI-05, WFA-02
 **Success Criteria** (what must be TRUE):
-  1. Claude posts review comments directly to GitHub PR
-  2. Reviews consider full Kata context (requirements, plans), not just diff
-  3. Claude reads new comments on PRs it created or reviewed
-  4. Claude can address team feedback by pushing fixes or responding
+  1. Phase issue body includes checklist of plans (after `/kata:plan-phase`)
+  2. Checklist items checked as each plan completes during `/kata:execute-phase`
+  3. Execute-plan workflow conditionally updates GitHub issue
+  4. Plan status visible in GitHub without opening Kata
 **Plans**: TBD
 
 Plans:
 - [ ] 04-01: TBD
 - [ ] 04-02: TBD
 
-### Phase 5: GitHub CI/CD
-**Goal**: CI checks are orchestrated and changelogs are auto-generated
-**Depends on**: Phase 3 (PR workflow complete)
-**Requirements**: GHCI-01, GHCI-02
+### Phase 5: PR Integration
+**Goal**: Phase completion creates well-formed PRs that link to issues and follow conventions
+**Depends on**: Phase 4 (issues exist to link to)
+**Requirements**: GHP-01, GHP-02, GHP-03, GHP-04, WFA-03
 **Success Criteria** (what must be TRUE):
-  1. Kata waits for CI checks (lint, build, test) to pass before merge
-  2. CI failures are surfaced with actionable information
-  3. Changelog is auto-generated from merged PRs
-  4. Changelog entries include PR title, linked issues, and contributor
+  1. `/kata:execute-phase` creates PR when all plans complete (if `github.enabled`)
+  2. PR body includes "Closes #X" linking to phase issue
+  3. PR title follows convention: `Phase N: [Phase Name]`
+  4. PR body includes summary from phase SUMMARY.md
+  5. GitHub-specific templates exist for @file loading in workflows
 **Plans**: TBD
 
 Plans:
 - [ ] 05-01: TBD
 - [ ] 05-02: TBD
 
-### Phase 6: VS Code Adapter
-**Goal**: Kata for VS Code — full workflow with GitHub Integration
-**Depends on**: Phases 0-5 (complete GitHub Integration to port)
-**Requirements**: VSCODE-01, VSCODE-02, VSCODE-03
-**Success Criteria** (what must be TRUE):
-  1. All Kata slash commands work in VS Code (new-project, plan-phase, execute-phase, etc.)
-  2. Extension installs from VS Code marketplace or VSIX
-  3. Team member can install and configure in under 5 minutes
-  4. GitHub Integration works identically to Claude Code version
-  5. No bash workarounds required for core workflow
-**Plans**: TBD
-
-Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
-- [ ] 06-03: TBD
-
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 01 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
-| Phase                      | Milestone | Plans Complete | Status      | Completed  |
-| -------------------------- | --------- | -------------- | ----------- | ---------- |
-| 0. Hard Fork & Rebrand     | v0.1.4    | 5/5            | Complete    | 2026-01-18 |
-| 01. Antigravity Adapter    | v1.0      | 0/?            | Not planned | -          |
-| 1. GitHub Issues Core      | v1.0      | 0/3            | Not started | -          |
-| 2. GitHub Issues Polish    | v1.0      | 0/2            | Not started | -          |
-| 3. GitHub PR Creation      | v1.0      | 0/3            | Not started | -          |
-| 4. GitHub PR Collaboration | v1.0      | 0/2            | Not started | -          |
-| 5. GitHub CI/CD            | v1.0      | 0/2            | Not started | -          |
-| 6. VS Code Adapter         | v1.0      | 0/3            | Not started | -          |
-
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 0. Hard Fork & Rebrand | v0.1.4 | 5/5 | Complete | 2026-01-18 |
+| 1. Audit & Config Foundation | v0.1.5 | 0/? | Not planned | - |
+| 2. Onboarding & Milestones | v0.1.5 | 0/? | Not started | - |
+| 3. Phase Issues | v0.1.5 | 0/? | Not started | - |
+| 4. Plan Sync | v0.1.5 | 0/? | Not started | - |
+| 5. PR Integration | v0.1.5 | 0/? | Not started | - |
 
 ---
-*Roadmap created: 2026-01-17*
-*Last updated: 2026-01-18 — v0.1.4 milestone complete*
+*Roadmap created: 2026-01-18*
+*Last updated: 2026-01-18 — v0.1.5 roadmap defined*
