@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-17)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** Phase 00.1 - Antigravity Adapter (INSERTED)
+**Current focus:** Phase 01 - Antigravity Adapter (INSERTED)
 
 ## Current Position
 
-Phase: 00.1 (Antigravity Adapter) - INSERTED
+Phase: 01 (Antigravity Adapter) - INSERTED
 Plan: 0 of ? in current phase (not planned yet)
-Status: Ready to plan Phase 00.1
-Last activity: 2026-01-18 - Phase 00.1 inserted for urgent Antigravity adapter work
+Status: Ready to plan Phase 01
+Last activity: 2026-01-18 - Phase 01 inserted for urgent Antigravity adapter work
 
 Progress: [=====...............] 14%
 
@@ -25,9 +25,9 @@ Progress: [=====...............] 14%
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 00-hard-fork-rebrand | 5 | 10 min | 2 min |
+| Phase                | Plans | Total  | Avg/Plan |
+| -------------------- | ----- | ------ | -------- |
+| 00-hard-fork-rebrand | 5     | 10 min | 2 min    |
 
 **Recent Trend:**
 - Last 5 plans: 00-01 (1 min), 00-02 (1 min), 00-03 (3 min), 00-04 (3 min), 00-05 (2 min)
@@ -57,14 +57,15 @@ Recent decisions affecting current work:
 
 - Phase 0 inserted before Phase 1: Hard Fork & Rebrand (vision diverged from upstream)
 - Phase 0 completed 2026-01-18 - all 5 plans executed successfully
-- Phase 00.1 inserted after Phase 0: Antigravity Adapter (URGENT)
+- Phase 01 inserted after Phase 0: Antigravity Adapter (URGENT)
 
 ### Pending Todos
 
-3 pending todos:
+4 pending todos:
 - `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
 - `.planning/todos/pending/2026-01-18-distribute-as-claude-code-plugin.md` - Distribute Kata as Claude Code plugin for CC users
 - `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
+- `.planning/todos/pending/2026-01-18-command-subagent-noun-verb-naming.md` - Change command and subagent naming to noun-verb
 
 ### Blockers/Concerns
 
@@ -73,5 +74,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Inserted Phase 00.1 - Antigravity Adapter
+Stopped at: Inserted Phase 01 - Antigravity Adapter
 Resume file: None
