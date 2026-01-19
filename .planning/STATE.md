@@ -2,19 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-17)
+See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** Phase 1 - Integration Architecture
+**Current focus:** v0.1.5 GitHub Integration (starting with Phase 0 - Convert Commands to Skills)
 
 ## Current Position
 
-Phase: 1 of 7 (Integration Architecture)
-Plan: 0 of 3 in current phase
-Status: Ready to start Phase 1
-Last activity: 2026-01-18 - Removed Phase 0.1, ready for Phase 1
+Milestone: v0.1.5 GitHub Integration (Phases 0-5)
+Phase: 0 (Convert Commands to Skills) - INSERTED
+Plan: 0 of ? in current phase (not planned yet)
+Status: Ready to plan Phase 0
+Last activity: 2026-01-18 - Phase 0 inserted for Skills conversion
 
-Progress: [=====...............] 14%
+Progress: [=====...............] 14% (1/7 phases complete)
 
 ## Performance Metrics
 
@@ -25,9 +26,9 @@ Progress: [=====...............] 14%
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 00-hard-fork-rebrand | 5 | 10 min | 2 min |
+| Phase                | Plans | Total  | Avg/Plan |
+| -------------------- | ----- | ------ | -------- |
+| 00-hard-fork-rebrand | 5     | 10 min | 2 min    |
 
 **Recent Trend:**
 - Last 5 plans: 00-01 (1 min), 00-02 (1 min), 00-03 (3 min), 00-04 (3 min), 00-05 (2 min)
@@ -42,25 +43,29 @@ Progress: [=====...............] 14%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- ~~Project initialized with extension/wrapper approach (not hard fork)~~ **SUPERSEDED**
 - **2026-01-17: Hard fork decision** - Severing all ties from upstream GSD, full rebrand
-- Build GitHub Integration first (Phases 1-6), then VS Code Adapter (Phase 7)
-- "Adapter" = IDE-specific code (VS Code Adapter, Claude Code Adapter)
-- "Integration" = external system connection (GitHub Integration, Linear Integration)
-- Claude Code first (where GSD already runs), then port to VS Code
-- **00-03:** FUNDING.yml removed (can add gannonh funding later when public)
-- **00-03:** CHANGELOG.md reset to v0.1.0 clean slate
-- **00-04:** All glittercowboy/get-shit-done references removed from commands, hooks, planning docs
-- **00-05:** Phase 0 verified complete with human approval
+- **2026-01-18: v0.1.5 roadmap** - 5 phases derived from 17 requirements
+- Phase-level PRs (one PR per phase, not per plan)
+- Config-driven integrations (modular enable/disable)
 
 ### Roadmap Evolution
 
-- Phase 0 inserted before Phase 1: Hard Fork & Rebrand (vision diverged from upstream)
 - Phase 0 completed 2026-01-18 - all 5 plans executed successfully
+- **v0.1.4 milestone archived 2026-01-18** - Hard Fork & Rebrand shipped
+- **v0.1.5 milestone started 2026-01-18** - GitHub Integration (5 phases)
+- **Phase 0 inserted 2026-01-18** - Convert Commands to Skills using /skill-builder (URGENT prerequisite)
+- **Phase 0.1 inserted 2026-01-19** - Claude Code Plugin Distribution using /plugin-dev:create-plugin (URGENT)
 
 ### Pending Todos
 
-None.
+7 pending todos:
+- `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
+- `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
+- `.planning/todos/pending/2026-01-18-command-subagent-noun-verb-naming.md` - Change command and subagent naming to noun-verb
+- `.planning/todos/pending/2026-01-18-npm-release-workflow-support.md` - Add optional npm release workflow to Kata
+- `.planning/todos/pending/2026-01-18-separate-new-project-from-first-milestone.md` - Separate new-project from first milestone creation
+- `.planning/todos/pending/2026-01-18-model-config-options.md` - Add model configuration options for workflows
+- `.planning/todos/pending/2026-01-19-add-type-label-to-todo-frontmatter.md` - Add type label to todo frontmatter
 
 ### Blockers/Concerns
 
@@ -69,5 +74,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Removed Phase 0.1 - Ready to start Phase 1
+Stopped at: Phase 0 inserted, ready for Skills conversion planning
 Resume file: None
