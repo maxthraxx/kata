@@ -1,67 +1,63 @@
-# Requirements: GSD Enterprise
+# Requirements: Kata v0.1.5 GitHub Integration
 
-**Defined:** 2026-01-17
+**Defined:** 2026-01-18
 **Core Value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
 
 ## v1 Requirements
 
-Requirements for initial release. Each maps to roadmap phases.
+Requirements for v0.1.5 release. Each maps to roadmap phases.
 
-### VS Code Support
+### Configuration
 
-- [ ] **VSCODE-01**: GSD workflow runs in VS Code (slash commands functional)
-- [ ] **VSCODE-02**: Native VS Code extension (not bash workarounds)
-- [ ] **VSCODE-03**: Proper installer workflow for teams
+- [ ] **CFG-01**: GitHub integration enabled/disabled via `.planning/config.json`
+- [ ] **CFG-02**: Issue creation mode configurable: `auto` | `ask` | `never`
+- [ ] **CFG-03**: Integration config set during `/kata:new-project` onboarding
 
-### GitHub Issues Integration
+### GitHub Milestones
 
-- [ ] **GHISS-01**: Bidirectional sync between GSD milestones/phases and GitHub issues
-- [ ] **GHISS-02**: Issue lifecycle tracking (New -> In Progress -> In Review -> Done)
-- [ ] **GHISS-03**: Auto-labeling (type, priority, size applied automatically)
-- [ ] **GHISS-04**: Issue templates (bug report, feature request)
+- [ ] **GHM-01**: `/kata:new-milestone` creates corresponding GitHub Milestone
+- [ ] **GHM-02**: Milestone includes version number and description from ROADMAP.md
 
-### GitHub PR Workflow
+### GitHub Issues
 
-- [ ] **GHPR-01**: Auto-create PRs after execute-phase completes
-- [ ] **GHPR-02**: Branch naming conventions enforced (feature/, fix/, doc/, chore/, refactor/)
-- [ ] **GHPR-03**: Conventional commits format (feat, fix, docs, style, refactor, test, chore)
-- [ ] **GHPR-04**: Draft PR support for early feedback
-- [ ] **GHPR-05**: Auto-generate PR descriptions with linked issues, summary, testing steps
-- [ ] **GHPR-06**: Native PR reviews posted as GitHub comments (replaces CodeRabbit)
-- [ ] **GHPR-07**: Read and respond to team PR comments
+- [ ] **GHI-01**: Phase issues created with `phase` label when milestone created
+- [ ] **GHI-02**: Phase issues include goal and success criteria from ROADMAP.md
+- [ ] **GHI-03**: Phase issues assigned to GitHub Milestone
+- [ ] **GHI-04**: Plan checklist added to phase issue body
+- [ ] **GHI-05**: Plan checklist items updated as plans complete
 
-### GitHub CI/CD Integration
+### GitHub PRs
 
-- [ ] **GHCI-01**: Orchestrate CI checks (lint, build, test) before merge
-- [ ] **GHCI-02**: Auto-generate changelog from merged PRs
+- [ ] **GHP-01**: `/kata:execute-phase` creates PR at phase completion
+- [ ] **GHP-02**: PR auto-links to phase issue with "Closes #X"
+- [ ] **GHP-03**: PR title follows convention: `Phase N: [Phase Name]`
+- [ ] **GHP-04**: PR body includes summary from phase SUMMARY.md
 
-### Integration Architecture
+### Workflow Audit
 
-- [ ] **INTG-01**: Extensible integration architecture exists (for GitHub, Linear, Jira, etc.)
-- [ ] **INTG-02**: GitHub integration implemented using this architecture (proves the pattern)
+- [ ] **WFA-01**: Document integration points in existing Kata workflows
+- [ ] **WFA-02**: Add conditional GitHub logic to relevant commands/agents
+- [ ] **WFA-03**: Create GitHub-specific templates/references for @file loading
 
 ## v2 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+Deferred to later milestones. Tracked but not in current roadmap.
 
-### Additional IDEs
+### GitHub Project Boards
 
-- **IDE-01**: Cursor support (full GSD workflow)
-- **IDE-02**: Antigravity support (full GSD workflow)
-- **IDE-03**: Augment Code support (full GSD workflow)
+- **GPB-01**: Sync phase status to GitHub Project board columns
+- **GPB-02**: Auto-move cards as phases progress
 
-### Additional Integrations
+### GitHub Actions
 
-- **INTG-03**: Linear integration (issues, projects, cycles sync)
-- **INTG-04**: Jira integration (issues, sprints sync)
-- **INTG-05**: Integration documentation for third-party developers
-- **INTG-06**: Integration discovery/registration system
+- **GHA-01**: Trigger CI checks before PR merge
+- **GHA-02**: Surface CI failures with actionable information
 
-### Enhanced CI/CD
+### Native PR Reviews
 
-- **CICD-01**: Coverage enforcement (block merge if coverage drops)
-- **CICD-02**: Auto-deploy to staging/production
-- **CICD-03**: Release workflow automation
+- **GPR-01**: Claude reviews PRs with full Kata context
+- **GPR-02**: Review comments posted directly to GitHub
+- **GPR-03**: Claude responds to team PR feedback
 
 ## Out of Scope
 
@@ -69,44 +65,41 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Building an IDE | Coordination layer only, use existing tools |
-| Building an LLM | Use Claude, not compete with it |
-| Building an agent framework | Use platform-native capabilities (subagents, Skills, MCPs) |
-| Hard fork from upstream | Start as extension, fork only if necessary |
-| Real-time collaboration | Teams collaborate via GitHub, not a custom system |
-| Custom project management | Integrate with existing tools (GitHub, Linear), don't replace |
-| CodeRabbit integration | Native PR reviews replace it |
+| Linear integration | GitHub first proves the pattern |
+| Jira integration | GitHub first proves the pattern |
+| VS Code adapter | Prove in Claude Code first |
+| Bidirectional issue sync | One-way (Kata → GitHub) for v1 |
+| GitHub Discussions | Issues sufficient for v1 |
 
 ## Traceability
 
-Which phases cover which requirements.
+Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INTG-01 | Phase 1: Integration Architecture | Pending |
-| INTG-02 | Phase 1: Integration Architecture | Pending |
-| GHISS-01 | Phase 2: GitHub Issues Core | Pending |
-| GHISS-02 | Phase 2: GitHub Issues Core | Pending |
-| GHISS-03 | Phase 3: GitHub Issues Polish | Pending |
-| GHISS-04 | Phase 3: GitHub Issues Polish | Pending |
-| GHPR-01 | Phase 4: GitHub PR Creation | Pending |
-| GHPR-02 | Phase 4: GitHub PR Creation | Pending |
-| GHPR-03 | Phase 4: GitHub PR Creation | Pending |
-| GHPR-04 | Phase 4: GitHub PR Creation | Pending |
-| GHPR-05 | Phase 4: GitHub PR Creation | Pending |
-| GHPR-06 | Phase 5: GitHub PR Collaboration | Pending |
-| GHPR-07 | Phase 5: GitHub PR Collaboration | Pending |
-| GHCI-01 | Phase 6: GitHub CI/CD | Pending |
-| GHCI-02 | Phase 6: GitHub CI/CD | Pending |
-| VSCODE-01 | Phase 7: VS Code Adapter | Pending |
-| VSCODE-02 | Phase 7: VS Code Adapter | Pending |
-| VSCODE-03 | Phase 7: VS Code Adapter | Pending |
+| CFG-01 | TBD | Pending |
+| CFG-02 | TBD | Pending |
+| CFG-03 | TBD | Pending |
+| GHM-01 | TBD | Pending |
+| GHM-02 | TBD | Pending |
+| GHI-01 | TBD | Pending |
+| GHI-02 | TBD | Pending |
+| GHI-03 | TBD | Pending |
+| GHI-04 | TBD | Pending |
+| GHI-05 | TBD | Pending |
+| GHP-01 | TBD | Pending |
+| GHP-02 | TBD | Pending |
+| GHP-03 | TBD | Pending |
+| GHP-04 | TBD | Pending |
+| WFA-01 | TBD | Pending |
+| WFA-02 | TBD | Pending |
+| WFA-03 | TBD | Pending |
 
 **Coverage:**
-- v1 requirements: 18 total
-- Mapped to phases: 18 ✓
-- Unmapped: 0
+- v1 requirements: 17 total
+- Mapped to phases: 0 (pending roadmap)
+- Unmapped: 17
 
 ---
-*Requirements defined: 2026-01-17*
-*Last updated: 2026-01-17 after roadmap creation*
+*Requirements defined: 2026-01-18*
+*Last updated: 2026-01-18 after initial definition*
