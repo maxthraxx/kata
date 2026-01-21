@@ -410,7 +410,6 @@ Return structured report to milestone auditor:
 </critical_rules>
 
 <success_criteria>
-
 - [ ] Export/import map built from SUMMARYs
 - [ ] All key exports checked for usage
 - [ ] All API routes checked for consumers
@@ -420,4 +419,4 @@ Return structured report to milestone auditor:
 - [ ] Missing connections identified
 - [ ] Broken flows identified with specific break points
 - [ ] Structured report returned to auditor
-      </success_criteria>
+</success_criteria>
