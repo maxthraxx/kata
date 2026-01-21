@@ -156,7 +156,7 @@ If "Roadmap Evolution" section doesn't exist, create it.
 <step name="completion">
 Present completion summary:
 
-```
+
 Phase {N} added to current milestone:
 - Description: {description}
 - Directory: .planning/phases/{phase-num}-{slug}/
@@ -182,7 +182,7 @@ Project state updated: .planning/STATE.md
 - Review roadmap
 
 ---
-```
+
 </step>
 
 </process>
