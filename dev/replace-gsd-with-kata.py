@@ -71,6 +71,12 @@ def main():
         for md_file in dir_path.rglob("*.md"):
             replace_in_file(md_file)
 
+    # Process KATA-STYLE.md if it exists
+    kata_style = Path("KATA-STYLE.md")
+    if kata_style.exists():
+        print("Processing file: KATA-STYLE.md")
+        replace_in_file(kata_style)
+
     # Display results
     print("\n=== Results ===\n")
 

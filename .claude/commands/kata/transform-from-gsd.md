@@ -20,10 +20,12 @@ hooks:
 Orchestrate complete transformation of get-shit-done (GSD) repository files into Kata format.
 
 Performs four sequential operations:
-1. Copy files GSD commands to transformation staging area
-2. Rename agent files (gsd- → kata- prefix)
+1. Copy files from GSD repo (commands to staging, agents/workflows/style guide directly)
+2. Rename agent files (gsd- → kata- prefix) and style guide (GSD-STYLE.md → KATA-STYLE.md)
 3. Replace all textual references (gsd/get-shit-done → kata)
-4. Convert commands to skills format
+4. Convert staged commands to skills format
+
+Output: Transformed skills in dev/transform/skills/ ready for selective deployment.
 
 Use when forking/adapting GSD content into Kata codebase.
 </objective>
@@ -150,10 +152,10 @@ To convert manually:
 Generate summary of transformation:
 
 ```bash
-# Count files in transform directory
+# Count transformed files
 COMMANDS=$(find dev/transform/commands -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-AGENTS=$(find dev/transform/agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-WORKFLOWS=$(find dev/transform/kata -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+AGENTS=$(find agents -name "kata-*.md" 2>/dev/null | wc -l | tr -d ' ')
+WORKFLOWS=$(find kata/workflows -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 SKILLS=$(find dev/transform/skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 
 echo "COMMANDS=$COMMANDS"
@@ -170,18 +172,21 @@ Display final report:
 ═══════════════════════════════════════════════════════════
 
 Transformed Files:
-  Commands:  [N] files
-  Agents:    [N] files (gsd-* → kata-*)
-  Workflows: [N] files
-  Skills:    [N] converted
+  Commands (staged):  [N] files → dev/transform/commands/gsd/
+  Agents (deployed):  [N] files → agents/ (gsd-* → kata-*)
+  Workflows (deployed): [N] files → kata/
+  Skills (OUTPUT):    [N] skills → dev/transform/skills/
 
-Location: dev/transform/
+Output Location: dev/transform/skills/
+
+The transformed skills are ready for review in dev/transform/skills/
+These are kata-* prefixed skills converted from GSD commands.
 
 Next Actions:
-  1. Review transformed files in dev/transform/
-  2. Selectively copy files to kata/ directories
-  3. Test commands with /kata:command-name
-  4. Commit adapted files
+  1. Review transformed skills in dev/transform/skills/
+  2. Selectively copy skills you want to use to skills/ directory
+  3. Test skills by invoking them naturally or with /skill-name
+  4. Commit adapted files when satisfied
 
 ───────────────────────────────────────────────────────────
 ```
@@ -194,13 +199,14 @@ Replace [N] with actual counts from bash output.
 <success_criteria>
 - [ ] Source directory validated
 - [ ] Transform scripts validated
-- [ ] Files copied from GSD to staging area
-- [ ] Agent files renamed (gsd-* → kata-*)
+- [ ] Files copied from GSD (commands to staging, agents/workflows/style directly)
+- [ ] Agent files renamed (gsd-* → kata-*) with frontmatter updated
+- [ ] Style guide copied and renamed (GSD-STYLE.md → KATA-STYLE.md)
 - [ ] Text replacements applied (gsd/get-shit-done → kata)
-- [ ] Skills conversion attempted (or skip message shown)
+- [ ] Skills converted from staged commands
 - [ ] Final summary report displayed
 - [ ] Stop hook validates transformation automatically
-- [ ] User directed to review transformed files
+- [ ] User directed to review transformed skills in dev/transform/skills/
 </success_criteria>
 
 <note>
