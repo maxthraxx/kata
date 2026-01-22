@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v0.1.9 Claude Code Plugin — Phase 1: Plugin Structure & Validation
+**Current focus:** v0.1.9 Claude Code Plugin — Phase 1.1: Document PR Workflow Behavior
 
 ## Current Position
 
 Milestone: v0.1.9 Claude Code Plugin
-Phase: 1 of 3 (Plugin Structure & Validation)
-Plan: 01 of 01 complete
-Status: Phase 1 complete, ready for Phase 2
-Last activity: 2026-01-22 — Completed v0.1.9-01-01-PLAN.md
+Phase: 1.1 of 4 (Document PR Workflow Behavior) — INSERTED
+Plan: Not yet planned
+Status: Phase 1 complete, Phase 1.1 inserted for urgent documentation
+Last activity: 2026-01-22 — Inserted Phase 1.1
 
-Progress: [##########--------------------] 33% (1/3 phases)
+Progress: [########----------------------] 25% (1/4 phases)
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Recent decisions affecting current work:
 
 - **v0.1.5 milestone completed 2026-01-22** - Skills & Documentation shipped (6 phases, 30 plans)
 - **v0.1.9 milestone started 2026-01-22** - Claude Code Plugin (3 phases, 15 requirements)
+- **Phase 1.1 inserted after Phase 1 (2026-01-22)** - Document PR Workflow Behavior (URGENT) - clarify pr_workflow config, branch naming, PR-per-phase, release=milestone rules
 
 ### Pending Todos
 

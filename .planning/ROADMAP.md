@@ -40,7 +40,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### v0.1.9 Claude Code Plugin (In Progress)
 
-- [ ] **Phase 1: Plugin Structure & Validation** - Create plugin manifest and directory structure, validate locally
+- [x] **Phase 1: Plugin Structure & Validation** - Create plugin manifest and directory structure, validate locally
+- [ ] **Phase 1.1: Document PR Workflow Behavior** (INSERTED) - Document pr_workflow config behavior in planning-config.md
 - [ ] **Phase 2: Marketplace Distribution** - Publish to marketplace repository, verify installation
 - [ ] **Phase 3: Documentation** - Installation instructions and usage guide
 
@@ -71,7 +72,22 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md — Create plugin manifest, hooks.json, and validate
+- [x] 01-01-PLAN.md — Create plugin manifest, hooks.json, and validate ✓
+
+#### Phase 1.1: Document PR Workflow Behavior (INSERTED)
+**Goal**: Complete documentation of pr_workflow config behavior including branch naming, PR-per-phase, and release-milestone relationship
+**Depends on**: Phase 1 (plugin structure exists)
+**Requirements**: N/A (urgent insertion for product clarity)
+**Success Criteria** (what must be TRUE):
+  1. `kata/references/planning-config.md` documents complete pr_workflow behavior
+  2. Branch naming convention documented: `feat/v{milestone}-{phase}-{name}`
+  3. PR-per-phase workflow documented (one PR per phase, merged to main)
+  4. Release = milestone relationship documented (releases only at milestone completion)
+  5. Workflow timing documented (when to create branch, open PR, merge)
+**Plans**: TBD
+
+Plans:
+- [ ] 01.1-01: TBD (run /kata:plan-phase 1.1 to break down)
 
 #### Phase 2: Marketplace Distribution
 **Goal**: Kata installable from marketplace repository via standard plugin install command
@@ -186,7 +202,8 @@ Plans:
 | --------------------------------- | --------- | -------------- | ----------- | ---------- |
 | 0. Hard Fork & Rebrand            | v0.1.4    | 5/5            | Complete    | 2026-01-18 |
 | 0-2. Skills & Documentation       | v0.1.5    | 30/30          | Complete    | 2026-01-22 |
-| 1. Plugin Structure & Validation  | v0.1.9    | 0/1            | Planned     | -          |
+| 1. Plugin Structure & Validation  | v0.1.9    | 1/1            | Complete    | 2026-01-22 |
+| 1.1 Document PR Workflow (INSERT) | v0.1.9    | 0/?            | Not planned | -          |
 | 2. Marketplace Distribution       | v0.1.9    | 0/?            | Not started | -          |
 | 3. Documentation                  | v0.1.9    | 0/?            | Not started | -          |
 | 1. Audit & Config Foundation      | v0.1.10    | 0/?            | Not planned | -          |
