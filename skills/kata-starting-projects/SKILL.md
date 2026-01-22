@@ -280,6 +280,15 @@ questions: [
       { label: "Yes (Recommended)", description: "Planning docs tracked in version control" },
       { label: "No", description: "Keep .planning/ local-only (add to .gitignore)" }
     ]
+  },
+  {
+    header: "PR Workflow",
+    question: "Use PR-based release workflow?",
+    multiSelect: false,
+    options: [
+      { label: "Yes (Recommended)", description: "Protect main, create PRs, tag via GitHub Release" },
+      { label: "No", description: "Commit directly to main, create tags locally" }
+    ]
   }
 ]
 ```
@@ -346,6 +355,7 @@ Create `.planning/config.json` with all settings:
   "depth": "quick|standard|comprehensive",
   "parallelization": true|false,
   "commit_docs": true|false,
+  "pr_workflow": true|false,
   "model_profile": "quality|balanced|budget",
   "workflow": {
     "research": true|false,
