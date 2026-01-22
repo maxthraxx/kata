@@ -9,13 +9,13 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Milestone: v0.1.5 Skills & Documentation (Phases 0, 1, 1.1, 1.2, 1.3, 2, 2.1, 3, 4)
+Milestone: v0.1.5 Skills & Documentation (Phases 0, 1, 1.1, 1.2, 1.3, 2, 3, 4)
 Phase: 2 (Create Kata Slash Commands) - COMPLETE
 Plan: 7 of 7 complete
 Status: Phase complete
-Last activity: 2026-01-21 - Completed 02-07-PLAN.md (installer & documentation updates)
+Last activity: 2026-01-21 - Removed Phase 2.1 (Slash Command Tests)
 
-Progress: [===============-----------] 78% (7/9 phases)
+Progress: [==================--------] 75% (6/8 phases)
 
 ## Performance Metrics
 
@@ -111,4 +111,4 @@ None yet.
 
 Last session: 2026-01-21
 Stopped at: Completed 02-07-PLAN.md (installer & documentation updates) - Phase 2 complete
-Resume file: Ready for Phase 2.1 (Slash Command Tests) or Phase 3 (Documentation)
+Resume file: Ready for Phase 3 (Documentation)

@@ -33,8 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1.1: Testing & Evals Harness** - CLI-based test framework leveraging `claude "prompt"` to verify skill invocation and artifact production (INSERTED) — completed 2026-01-20
 - [x] **Phase 1.2: Skill Tests** - Write tests for all 10 kata skills using the test harness (INSERTED) — completed 2026-01-20
 - [x] **Phase 1.3: Discuss Phase Skill** - Create kata-discussing-phase-context skill for pre-planning context gathering (INSERTED) — completed 2026-01-20
-- [ ] **Phase 2: Create Kata Slash Commands** - Create GSD-equivalent slash commands that instantiate Kata skills
-- [ ] **Phase 2.1: Slash Command Tests** - Write tests for all slash commands using the test harness (INSERTED)
+- [x] **Phase 2: Create Kata Slash Commands** - Create GSD-equivalent slash commands that instantiate Kata skills — completed 2026-01-21
 - [ ] **Phase 3: Documentation** - Complete README and add onboarding guidance
 - [ ] **Phase 4: Review & Refactor Subagents** - Review all kata subagents and refactor as needed given changes this milestone
 
@@ -180,25 +179,11 @@ Plans:
 - [x] 02-06-PLAN.md — Update all skill frontmatters with user-invocable: false
 - [x] 02-07-PLAN.md — Update installer, README, CLAUDE.md
 
-**Status**: ✅ Complete (2026-01-20)
-
-#### Phase 2.1: Slash Command Tests (INSERTED)
-**Goal**: Write comprehensive tests for all Kata slash commands using the test harness, ensuring commands correctly invoke their corresponding skills
-**Depends on**: Phase 2 (Slash commands exist), Phase 1.2 (Skill test patterns established)
-**Requirements**: None (testing improvement)
-**Success Criteria** (what must be TRUE):
-  1. Test files exist for all Kata slash commands
-  2. Each command has at least one invocation test
-  3. Tests verify command → skill delegation works
-  4. All tests pass (`npm test` succeeds)
-**Plans**: TBD
-
-Plans:
-- [ ] 02.1-01: TBD (run /kata-planning-phases to break down)
+**Status**: ✅ Complete (2026-01-21)
 
 #### Phase 3: Documentation
 **Goal**: Complete README documentation and add onboarding guidance to help new users understand how Kata works
-**Depends on**: Phase 2.1 (Slash command tests complete)
+**Depends on**: Phase 2 (Slash commands complete)
 **Requirements**: None (documentation improvement)
 **Success Criteria** (what must be TRUE):
   1. README.md sections completed (no trailing incomplete text)
@@ -330,8 +315,7 @@ Plans:
 | 1.1 Testing & Evals Harness       | v0.1.5    | 2/2            | Complete    | 2026-01-20 |
 | 1.2 Skill Tests                   | v0.1.5    | 4/4            | Complete    | 2026-01-20 |
 | 1.3 Discuss Phase Skill           | v0.1.5    | 2/2            | Complete    | 2026-01-20 |
-| 2. Create Kata Slash Commands     | v0.1.5    | 0/7            | Planned     | -          |
-| 2.1 Slash Command Tests           | v0.1.5    | 0/?            | Not planned | -          |
+| 2. Create Kata Slash Commands     | v0.1.5    | 7/7            | Complete    | 2026-01-21 |
 | 3. Documentation                  | v0.1.5    | 0/?            | Not planned | -          |
 | 4. Review & Refactor Subagents    | v0.1.5    | 0/?            | Not planned | -          |
 | 1. Plugin Distribution            | v0.1.6    | 0/?            | Not planned | -          |
@@ -343,4 +327,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-20 — Phase 2 planned (7 plans)*
+*Last updated: 2026-01-21 — Removed Phase 2.1 (Slash Command Tests)*
