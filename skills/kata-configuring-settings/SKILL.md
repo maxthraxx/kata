@@ -37,6 +37,7 @@ Parse current values (default to `true` if not present):
 - `workflow.plan_check` — spawn plan checker during plan-phase
 - `workflow.verifier` — spawn verifier during execute-phase
 - `model_profile` — which model each agent uses (default: `balanced`)
+- `pr_workflow` — use PR-based release workflow (default: `false`)
 
 ## 3. Present Settings
 
@@ -80,6 +81,15 @@ AskUserQuestion([
       { label: "Yes", description: "Verify must-haves after execution" },
       { label: "No", description: "Skip post-execution verification" }
     ]
+  },
+  {
+    question: "Use PR-based release workflow?",
+    header: "PR Workflow",
+    multiSelect: false,
+    options: [
+      { label: "Yes", description: "Protect main, create PRs, tag via GitHub Release" },
+      { label: "No", description: "Commit directly to main, create tags locally" }
+    ]
   }
 ])
 ```
@@ -94,6 +104,7 @@ Merge new settings into existing config.json:
 {
   ...existing_config,
   "model_profile": "quality" | "balanced" | "budget",
+  "pr_workflow": true/false,
   "workflow": {
     "research": true/false,
     "plan_check": true/false,
@@ -116,6 +127,7 @@ Display:
 | Setting              | Value |
 |----------------------|-------|
 | Model Profile        | {quality/balanced/budget} |
+| PR Workflow          | {On/Off} |
 | Plan Researcher      | {On/Off} |
 | Plan Checker         | {On/Off} |
 | Execution Verifier   | {On/Off} |
@@ -133,7 +145,7 @@ Quick commands:
 
 <success_criteria>
 - [ ] Current config read
-- [ ] User presented with 4 settings (profile + 3 toggles)
-- [ ] Config updated with model_profile and workflow section
+- [ ] User presented with 5 settings (profile + pr_workflow + 3 toggles)
+- [ ] Config updated with model_profile, pr_workflow, and workflow section
 - [ ] Changes confirmed to user
 </success_criteria>
