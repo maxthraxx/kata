@@ -34,23 +34,24 @@ Teams and individuals that want to describe what they want and have it built cor
 
 ---
 
+<!-- sanitize -->
 ## Getting Started
 
 ```bash
 npx @gannonh/kata
 ```
 
-Verify with `/kata:help` inside Claude Code.
+That's it. Verify with `/kata:help` inside your Claude Code interface.
 
 ### Staying Updated
 
-Kata updates frequently. Check for changes:
+Kata evolves fast. Check for updates periodically:
 
 ```
 /kata:whats-new
 ```
 
-Update:
+Update with:
 
 ```bash
 npx @gannonh/kata@latest
@@ -85,19 +86,19 @@ Installs to `./.claude/` for testing modifications before contributing.
 
 ### Recommended: Skip Permissions Mode
 
-Kata automates many operations. Run Claude Code with:
+Kata is designed for frictionless automation. Run Claude Code with:
 
 ```bash
 claude --dangerously-skip-permissions
 ```
 
 > [!TIP]
-> Kata works best this way. Approving `date` and `git commit` 50 times slows down the workflow.
+> This is how Kata is intended to be used — stopping to approve `date` and `git commit` 50 times defeats the purpose.
 
 <details>
 <summary><strong>Alternative: Granular Permissions</strong></summary>
 
-Add this to your project's `.claude/settings.json`:
+If you prefer not to use that flag, add this to your project's `.claude/settings.json`:
 
 ```json
 {
@@ -127,24 +128,11 @@ Add this to your project's `.claude/settings.json`:
 
 </details>
 
-## What is This
-
-This project began as a fork of the [GSD system](https://github.com/glittercowboy/get-shit-done), and then quickly became a hard fork. Why hard fork and not contribute to the original project? Because I'm a control freak. Just kidding (kind of). The real reason is two fold, well three, or two and a half.
-
-- **Team-oriented by design.** GSD, as its brilliant creator has made very clear, is optimized for solo devs, viewing "enterprise" features as anti-patterns. I love the simplicity of GSD and respect its opinionated position, but the projects I work on are more often than not multi-player. At a minimum, I need:
-  - **GitHub integration** — PRs, issues, code review workflows. Planning that connects to where teams actually collaborate.
-  - **IDE agnostic** — Not everyone uses Claude Code (I do but I'm not everyone). Kata should work with the tools teams prefer.
-
-- **Skills as the foundation.** GSD is primarily built on `/commands`, which are Claude Code-specific. Kata standardizes on **skills** — an emerging open standard supported across major agentic frameworks. 
-  - This makes Kata portable and future-proof, not locked to a single tool.
-  - Skills use progressive discolsure to keep prompts lean and efficient.
-  - Skills instantiate with natural language, which is especially convenient when using text-to-speech as your primary input device (you can still invoke with a slash command but it isn't necessary)
-
 ---
 
 ## How It Works
 
-> **Existing codebase?** Run `/kata:map-codebase` first. It spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Then `/kata:new-project` references your codebase. Questions focus on what you're adding, and planning loads your patterns automatically.
+> **Already have code?** Run `/kata:map-codebase` first. It spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Then `/kata:new-project` knows your codebase — questions focus on what you're adding, and planning automatically loads your patterns.
 
 ### 1. Initialize Project
 
@@ -171,9 +159,9 @@ You approve the roadmap. Now you're ready to build.
 /kata:discuss-phase 1
 ```
 
-**Here you shape the implementation.**
+**This is where you shape the implementation.**
 
-Your roadmap has a sentence or two per phase. That lacks enough context to build something the way you imagine it. This step captures your preferences before anything gets researched or planned.
+Your roadmap has a sentence or two per phase. That's not enough context to build something the way *you* imagine it. This step captures your preferences before anything gets researched or planned.
 
 The system analyzes the phase and identifies gray areas based on what's being built:
 
@@ -182,12 +170,12 @@ The system analyzes the phase and identifies gray areas based on what's being bu
 - **Content systems** → Structure, tone, depth, flow
 - **Organization tasks** → Grouping criteria, naming, duplicates, exceptions
 
-For each area you select, it asks until you're satisfied. The output, `CONTEXT.md`, feeds directly into the next two steps:
+For each area you select, it asks until you're satisfied. The output — `CONTEXT.md` — feeds directly into the next two steps:
 
 1. **Researcher reads it** — Knows what patterns to investigate ("user wants card layout" → research card component libraries)
 2. **Planner reads it** — Knows what decisions are locked ("infinite scroll decided" → plan includes scroll handling)
 
-Going deeper here makes the system build what you actually want. Skip it and you get reasonable defaults. Use it and you get your vision.
+The deeper you go here, the more the system builds what you actually want. Skip it and you get reasonable defaults. Use it and you get *your* vision.
 
 **Creates:** `{phase}-CONTEXT.md`
 
@@ -236,9 +224,9 @@ Walk away, come back to completed work with clean git history.
 /kata:verify-work 1
 ```
 
-**Here you confirm it actually works.**
+**This is where you confirm it actually works.**
 
-Automated verification checks that code exists and tests pass. But does the feature work the way you expected? This is your chance to use it.
+Automated verification checks that code exists and tests pass. But does the feature *work* the way you expected? This is your chance to use it.
 
 The system:
 
@@ -247,7 +235,7 @@ The system:
 3. **Diagnoses failures automatically** — Spawns debug agents to find root causes
 4. **Creates verified fix plans** — Ready for immediate re-execution
 
-If everything passes, you move on. If something's broken, you don't manually debug. Run `/kata:execute-phase` again with the fix plans it created.
+If everything passes, you move on. If something's broken, you don't manually debug — you just run `/kata:execute-phase` again with the fix plans it created.
 
 **Creates:** `{phase}-UAT.md`, fix plans if issues found
 
@@ -267,11 +255,36 @@ If everything passes, you move on. If something's broken, you don't manually deb
 
 Loop **discuss → plan → execute → verify** until milestone complete.
 
-Each phase gets your input (discuss), research (plan), clean execution (execute), and human verification (verify). Context stays fresh. Quality stays high.
+Each phase gets your input (discuss), proper research (plan), clean execution (execute), and human verification (verify). Context stays fresh. Quality stays high.
 
 When all phases are done, `/kata:complete-milestone` archives the milestone and tags the release.
 
-Then `/kata:new-milestone` starts the next version. Same flow as `new-project` but for your existing codebase. You describe what you want to build next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → build → ship.
+Then `/kata:new-milestone` starts the next version — same flow as `new-project` but for your existing codebase. You describe what you want to build next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → build → ship.
+
+---
+
+### Quick Mode
+
+```
+/kata:quick
+```
+
+**For ad-hoc tasks that don't need full planning.**
+
+Quick mode gives you Kata guarantees (atomic commits, state tracking) with a faster path:
+
+- **Same agents** — Planner + executor, same quality
+- **Skips optional steps** — No research, no plan checker, no verifier
+- **Separate tracking** — Lives in `.planning/quick/`, not phases
+
+Use for: bug fixes, small features, config changes, one-off tasks.
+
+```
+/kata:quick
+> What do you want to do? "Add dark mode toggle to settings"
+```
+
+**Creates:** `.planning/quick/001-add-dark-mode-toggle/PLAN.md`, `SUMMARY.md`
 
 ---
 
@@ -279,11 +292,11 @@ Then `/kata:new-milestone` starts the next version. Same flow as `new-project` b
 
 ### Context Engineering
 
-Claude Code performs well with the right context. Most users don't provide it.
+Claude Code is incredibly powerful *if* you give it the context it needs. Most people don't.
 
 Kata handles it for you:
 
-| File              | Function                                                      |
+| File              | What it does                                                  |
 | ----------------- | ------------------------------------------------------------- |
 | `PROJECT.md`      | Project vision, always loaded                                 |
 | `research/`       | Ecosystem knowledge (stack, features, architecture, pitfalls) |
@@ -294,7 +307,7 @@ Kata handles it for you:
 | `SUMMARY.md`      | What happened, what changed, committed to history             |
 | `todos/`          | Captured ideas and tasks for later work                       |
 
-Size limits based on where Claude's quality degrades. Stay under, get consistent results.
+Size limits based on where Claude's quality degrades. Stay under, get consistent excellence.
 
 ### XML Prompt Formatting
 
@@ -327,9 +340,9 @@ Every stage uses the same pattern: a thin orchestrator spawns specialized agents
 | Execution    | Groups into waves, tracks progress | Executors implement in parallel, each with fresh 200k context              |
 | Verification | Presents results, routes next      | Verifier checks codebase against goals, debuggers diagnose failures        |
 
-The orchestrator spawns agents, waits, and integrates results.
+The orchestrator never does heavy lifting. It spawns agents, waits, integrates results.
 
-**Result:** You can run an entire phase (deep research, multiple plans created and verified, thousands of lines of code written across parallel executors, automated verification against goals) and your main context window stays at 30-40%. The work happens in fresh subagent contexts. Your session stays fast and responsive.
+**The result:** You can run an entire phase — deep research, multiple plans created and verified, thousands of lines of code written across parallel executors, automated verification against goals — and your main context window stays at 30-40%. The work happens in fresh subagent contexts. Your session stays fast and responsive.
 
 ### Atomic Git Commits
 
@@ -354,7 +367,7 @@ Every commit is surgical, traceable, and meaningful.
 - Complete milestones and start fresh
 - Adjust plans without rebuilding everything
 
-The system adapts.
+You're never locked in. The system adapts.
 
 ---
 
@@ -362,64 +375,112 @@ The system adapts.
 
 ### Core Workflow
 
-| Command                      | Function                                                           |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `/kata:project-new`          | Full initialization: questions → research → requirements → roadmap |
-| `/kata:phase-discuss [N]`    | Capture implementation decisions before planning                   |
-| `/kata:phase-plan [N]`       | Research + plan + verify for a phase                               |
-| `/kata:phase-execute <N>`    | Execute all plans in parallel waves, verify when complete          |
-| `/kata:work-verify [N]`      | Manual user acceptance testing ¹                                   |
-| `/kata:milestone-complete`   | Archive milestone, tag release                                     |
-| `/kata:milestone-new [name]` | Start next version: questions → research → requirements → roadmap  |
+| Command                     | What it does                                                       |
+| --------------------------- | ------------------------------------------------------------------ |
+| `/kata:new-project`          | Full initialization: questions → research → requirements → roadmap |
+| `/kata:discuss-phase [N]`    | Capture implementation decisions before planning                   |
+| `/kata:plan-phase [N]`       | Research + plan + verify for a phase                               |
+| `/kata:execute-phase <N>`    | Execute all plans in parallel waves, verify when complete          |
+| `/kata:verify-work [N]`      | Manual user acceptance testing ¹                                   |
+| `/kata:audit-milestone`      | Verify milestone achieved its definition of done                   |
+| `/kata:complete-milestone`   | Archive milestone, tag release                                     |
+| `/kata:new-milestone [name]` | Start next version: questions → research → requirements → roadmap  |
 
 ### Navigation
 
-| Command              | Function                          |
-| -------------------- | --------------------------------- |
-| `/kata:project-status` | Where am I? What's next?          |
-| `/kata:help`         | Show all commands and usage guide |
+| Command          | What it does                                  |
+| ---------------- | --------------------------------------------- |
+| `/kata:progress`  | Where am I? What's next?                      |
+| `/kata:help`      | Show all commands and usage guide             |
+| `/kata:whats-new` | See what changed since your installed version |
+| `/kata:update`    | Update Kata with changelog preview             |
 
 ### Brownfield
 
-| Command              | Function                                     |
-| -------------------- | -------------------------------------------- |
-| `/kata:codebase-map` | Analyze existing codebase before new-project |
+| Command             | What it does                                 |
+| ------------------- | -------------------------------------------- |
+| `/kata:map-codebase` | Analyze existing codebase before new-project |
 
 ### Phase Management
 
-| Command                    | Function                          |
-| -------------------------- | --------------------------------- |
-| `/kata:phase-add`          | Append phase to roadmap           |
-| `/kata:phase-insert [N]`   | Insert urgent work between phases |
-| `/kata:phase-remove [N]`   | Remove future phase, renumber     |
-| `/kata:roadmap-plan-gaps` | Analyze coverage gaps             |
-
-### Research & Planning
-
-| Command                     | Function                           |
-| --------------------------- | ---------------------------------- |
-| `/kata:phase-research [N]`  | Research phase domain              |
-| `/kata:phase-assumptions [N]` | List phase assumptions           |
+| Command                           | What it does                                   |
+| --------------------------------- | ---------------------------------------------- |
+| `/kata:add-phase`                  | Append phase to roadmap                        |
+| `/kata:insert-phase [N]`           | Insert urgent work between phases              |
+| `/kata:remove-phase [N]`           | Remove future phase, renumber                  |
+| `/kata:list-phase-assumptions [N]` | See Claude's intended approach before planning |
+| `/kata:plan-milestone-gaps`        | Create phases to close gaps from audit         |
 
 ### Session
 
-| Command             | Function                               |
-| ------------------- | -------------------------------------- |
-| `/kata:work-pause`  | Create handoff when stopping mid-phase |
-| `/kata:work-resume` | Restore from last session              |
+| Command            | What it does                           |
+| ------------------ | -------------------------------------- |
+| `/kata:pause-work`  | Create handoff when stopping mid-phase |
+| `/kata:resume-work` | Restore from last session              |
 
 ### Utilities
 
-| Command                 | Function                                   |
-| ----------------------- | ------------------------------------------ |
-| `/kata:todo-add [desc]` | Capture idea for later                     |
-| `/kata:todo-check`      | List pending todos                         |
-| `/kata:workflow-debug [desc]` | Systematic debugging with persistent state |
-| `/kata:quick [desc]`    | Quick task with atomic commit              |
-| `/kata:update`          | Check for updates                          |
-| `/kata:whats-new`       | Show changelog                             |
+| Command                      | What it does                                   |
+| ---------------------------- | ---------------------------------------------- |
+| `/kata:settings`              | Configure model profile and workflow agents    |
+| `/kata:set-profile <profile>` | Switch model profile (quality/balanced/budget) |
+| `/kata:add-todo [desc]`       | Capture idea for later                         |
+| `/kata:check-todos`           | List pending todos                             |
+| `/kata:debug [desc]`          | Systematic debugging with persistent state     |
+| `/kata:quick`                 | Execute ad-hoc task with Kata guarantees        |
 
 <sup>¹ Contributed by reddit user OracleGreyBeard</sup>
+
+---
+
+## Configuration
+
+Kata stores project settings in `.planning/config.json`. Configure during `/kata:new-project` or update later with `/kata:settings`.
+
+### Core Settings
+
+| Setting | Options                              | Default       | What it controls                       |
+| ------- | ------------------------------------ | ------------- | -------------------------------------- |
+| `mode`  | `yolo`, `interactive`                | `interactive` | Auto-approve vs confirm at each step   |
+| `depth` | `quick`, `standard`, `comprehensive` | `standard`    | Planning thoroughness (phases × plans) |
+
+### Model Profiles
+
+Control which Claude model each agent uses. Balance quality vs token spend.
+
+| Profile              | Planning | Execution | Verification |
+| -------------------- | -------- | --------- | ------------ |
+| `quality`            | Opus     | Opus      | Sonnet       |
+| `balanced` (default) | Opus     | Sonnet    | Sonnet       |
+| `budget`             | Sonnet   | Sonnet    | Haiku        |
+
+Switch profiles:
+```
+/kata:set-profile budget
+```
+
+Or configure via `/kata:settings`.
+
+### Workflow Agents
+
+These spawn additional agents during planning/execution. They improve quality but add tokens and time.
+
+| Setting               | Default | What it does                                        |
+| --------------------- | ------- | --------------------------------------------------- |
+| `workflow.research`   | `true`  | Researches domain before planning each phase        |
+| `workflow.plan_check` | `true`  | Verifies plans achieve phase goals before execution |
+| `workflow.verifier`   | `true`  | Confirms must-haves were delivered after execution  |
+
+Use `/kata:settings` to toggle these, or override per-invocation:
+- `/kata:plan-phase --skip-research`
+- `/kata:plan-phase --skip-verify`
+
+### Execution
+
+| Setting                   | Default | What it controls                     |
+| ------------------------- | ------- | ------------------------------------ |
+| `parallelization.enabled` | `true`  | Run independent plans simultaneously |
+| `planning.commit_docs`    | `true`  | Track `.planning/` in git            |
 
 ---
 
@@ -448,6 +509,18 @@ This ensures absolute paths are used instead of `~` which may not expand correct
 
 ---
 
+## Star History
+
+<a href="https://star-history.com/#gannonh/kata&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=gannonh/kata&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=gannonh/kata&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=gannonh/kata&type=Date" />
+ </picture>
+</a>
+
+---
+
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
@@ -456,6 +529,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-**Claude Code performs well. Kata makes it reliable.**
+**Claude Code is powerful. Kata makes it reliable.**
 
 </div>
