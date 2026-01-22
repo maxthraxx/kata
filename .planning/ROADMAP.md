@@ -7,7 +7,7 @@ Kata is a spec-driven development framework for Claude Code. This roadmap tracks
 ## Milestones
 
 - **v0.1.4 Hard Fork & Rebrand** — Phase 0 (shipped 2026-01-18) — [archive](milestones/v0.1.4-ROADMAP.md)
-- **v0.1.5 Skills & Documentation** — Phases 0-4 (in progress)
+- **v0.1.5 Skills & Documentation** — Phases 0-2 (in progress)
 - **v0.1.6 Claude Code Plugin** — Phase 1 (planned)
 - **v0.1.7 GitHub Integration** — Phases 1-5 (planned)
 
@@ -34,7 +34,6 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1.2: Skill Tests** - Write tests for all 10 kata skills using the test harness (INSERTED) — completed 2026-01-20
 - [x] **Phase 1.3: Discuss Phase Skill** - Create kata-discussing-phase-context skill for pre-planning context gathering (INSERTED) — completed 2026-01-20
 - [x] **Phase 2: Create Kata Slash Commands** - Create GSD-equivalent slash commands that instantiate Kata skills — completed 2026-01-21
-- [ ] **Phase 3: Documentation** - Complete README and add onboarding guidance
 
 ### v0.1.6 Claude Code Plugin (Planned)
 
@@ -180,20 +179,6 @@ Plans:
 
 **Status**: ✅ Complete (2026-01-21)
 
-#### Phase 3: Documentation
-**Goal**: Complete README documentation and add onboarding guidance to help new users understand how Kata works
-**Depends on**: Phase 2 (Slash commands complete)
-**Requirements**: None (documentation improvement)
-**Success Criteria** (what must be TRUE):
-  1. README.md sections completed (no trailing incomplete text)
-  2. "What is This" section clearly explains Kata's differentiation from GSD
-  3. Onboarding flow includes explanation of how the Kata system works
-  4. New users can understand skills vs commands, planning workflow, and execution model
-**Plans**: TBD
-
-Plans:
-- [ ] 03-01: TBD (run /kata-planning-phases to break down)
-
 ### v0.1.6 Claude Code Plugin
 
 #### Phase 1: Plugin Distribution
@@ -300,7 +285,6 @@ Plans:
 | 1.2 Skill Tests                   | v0.1.5    | 4/4            | Complete    | 2026-01-20 |
 | 1.3 Discuss Phase Skill           | v0.1.5    | 2/2            | Complete    | 2026-01-20 |
 | 2. Create Kata Slash Commands     | v0.1.5    | 7/7            | Complete    | 2026-01-21 |
-| 3. Documentation                  | v0.1.5    | 0/?            | Not planned | -          |
 | 1. Plugin Distribution            | v0.1.6    | 0/?            | Not planned | -          |
 | 1. Audit & Config Foundation      | v0.1.7    | 0/?            | Not planned | -          |
 | 2. Onboarding & Milestones        | v0.1.7    | 0/?            | Not started | -          |
@@ -310,4 +294,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-21 — Removed Phase 4 (Review & Refactor Subagents)*
+*Last updated: 2026-01-21 — Removed Phase 3 (Documentation)*
