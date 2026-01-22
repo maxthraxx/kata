@@ -286,8 +286,8 @@ questions: [
     question: "Use PR-based release workflow?",
     multiSelect: false,
     options: [
-      { label: "Yes (Recommended)", description: "Protect main, create PRs, tag via GitHub Release" },
-      { label: "No", description: "Commit directly to main, create tags locally" }
+      { label: "Yes", description: "Protect main, create PRs, tag via GitHub Release" },
+      { label: "No (Recommended)", description: "Commit directly to main, create tags locally" }
     ]
   }
 ]
