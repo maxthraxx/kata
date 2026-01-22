@@ -22,7 +22,7 @@ KATA_STAGING = TRANSFORM_ROOT / "kata-staging"
 
 # Kata production directories to copy to staging
 KATA_PRODUCTION_DIRS = ["agents", "commands", "hooks", "kata", "skills"]
-KATA_PRODUCTION_FILES = ["KATA-STYLE.md", "CHANGELOG.md", "README.md"]
+KATA_PRODUCTION_FILES = ["KATA-STYLE.md"]
 
 # Track statistics
 stats = {

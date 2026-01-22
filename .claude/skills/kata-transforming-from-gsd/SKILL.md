@@ -186,8 +186,6 @@ cp -r dev/transform/kata-staging/skills/* skills/
 
 # Deploy documentation
 cp dev/transform/kata-staging/KATA-STYLE.md KATA-STYLE.md
-cp dev/transform/kata-staging/CHANGELOG.md CHANGELOG-GSD.md
-cp dev/transform/kata-staging/README.md README-GSD.md
 ```
 
 Display completion summary with file counts.
