@@ -1,5 +1,5 @@
 ---
-name: start-project
+name: new-project
 description: Initialize a new project with deep context gathering and PROJECT.md
 argument-hint: <description>
 version: 0.1.0

@@ -1,5 +1,5 @@
 ---
-name: start-new-milestone
+name: new-milestone
 description: Start a new milestone cycle — update PROJECT.md and route to requirements
 argument-hint: [milestone name, e.g., 'v1.1 Notifications']
 version: 0.1.0
@@ -17,4 +17,4 @@ Arguments: "$ARGUMENTS"
 ## Step 2: Invoke Skill
 
 Run the following skill:
-`Skill("kata-starting-new-milestones")`
+`Skill("kata-starting-milestones")`

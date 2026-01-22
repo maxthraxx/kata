@@ -97,25 +97,43 @@ Display: "✓ Text replaced"
 
 ### Step 5: Convert Commands to Skills
 
+Use the `converting-commands-to-skills` skill to convert each GSD command to a Kata skill.
+
+**Process:**
+
+1. List all GSD commands:
 ```bash
-python3 .claude/skills/kata-transforming-from-gsd/convert-commands-to-skills.py
+ls dev/transform/gsd-source/commands/gsd/*.md
 ```
 
-For each GSD command:
-- If skill EXISTS in kata-staging: preserve frontmatter, replace content
-- If skill DOES NOT EXIST: create new skill with generated frontmatter
+2. For each command, invoke the conversion skill with **basic conversion** (frontmatter + directory only):
+   - Source: `dev/transform/gsd-source/commands/gsd/{command}.md`
+   - Target: `dev/transform/kata-staging/skills/kata-{skill-name}/SKILL.md`
+   - Namespace: `kata` (prefix for all skill directories)
+
+3. The conversion skill will:
+   - Transform command name to gerund form (e.g., `add-phase` → `adding-phases`)
+   - If skill EXISTS: preserve frontmatter, update content below frontmatter
+   - If skill DOES NOT EXIST: create quality frontmatter with invocation-focused description
+   - Apply text replacements (gsd → kata) to content
+
+**Important:** Use **basic conversion** mode - only transform frontmatter and directory structure, copy content as-is. The content has already been transformed in Step 4.
 
 Display: "✓ Commands converted to skills"
 
-### Step 6: Post-Process Skill Frontmatter
+### Step 6: Validate Skill Frontmatter
+
+Validate all skills have proper frontmatter:
 
 ```bash
-python3 .claude/skills/kata-transforming-from-gsd/post-process-skill-frontmatter.py
+for skill in dev/transform/kata-staging/skills/*/SKILL.md; do
+  python3 ~/.claude/skills/converting-commands-to-skills/scripts/validate-frontmatter.py "$skill"
+done
 ```
 
-Adds missing fields to skills: version, user-invocable, disable-model-invocation, allowed-tools.
+If any validation fails, fix the frontmatter before proceeding.
 
-Display: "✓ Skill frontmatter completed"
+Display: "✓ Skill frontmatter validated"
 
 ### Step 7: Generate Kata Commands
 

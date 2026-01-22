@@ -15,13 +15,9 @@ const COMMANDS_DIR = 'dev/transform/kata-staging/commands/kata';
 const GSD_COMMANDS_DIR = 'dev/transform/gsd-source/commands/gsd';
 
 // Mapping from generated command name to GSD command name
-// (handles cases where skill→command conversion differs from original GSD command)
+// (handles cases where Kata command name differs from GSD command name)
 const GSD_COMMAND_NAME_MAP = {
-  'check-todo': 'check-todos',
-  'start-milestone': 'new-milestone',
-  'start-new-milestone': 'new-milestone',
-  'start-project': 'new-project',
-  'update-kata': 'update',
+  'check-todo': 'check-todos',  // check-todos → checking-todos → check-todo
 };
 
 /**
@@ -64,12 +60,15 @@ function skillNameToCommandName(skillName) {
   let name = skillName.startsWith('kata-') ? skillName.slice(5) : skillName;
 
   // Handle special cases first
+  // These map skill names back to original GSD command names
   const specialCases = {
     'showing-whats-new': 'whats-new',
     'providing-help': 'help',
     'tracking-progress': 'progress',
     'executing-quick-tasks': 'quick',
     'configuring-settings': 'settings',
+    'starting-milestones': 'new-milestone',  // new-milestone → starting-milestones → new-milestone
+    'starting-projects': 'new-project',      // new-project → starting-projects → new-project
   };
 
   if (specialCases[name]) {

@@ -1,13 +1,15 @@
 ---
 name: kata-starting-projects
-description: Use this skill when initialize a new project with deep context gathering and project.md. Triggers include "new project", "new project".
+description: Use this skill when initialize a new project with deep context gathering and project.md. Triggers include "new project", "start project", "initialize project", "create project", "begin project", "setup project".
 version: 0.1.0
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
   - Read
-  - Write
   - Bash
+  - Write
+  - Task
+  - AskUserQuestion
 ---
 
 <objective>
