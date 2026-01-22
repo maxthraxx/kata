@@ -5,7 +5,7 @@ Apply GSD Updates to Kata Staging
 This script applies updates from gsd-source/ to kata-staging/:
 1. Transform and update agents (gsd-* → kata-*)
 2. Update workflows (get-shit-done/ → kata/)
-3. Update hooks
+3. Update hooks (skips gsd-* files — Kata has custom implementations)
 
 Run this AFTER transform-gsd-to-kata.py has prepared the staging area.
 """
@@ -116,7 +116,11 @@ def apply_workflow_updates():
 
 
 def apply_hook_updates():
-    """Copy GSD hooks to kata-staging/hooks/."""
+    """Copy GSD hooks to kata-staging/hooks/, skipping gsd-* files.
+
+    Note: gsd-* hooks are excluded because Kata has custom implementations
+    with improvements (local/global install awareness, cache context validation).
+    """
     print("Applying hook updates...")
 
     gsd_hooks = GSD_SOURCE / "hooks"
@@ -128,8 +132,14 @@ def apply_hook_updates():
 
     kata_hooks.mkdir(parents=True, exist_ok=True)
 
+    skipped = 0
     for gsd_file in gsd_hooks.rglob("*"):
         if gsd_file.is_file():
+            # Skip gsd-* files — Kata has custom implementations
+            if gsd_file.name.startswith("gsd-"):
+                skipped += 1
+                continue
+
             relative_path = gsd_file.relative_to(gsd_hooks)
             kata_file = kata_hooks / relative_path
 
@@ -137,7 +147,7 @@ def apply_hook_updates():
             shutil.copy2(gsd_file, kata_file)
             stats["hooks_updated"] += 1
 
-    print(f"  ✓ {stats['hooks_updated']} hooks updated")
+    print(f"  ✓ {stats['hooks_updated']} hooks updated (skipped {skipped} gsd-* files)")
 
 
 def main():
