@@ -4,7 +4,7 @@
 
 A spec-driven development framework for Claude Code. Brings structured, reliable AI development to teams without changing their existing tools. Teams use Kata's quality-producing process inside the tools they already love.
 
-**Current state:** v0.1.4 shipped — hard fork complete, independent identity established. Starting v0.1.5 GitHub Integration.
+**Current state:** v0.1.5 shipped — 14 skills, 25 slash commands, test harness. Starting v0.1.6 Claude Code Plugin.
 
 ## Core Value
 
@@ -15,8 +15,11 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 ### Validated
 
 - Hard fork from upstream — v0.1.4 (independent identity, gannonh/kata)
+- Skills architecture — v0.1.5 (14 skills as orchestrators, spawn sub-agents via Task tool)
+- Slash command suite — v0.1.5 (25 commands delegating to skills)
+- Test harness — v0.1.5 (CLI-based skill testing with `claude "prompt"`)
 
-### Active (v0.1.5 GitHub Integration)
+### Active (v0.1.7 GitHub Integration)
 
 - [ ] Config-driven integration — enable/disable via .planning/config.json
 - [ ] GitHub Milestone creation — new-milestone creates GH Milestone
@@ -42,6 +45,13 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 - Building an agent framework — use platform-native capabilities (subagents, Skills, MCPs)
 
 ## Context
+
+**v0.1.5 shipped (2026-01-22):**
+- 468 files modified, 96k insertions
+- 14 skills as orchestrators spawning sub-agents
+- 25 slash commands with disable-model-invocation
+- Test harness using `claude "prompt"` for skill verification
+- Gerund naming convention for skills with exhaustive trigger phrases
 
 **v0.1.4 shipped (2026-01-18):**
 - 130 files modified, ~68k LOC (md, js, json, sh)
@@ -86,26 +96,29 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 |----------|-----------|---------|
 | ~~Start as extension, not hard fork~~ | ~~Maximize leverage of upstream velocity~~ | Superseded |
 | **Hard fork and rebrand** | Vision diverged significantly; clean break enables independent evolution | Good — v0.1.4 |
+| **Skills as orchestrators** | Skills contain full workflow logic, spawn sub-agents via Task tool | Good — v0.1.5 |
+| **Command delegation** | Slash commands delegate to skills with disable-model-invocation | Good — v0.1.5 |
+| **Skill naming** | Gerund style with exhaustive triggers for autonomous matching | Good — v0.1.5 |
 | GitHub integration first | Prove integration pattern before IDE adapters | — Pending |
 | Config-driven integrations | Modular, can enable/disable without affecting core Kata | — Pending |
 | Phase-level PRs | One PR per phase (not per plan) — complete reviewable units | — Pending |
 | Kata Milestone → GH Milestone | Use GitHub's native feature for version tracking | — Pending |
 | Phase → Issue, Plan → Checklist | Right granularity — phases are coordination unit, plans are execution detail | — Pending |
 
-## Current Milestone: v0.1.5 GitHub Integration
+## Current Milestone: v0.1.6 Claude Code Plugin
 
-**Goal:** Optional, modular GitHub integration layer enabling seamless integration with Issues, PRs, and Milestones
+**Goal:** Package and publish Kata as a Claude Code plugin for easy distribution
 
 **Target features:**
-- Config-driven enable/disable via .planning/config.json
-- GitHub Milestone creation during /kata:new-milestone
-- Phase issues with plans as checklist items
-- PR creation at phase completion with auto-linking
+- Plugin manifest (plugin.json) correctly configured
+- All commands, agents, workflows available through plugin
+- Published to @gannonh Claude Code plugin marketplace
+- Installation via plugin system documented
 
 **Approach:**
-- Audit existing workflows for integration points
-- Add conditional branches following existing Kata patterns
-- Use @file references for GitHub-specific templates
+- Use /plugin-dev:create-plugin workflow
+- Follow Claude Code plugin conventions
+- Test plugin installation and functionality
 
 ---
-*Last updated: 2026-01-18 — starting v0.1.5 milestone*
+*Last updated: 2026-01-22 — v0.1.5 milestone complete*

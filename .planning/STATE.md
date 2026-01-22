@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-18)
+See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v0.1.5 Skills & Documentation (Phase 2 next)
+**Current focus:** v0.1.6 Claude Code Plugin
 
 ## Current Position
 
-Milestone: v0.1.5 Skills & Documentation (Phases 0, 1, 1.1, 1.2, 1.3, 2)
-Phase: 2 (Create Kata Slash Commands) - COMPLETE
-Plan: 7 of 7 complete
-Status: Milestone complete
-Last activity: 2026-01-22 - Removed Phase 3 (Update Skills Tests)
+Milestone: v0.1.6 Claude Code Plugin (Phase 1)
+Phase: Not started
+Plan: Not started
+Status: Ready for planning
+Last activity: 2026-01-22 - v0.1.5 Skills & Documentation shipped
 
-Progress: [==============================] 100% (6/6 phases complete)
+Progress: [------------------------------] 0% (0/1 phases complete)
 
 ## Performance Metrics
 
@@ -68,24 +68,8 @@ Recent decisions affecting current work:
 
 ### Roadmap Evolution
 
-- Phase 0 completed 2026-01-18 - all 5 plans executed successfully
-- **v0.1.4 milestone archived 2026-01-18** - Hard Fork & Rebrand shipped
-- **v0.1.5 milestone started 2026-01-18** - GitHub Integration (5 phases)
-- **Phase 0 inserted 2026-01-18** - Convert Commands to Skills using /skill-builder (URGENT prerequisite)
-- **Phase 0.1 inserted 2026-01-19** - Documentation (README completion + onboarding guidance)
-- **Phase 0.2 renumbered 2026-01-19** - Claude Code Plugin Distribution (was 0.1, bumped for Documentation priority)
-- **Milestone restructure 2026-01-20** - v0.1.5 now ends after 0.1 (Skills & Documentation), v0.1.6 = Claude Code Plugin, v0.1.7 = GitHub Integration
-- **Phase 2 added 2026-01-20** - Create Kata Slash Commands (GSD-equivalent commands that instantiate skills)
-- **Phase 3 = Documentation** - Moved to last position in v0.1.5
-- **Phase 1.1 inserted 2026-01-20** - Testing & Evals Harness: CLI-based test framework using `claude "prompt"` to verify skills/commands
-- **Phase 1.2 inserted 2026-01-20** - Skill Tests: Write tests for all 10 kata skills using the test harness
-- **Phase 2.1 inserted 2026-01-20** - Slash Command Tests: Write tests for all Kata slash commands
-- **Phase 4 added 2026-01-20** - Review & Refactor Subagents: Review all kata subagents and refactor as needed given changes this milestone
-- **Phase 1.3 inserted 2026-01-20** - Discuss Phase Skill: Create kata-discussing-phase-context for pre-planning context gathering (gap discovered during Phase 2 planning)
-- **Phase 4 removed 2026-01-21** - Review & Refactor Subagents: Removed from v0.1.5 milestone
-- **Phase 4 added 2026-01-21** - Update Skills Tests: Update skills tests after massive refactor
-- **Phase 3 removed 2026-01-21** - Documentation: Removed from v0.1.5 milestone
-- **Phase 3 added 2026-01-21** - Update Skills Tests: Update all skills tests after Phase 2 refactor
+- **v0.1.5 milestone completed 2026-01-22** - Skills & Documentation shipped (6 phases, 30 plans)
+- **v0.1.6 milestone started 2026-01-22** - Claude Code Plugin
 
 ### Pending Todos
 
@@ -114,5 +98,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Removed Phase 3 (Update Skills Tests)
-Resume file: v0.1.5 milestone complete, ready for v0.1.6
+Stopped at: v0.1.5 milestone archived
+Resume file: Ready for v0.1.6 Claude Code Plugin planning
