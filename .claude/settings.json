@@ -8,5 +8,21 @@
     "context7",
     "perplexity-server"
   ],
-  "plansDirectory": ".claude/plans"
+  "plansDirectory": ".claude/plans",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/kata-check-update.js"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node .claude/hooks/kata-statusline.js"
+  }
 }
