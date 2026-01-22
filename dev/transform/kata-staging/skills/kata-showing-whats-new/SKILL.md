@@ -1,6 +1,13 @@
 ---
 name: kata-showing-whats-new
 description: Use this skill when showing what's new in Kata since the installed version, displaying changelog entries, checking for Kata updates, or reviewing recent changes. Triggers include "what's new", "whats new", "show changes", "changelog", "recent changes", and "what changed".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -15,7 +22,7 @@ Shows version comparison, changelog entries for missed versions, and update inst
 Read installed version from VERSION file:
 
 ```bash
-cat ~/.claude/kata/VERSION 2>/dev/null
+cat ~/.claude/get-shit-done/VERSION 2>/dev/null
 ```
 
 **If VERSION file missing:**
@@ -26,7 +33,7 @@ cat ~/.claude/kata/VERSION 2>/dev/null
 
 Your installation doesn't include version tracking.
 
-**To fix:** `npx kata-cc --global`
+**To fix:** `npx get-shit-done-cc --global`
 
 This will reinstall with version tracking enabled.
 ```
@@ -38,13 +45,13 @@ STOP here if no VERSION file.
 Fetch latest CHANGELOG.md from GitHub:
 
 Use WebFetch tool with:
-- URL: `https://raw.githubusercontent.com/glittercowboy/kata/main/CHANGELOG.md`
+- URL: `https://raw.githubusercontent.com/glittercowboy/get-shit-done/main/CHANGELOG.md`
 - Prompt: "Extract all version entries with their dates and changes. Return in Keep-a-Changelog format."
 
 **If fetch fails:**
 Fall back to local changelog:
 ```bash
-cat ~/.claude/kata/CHANGELOG.md 2>/dev/null
+cat ~/.claude/get-shit-done/CHANGELOG.md 2>/dev/null
 ```
 
 Note to user: "Couldn't check for updates (offline or GitHub unavailable). Showing local changelog."
@@ -75,7 +82,7 @@ Format output clearly:
 
 You're on the latest version.
 
-[View full changelog](https://github.com/glittercowboy/kata/blob/main/CHANGELOG.md)
+[View full changelog](https://github.com/glittercowboy/get-shit-done/blob/main/CHANGELOG.md)
 ```
 
 **If updates available:**
@@ -105,9 +112,9 @@ You're on the latest version.
 
 ---
 
-[View full changelog](https://github.com/glittercowboy/kata/blob/main/CHANGELOG.md)
+[View full changelog](https://github.com/glittercowboy/get-shit-done/blob/main/CHANGELOG.md)
 
-**To update:** `npx kata-cc --global`
+**To update:** `npx get-shit-done-cc --global`
 ```
 
 **Breaking changes:** Surface prominently with **BREAKING:** prefix in the output.

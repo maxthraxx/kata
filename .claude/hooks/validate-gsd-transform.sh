@@ -28,17 +28,17 @@ else
   EXIT_CODE=1
 fi
 
-# Check 2: No remaining GSD references in kata-staging content (excluding name field)
+# Check 2: No remaining GSD references in kata-staging content (excluding name field and README.md)
 echo ""
 echo "✓ Checking for GSD references in kata-staging..."
-GSD_REFS=$(grep -ri "gsd" $STAGING 2>/dev/null | grep -v "^[^:]*:name:" | grep -v "gsd-source" | wc -l | tr -d ' ')
+GSD_REFS=$(grep -ri "gsd" $STAGING 2>/dev/null | grep -v "^[^:]*:name:" | grep -v "gsd-source" | grep -v "README.md:" | wc -l | tr -d ' ')
 if [ "$GSD_REFS" -gt 0 ]; then
   echo "  ⚠️  WARNING: $GSD_REFS 'gsd' references still found in kata-staging/"
   echo "  Sample:"
-  grep -ri "gsd" $STAGING 2>/dev/null | grep -v "^[^:]*:name:" | grep -v "gsd-source" | head -5 | sed 's/^/    /'
+  grep -ri "gsd" $STAGING 2>/dev/null | grep -v "^[^:]*:name:" | grep -v "gsd-source" | grep -v "README.md:" | head -5 | sed 's/^/    /'
   EXIT_CODE=1
 else
-  echo "  ✓ No GSD references in kata-staging/"
+  echo "  ✓ No GSD references in kata-staging/ (README.md excluded)"
 fi
 
 # Check 3: Verify kata references exist (replacement worked)

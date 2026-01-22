@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-DEPRECATED: This script's logic is now inline in the skill:
-  .claude/skills/kata-transforming-from-gsd/SKILL.md
+Generate thin wrapper Kata commands for each skill.
 
-Kept for reference only. The skill handles command generation directly
-as part of the GSD→Kata transformation workflow.
+For each skill in kata-staging/skills/:
+- Creates a command that invokes Skill("kata-{skill-name}")
+- Skips if command already exists
 """
 
 import yaml

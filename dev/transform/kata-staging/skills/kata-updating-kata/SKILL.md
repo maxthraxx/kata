@@ -1,6 +1,13 @@
 ---
 name: kata-updating-kata
 description: Use this skill when updating Kata to the latest version, installing Kata updates, upgrading Kata, or checking for new Kata releases. Triggers include "update kata", "upgrade kata", "install update", "check for updates", and "update to latest".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>

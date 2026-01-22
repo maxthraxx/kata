@@ -1,6 +1,13 @@
 ---
 name: kata-researching-phases
 description: Use this skill when researching how to implement a phase standalone, investigating implementation approaches before planning, or re-researching after planning is complete. Triggers include "research phase", "investigate phase", "how to implement", "research implementation", and "phase research".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -25,6 +32,24 @@ Normalize phase input in step 1 before any directory lookups.
 </context>
 
 <process>
+
+## 0. Resolve Model Profile
+
+Read model profile for agent spawning:
+
+```bash
+MODEL_PROFILE=$(cat .planning/config.json 2>/dev/null | grep -o '"model_profile"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "balanced")
+```
+
+Default to "balanced" if not set.
+
+**Model lookup table:**
+
+| Agent | quality | balanced | budget |
+|-------|---------|----------|--------|
+| kata-phase-researcher | opus | sonnet | haiku |
+
+Store resolved model for use in Task calls below.
 
 ## 1. Normalize and Validate Phase
 
@@ -127,6 +152,7 @@ Write to: .planning/phases/${PHASE}-{slug}/${PHASE}-RESEARCH.md
 Task(
   prompt=filled_prompt,
   subagent_type="kata-phase-researcher",
+  model="{researcher_model}",
   description="Research Phase {phase}"
 )
 ```
@@ -160,6 +186,7 @@ Research file: @.planning/phases/${PHASE}-{slug}/${PHASE}-RESEARCH.md
 Task(
   prompt=continuation_prompt,
   subagent_type="kata-phase-researcher",
+  model="{researcher_model}",
   description="Continue research Phase {phase}"
 )
 ```

@@ -1,6 +1,13 @@
 ---
 name: kata-pausing-work
 description: Use this skill when creating a context handoff file, pausing work mid-phase, stopping work temporarily, or creating a checkpoint for session resumption. Triggers include "pause work", "stop work", "create handoff", "save progress", and "pause session".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -127,3 +134,4 @@ To resume: /kata:resume-work
 - [ ] Committed as WIP
 - [ ] User knows location and how to resume
 </success_criteria>
+```

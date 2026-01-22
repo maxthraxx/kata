@@ -1,6 +1,13 @@
 ---
 name: kata-providing-help
 description: Use this skill when showing available Kata commands, displaying the usage guide, explaining command reference, or when the user asks for help with Kata. Triggers include "help", "show commands", "list commands", "what commands", "kata commands", and "usage guide".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -36,7 +43,7 @@ Kata evolves fast. Check for updates periodically:
 Shows what changed since your installed version. Update with:
 
 ```bash
-npx kata-cc@latest
+npx get-shit-done-cc@latest
 ```
 
 ## Core Workflow
@@ -274,6 +281,60 @@ List pending todos and select one to work on.
 Usage: `/kata:check-todos`
 Usage: `/kata:check-todos api`
 
+### User Acceptance Testing
+
+**`/kata:verify-work [phase]`**
+Validate built features through conversational UAT.
+
+- Extracts testable deliverables from SUMMARY.md files
+- Presents tests one at a time (yes/no responses)
+- Automatically diagnoses failures and creates fix plans
+- Ready for re-execution if issues found
+
+Usage: `/kata:verify-work 3`
+
+### Milestone Auditing
+
+**`/kata:audit-milestone [version]`**
+Audit milestone completion against original intent.
+
+- Reads all phase VERIFICATION.md files
+- Checks requirements coverage
+- Spawns integration checker for cross-phase wiring
+- Creates MILESTONE-AUDIT.md with gaps and tech debt
+
+Usage: `/kata:audit-milestone`
+
+**`/kata:plan-milestone-gaps`**
+Create phases to close gaps identified by audit.
+
+- Reads MILESTONE-AUDIT.md and groups gaps into phases
+- Prioritizes by requirement priority (must/should/nice)
+- Adds gap closure phases to ROADMAP.md
+- Ready for `/kata:plan-phase` on new phases
+
+Usage: `/kata:plan-milestone-gaps`
+
+### Configuration
+
+**`/kata:settings`**
+Configure workflow toggles and model profile interactively.
+
+- Toggle researcher, plan checker, verifier agents
+- Select model profile (quality/balanced/budget)
+- Updates `.planning/config.json`
+
+Usage: `/kata:settings`
+
+**`/kata:set-profile <profile>`**
+Quick switch model profile for Kata agents.
+
+- `quality` — Opus everywhere except verification
+- `balanced` — Opus for planning, Sonnet for execution (default)
+- `budget` — Sonnet for writing, Haiku for research/verification
+
+Usage: `/kata:set-profile budget`
+
 ### Utility Commands
 
 **`/kata:help`**
@@ -288,6 +349,15 @@ See what's changed since your installed version.
 - Provides update instructions when behind
 
 Usage: `/kata:whats-new`
+
+**`/kata:update`**
+Update Kata to latest version with changelog preview.
+
+- Shows what changed before updating
+- Confirms before running install
+- Better than raw `npx get-shit-done-cc`
+
+Usage: `/kata:update`
 
 ## Files & Structure
 

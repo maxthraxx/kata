@@ -1,6 +1,13 @@
 ---
 name: kata-verifying-work
 description: Use this skill when validating built features through conversational testing, running UAT, user acceptance testing, checking if features work, or verifying implementation. Triggers include "verify work", "test features", "UAT", "user testing", "check if it works", and "validate features".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -12,8 +19,8 @@ Output: {phase}-UAT.md tracking all test results. If issues found: diagnosed gap
 </objective>
 
 <execution_context>
-@~/.claude/kata/workflows/verify-work.md
-@~/.claude/kata/templates/UAT.md
+@~/.claude/get-shit-done/workflows/verify-work.md
+@~/.claude/get-shit-done/templates/UAT.md
 </execution_context>
 
 <context>

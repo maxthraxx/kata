@@ -1,6 +1,13 @@
 ---
 name: kata-listing-phase-assumptions
 description: Use this skill when surfacing Claude's assumptions about a phase approach before planning, checking what Claude thinks, or validating understanding before planning. Triggers include "list assumptions", "what are you thinking", "show assumptions", "phase assumptions", and "what's the plan".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -11,7 +18,7 @@ Output: Conversational output only (no file creation) - ends with "What do you t
 </objective>
 
 <execution_context>
-@~/.claude/kata/workflows/list-phase-assumptions.md
+@~/.claude/get-shit-done/workflows/list-phase-assumptions.md
 </execution_context>
 
 <context>

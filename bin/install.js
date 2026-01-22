@@ -164,6 +164,7 @@ function cleanupOrphanedFiles(claudeDir) {
   const orphanedFiles = [
     'hooks/gsd-notify.sh',   // Removed in v1.6.x
     'hooks/kata-lint.js',    // Dev-only, erroneously distributed in v1.7.x
+    'hooks/statusline.js',   // Renamed to kata-statusline.js
   ];
 
   const orphanedDirs = [
@@ -438,8 +439,8 @@ function install(isGlobal) {
   const settingsPath = path.join(claudeDir, 'settings.json');
   const settings = cleanupOrphanedHooks(readSettings(settingsPath));
   const statuslineCommand = isGlobal
-    ? 'node "$HOME/.claude/hooks/statusline.js"'
-    : 'node .claude/hooks/statusline.js';
+    ? 'node "$HOME/.claude/hooks/kata-statusline.js"'
+    : 'node .claude/hooks/kata-statusline.js';
   const updateCheckCommand = isGlobal
     ? 'node "$HOME/.claude/hooks/kata-check-update.js"'
     : 'node .claude/hooks/kata-check-update.js';

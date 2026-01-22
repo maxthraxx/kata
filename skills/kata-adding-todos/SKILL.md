@@ -38,8 +38,8 @@ Note existing areas for consistency in infer_area step.
 </step>
 
 <step name="extract_content">
-Infer the todo content from the conversation context:
-- - Example: `Add auth token refresh` → title = "Add auth token refresh"
+**With arguments:** Use as the title/focus.
+- `/kata:add-todo Add auth token refresh` → title = "Add auth token refresh"
 
 **Without arguments:** Analyze recent conversation to extract:
 - The specific problem, idea, or task discussed
@@ -56,17 +56,17 @@ Formulate:
 <step name="infer_area">
 Infer area from file paths:
 
-| Path pattern                   | Area       |
-| ------------------------------ | ---------- |
-| `src/api/*`, `api/*`           | `api`      |
-| `src/components/*`, `src/ui/*` | `ui`       |
-| `src/auth/*`, `auth/*`         | `auth`     |
-| `src/db/*`, `database/*`       | `database` |
-| `tests/*`, `__tests__/*`       | `testing`  |
-| `docs/*`                       | `docs`     |
-| `.planning/*`                  | `planning` |
-| `scripts/*`, `bin/*`           | `tooling`  |
-| No files or unclear            | `general`  |
+| Path pattern | Area |
+|--------------|------|
+| `src/api/*`, `api/*` | `api` |
+| `src/components/*`, `src/ui/*` | `ui` |
+| `src/auth/*`, `auth/*` | `auth` |
+| `src/db/*`, `database/*` | `database` |
+| `tests/*`, `__tests__/*` | `testing` |
+| `docs/*` | `docs` |
+| `.planning/*` | `planning` |
+| `scripts/*`, `bin/*` | `tooling` |
+| No files or unclear | `general` |
 
 Use existing area from step 2 if similar match exists.
 </step>
@@ -167,7 +167,7 @@ Would you like to:
 
 1. Continue with current work
 2. Add another todo
-3. View all todos (/sata:check-todos)
+3. View all todos (/kata:check-todos)
 ```
 </step>
 

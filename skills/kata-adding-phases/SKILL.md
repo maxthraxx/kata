@@ -25,17 +25,18 @@ Purpose: Add planned work discovered during execution that belongs at the end of
 
 <process>
 
-<step name="infer_phase_description">
-Infer the phase description from the conversation context:
-- Example: `Add authentication` → description = "Add authentication"
-- Example: `Fix critical performance issues` → description = "Fix critical performance issues"
+<step name="parse_arguments">
+Parse the command arguments:
+- All arguments become the phase description
+- Example: `/kata:add-phase Add authentication` → description = "Add authentication"
+- Example: `/kata:add-phase Fix critical performance issues` → description = "Fix critical performance issues"
 
-If unable to infer, prompt user for description:
+If no arguments provided:
 
 ```
 ERROR: Phase description required
-Please provide a brief description for the new phase.
-Example: Add authentication system
+Usage: /kata:add-phase <description>
+Example: /kata:add-phase Add authentication system
 ```
 
 Exit.
@@ -156,7 +157,7 @@ If "Roadmap Evolution" section doesn't exist, create it.
 <step name="completion">
 Present completion summary:
 
-
+```
 Phase {N} added to current milestone:
 - Description: {description}
 - Directory: .planning/phases/{phase-num}-{slug}/
@@ -182,7 +183,7 @@ Project state updated: .planning/STATE.md
 - Review roadmap
 
 ---
-
+```
 </step>
 
 </process>
@@ -205,4 +206,4 @@ Phase addition is complete when:
 - [ ] New phase appears at end of current milestone
 - [ ] Next phase number calculated correctly (ignoring decimals)
 - [ ] User informed of next steps
-</success_criteria>
+      </success_criteria>

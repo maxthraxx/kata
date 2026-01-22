@@ -1,6 +1,13 @@
 ---
 name: kata-completing-milestones
 description: Use this skill when archiving a completed milestone, preparing for the next version, marking a milestone complete, shipping a version, or wrapping up milestone work. Triggers include "complete milestone", "finish milestone", "archive milestone", "ship version", "mark milestone done", and "milestone complete".
+version: 0.1.0
+user-invocable: false
+disable-model-invocation: false
+allowed-tools:
+  - Read
+  - Write
+  - Bash
 ---
 
 <objective>
@@ -13,8 +20,8 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
 <execution_context>
 **Load these files NOW (before proceeding):**
 
-- @~/.claude/kata/workflows/complete-milestone.md (main workflow)
-- @~/.claude/kata/templates/milestone-archive.md (archive template)
+- @~/.claude/get-shit-done/workflows/complete-milestone.md (main workflow)
+- @~/.claude/get-shit-done/templates/milestone-archive.md (archive template)
   </execution_context>
 
 <context>

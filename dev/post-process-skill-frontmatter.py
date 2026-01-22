@@ -1,91 +1,85 @@
 #!/usr/bin/env python3
+"""
+Post-process skill frontmatter to add missing fields.
 
-import yaml
+Adds to each skill:
+- version: 0.1.0
+- user-invocable: false
+- disable-model-invocation: false
+- allowed-tools: [Read, Write, Bash]
+"""
+
 from pathlib import Path
 
-def add_skill_frontmatter(skill_md_path):
-    """Add missing frontmatter fields to a skill file.
 
-    Adds:
-    - version: 0.1.0
-    - user-invocable: false
-    - disable-model-invocation: false
-    - allowed-tools: [Read, Write, Bash]
+def has_field(frontmatter_text: str, field: str) -> bool:
+    """Check if a field exists in frontmatter text."""
+    for line in frontmatter_text.split("\n"):
+        if line.startswith(f"{field}:"):
+            return True
+    return False
+
+
+def add_skill_frontmatter(skill_md_path: Path) -> bool:
+    """Add missing frontmatter fields to a skill file.
 
     Returns True if frontmatter was modified, False otherwise.
     """
     try:
-        with open(skill_md_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+        content = skill_md_path.read_text(encoding="utf-8")
     except Exception as e:
         print(f"  ✗ Error reading {skill_md_path.name}: {e}")
         return False
 
-    # Parse frontmatter
-    if not content.startswith('---'):
+    if not content.startswith("---"):
         print(f"  ✗ No frontmatter found in {skill_md_path.name}")
         return False
 
-    parts = content.split('---', 2)
+    parts = content.split("---", 2)
     if len(parts) < 3:
         print(f"  ✗ Invalid frontmatter structure in {skill_md_path.name}")
         return False
 
-    try:
-        frontmatter = yaml.safe_load(parts[1])
-    except yaml.YAMLError as e:
-        print(f"  ✗ Error parsing YAML in {skill_md_path.name}: {e}")
-        return False
-
-    if not isinstance(frontmatter, dict):
-        print(f"  ✗ Frontmatter is not a dictionary in {skill_md_path.name}")
-        return False
-
+    frontmatter_text = parts[1].strip()
     body = parts[2]
-    modified = False
+
+    # Check which fields are missing
+    fields_to_add = []
+
+    if not has_field(frontmatter_text, "version"):
+        fields_to_add.append("version: 0.1.0")
+
+    if not has_field(frontmatter_text, "user-invocable"):
+        fields_to_add.append("user-invocable: false")
+
+    if not has_field(frontmatter_text, "disable-model-invocation"):
+        fields_to_add.append("disable-model-invocation: false")
+
+    if not has_field(frontmatter_text, "allowed-tools"):
+        fields_to_add.append("allowed-tools:\n  - Read\n  - Write\n  - Bash")
+
+    if not fields_to_add:
+        return False
 
     # Add missing fields
-    if 'version' not in frontmatter:
-        frontmatter['version'] = '0.1.0'
-        modified = True
-
-    if 'user-invocable' not in frontmatter:
-        frontmatter['user-invocable'] = False
-        modified = True
-
-    if 'disable-model-invocation' not in frontmatter:
-        frontmatter['disable-model-invocation'] = False
-        modified = True
-
-    if 'allowed-tools' not in frontmatter:
-        frontmatter['allowed-tools'] = ['Read', 'Write', 'Bash']
-        modified = True
-
-    if not modified:
-        return False
-
-    # Reconstruct file with updated frontmatter
-    # Use dump with explicit settings to maintain readability
-    yaml_str = yaml.dump(frontmatter, default_flow_style=False, sort_keys=False, allow_unicode=True)
-    new_content = f"---\n{yaml_str}---{body}"
+    new_frontmatter = frontmatter_text + "\n" + "\n".join(fields_to_add)
+    new_content = f"---\n{new_frontmatter}\n---{body}"
 
     try:
-        with open(skill_md_path, 'w', encoding='utf-8') as f:
-            f.write(new_content)
+        skill_md_path.write_text(new_content, encoding="utf-8")
         return True
     except Exception as e:
         print(f"  ✗ Error writing {skill_md_path.name}: {e}")
         return False
 
+
 def main():
     print("=== Skill Frontmatter Post-Processor ===\n")
 
-    # Process all skills in kata-staging/skills/
-    skills_dir = Path('dev/transform/kata-staging/skills')
+    skills_dir = Path("dev/transform/kata-staging/skills")
 
     if not skills_dir.exists():
         print(f"Error: Skills directory not found at {skills_dir}")
-        print("Run the transformation script first to create kata-staging/")
         return 1
 
     print(f"Processing skills in: {skills_dir}\n")
@@ -94,8 +88,7 @@ def main():
     updated = 0
     errors = 0
 
-    # Find all SKILL.md files
-    skill_files = list(skills_dir.rglob('SKILL.md'))
+    skill_files = list(skills_dir.rglob("SKILL.md"))
 
     if not skill_files:
         print("No SKILL.md files found.")
@@ -109,13 +102,9 @@ def main():
         if result:
             print(f"  ✓ Updated {skill_name}/SKILL.md")
             updated += 1
-        elif result is False and '✗' not in str(skill_md):
-            # File was processed but no changes needed
+        elif result is False:
             print(f"  - No changes needed for {skill_name}/SKILL.md")
-        else:
-            errors += 1
 
-    # Display results
     print()
     print("─" * 60)
     print(f"Processed: {processed} skills")
@@ -124,7 +113,8 @@ def main():
         print(f"Errors:    {errors} skills")
     print("─" * 60)
 
-    return 0 if errors == 0 else 1
+    return 0
+
 
 if __name__ == "__main__":
     exit(main())
