@@ -45,7 +45,7 @@ No memorizing commands. No syntax. Just say what you want:
 
 Every workflow responds to natural language. Slash commands exist for precision when you want them (`/kata:plan-phase 2`), but you never *need* them.
 
-**This isn't autocomplete. It's intent recognition.** Kata understands what you're trying to accomplish and routes to the right workflow — research, planning, execution, verification — automatically.
+**Intent recognition.** Kata understands what you're trying to accomplish and routes to the right workflow — research, planning, execution, verification — automatically.
 
 ---
 
