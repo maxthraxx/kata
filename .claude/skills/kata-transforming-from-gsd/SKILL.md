@@ -37,13 +37,13 @@ Synchronize Kata with the latest get-shit-done (GSD) source.
 - `gsd-source/` — Snapshot of GSD repo (what we're syncing FROM)
 - `kata-staging/` — Snapshot of Kata production (what we're UPDATING)
 
-**Scripts:**
-- `dev/transform-gsd-to-kata.py` — Prepare staging (copy both repos)
-- `dev/apply-gsd-updates.py` — Apply GSD agent/workflow updates
-- `dev/replace-gsd-with-kata.py` — Text replacement
-- `.claude/skills/kata-transforming-from-gsd/convert-commands-to-skills.py` — Command→skill conversion
-- `dev/post-process-skill-frontmatter.py` — Add skill frontmatter fields
-- `dev/generate-kata-commands.js` — Generate thin wrapper commands
+**Scripts:** (co-located in `.claude/skills/kata-transforming-from-gsd/`)
+- `transform-gsd-to-kata.py` — Prepare staging (copy both repos)
+- `apply-gsd-updates.py` — Apply GSD agent/workflow updates
+- `replace-gsd-with-kata.py` — Text replacement
+- `convert-commands-to-skills.py` — Command→skill conversion
+- `post-process-skill-frontmatter.py` — Add skill frontmatter fields
+- `generate-kata-commands.js` — Generate thin wrapper commands
 
 ## Process
 
@@ -60,7 +60,7 @@ Display output. If pull fails, STOP.
 
 ```bash
 cd /Users/gannonhall/dev/oss/kata
-python3 dev/transform-gsd-to-kata.py
+python3 .claude/skills/kata-transforming-from-gsd/transform-gsd-to-kata.py
 ```
 
 This copies:
@@ -72,7 +72,7 @@ Display: "✓ Staging prepared"
 ### Step 3: Apply GSD Updates
 
 ```bash
-python3 dev/apply-gsd-updates.py
+python3 .claude/skills/kata-transforming-from-gsd/apply-gsd-updates.py
 ```
 
 This updates kata-staging with:
@@ -87,7 +87,7 @@ Display: "✓ GSD updates applied"
 
 ```bash
 cd dev/transform/kata-staging
-python3 ../../../dev/replace-gsd-with-kata.py
+python3 ../../../.claude/skills/kata-transforming-from-gsd/replace-gsd-with-kata.py
 cd ../../..
 ```
 
@@ -110,7 +110,7 @@ Display: "✓ Commands converted to skills"
 ### Step 6: Post-Process Skill Frontmatter
 
 ```bash
-python3 dev/post-process-skill-frontmatter.py
+python3 .claude/skills/kata-transforming-from-gsd/post-process-skill-frontmatter.py
 ```
 
 Adds missing fields to skills: version, user-invocable, disable-model-invocation, allowed-tools.
@@ -120,7 +120,7 @@ Display: "✓ Skill frontmatter completed"
 ### Step 7: Generate Kata Commands
 
 ```bash
-node dev/generate-kata-commands.js
+node .claude/skills/kata-transforming-from-gsd/generate-kata-commands.js
 ```
 
 Creates thin wrapper commands that invoke skills.
