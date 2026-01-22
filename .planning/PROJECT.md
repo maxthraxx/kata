@@ -4,7 +4,7 @@
 
 A spec-driven development framework for Claude Code. Brings structured, reliable AI development to teams without changing their existing tools. Teams use Kata's quality-producing process inside the tools they already love.
 
-**Current state:** v0.1.5 shipped — 14 skills, 25 slash commands, test harness. Starting v0.1.6 Claude Code Plugin.
+**Current state:** v0.1.5 shipped — 14 skills, 25 slash commands, test harness. Starting v0.1.9 Claude Code Plugin.
 
 ## Core Value
 
@@ -19,7 +19,7 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 - Slash command suite — v0.1.5 (25 commands delegating to skills)
 - Test harness — v0.1.5 (CLI-based skill testing with `claude "prompt"`)
 
-### Active (v0.1.7 GitHub Integration)
+### Active (v0.1.10 GitHub Integration)
 
 - [ ] Config-driven integration — enable/disable via .planning/config.json
 - [ ] GitHub Milestone creation — new-milestone creates GH Milestone
@@ -105,20 +105,23 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 | Kata Milestone → GH Milestone | Use GitHub's native feature for version tracking | — Pending |
 | Phase → Issue, Plan → Checklist | Right granularity — phases are coordination unit, plans are execution detail | — Pending |
 
-## Current Milestone: v0.1.6 Claude Code Plugin
+## Current Milestone: v0.1.9 Claude Code Plugin
 
 **Goal:** Package and publish Kata as a Claude Code plugin for easy distribution
 
 **Target features:**
-- Plugin manifest (plugin.json) correctly configured
-- All commands, agents, workflows available through plugin
-- Published to @gannonh Claude Code plugin marketplace
-- Installation via plugin system documented
+- Plugin manifest (`.claude-plugin/plugin.json`) correctly configured
+- Plugin directory structure (`commands/`, `agents/`, `skills/`, `hooks/`)
+- All Kata components available through plugin namespace (`/kata:*`)
+- Published to @gannonh Claude Code plugin marketplace repository
+- Installation via `/plugin install kata@gannonh-plugins` documented
+- Local testing via `--plugin-dir` validated
 
 **Approach:**
-- Use /plugin-dev:create-plugin workflow
-- Follow Claude Code plugin conventions
-- Test plugin installation and functionality
+- Restructure repository to match Claude Code plugin conventions
+- Create `.claude-plugin/plugin.json` manifest
+- Create marketplace repository with `marketplace.json`
+- Test with `claude --plugin-dir ./` before publishing
 
 ---
-*Last updated: 2026-01-22 — v0.1.5 milestone complete*
+*Last updated: 2026-01-22 — v0.1.9 milestone started*
