@@ -71,8 +71,9 @@ process.stdin.on('end', () => {
         const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
 
         if (cache.update_available) {
-          // Plugin update message - show command to update the plugin
-          kataUpdate = '\x1b[33m\u2B06 npx @anthropic-ai/claude-code-plugins@latest add @gannonh/kata\x1b[0m \u2502 ';
+          // Plugin update message with version and both update methods
+          const latest = cache.latest || 'new';
+          kataUpdate = `\x1b[33m⬆ v${latest}: /plugin (CC) or claude plugin update kata@kata-marketplace (term)\x1b[0m \u2502 `;
         }
       } catch (e) {}
     }

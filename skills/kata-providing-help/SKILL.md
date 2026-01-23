@@ -40,11 +40,7 @@ Kata evolves fast. Check for updates periodically:
 /kata:whats-new
 ```
 
-Shows what changed since your installed version. Update with:
-
-```bash
-npx @gannonh/kata@latest
-```
+Shows what changed since your installed version and how to update.
 
 ## Core Workflow
 
@@ -349,15 +345,6 @@ See what's changed since your installed version.
 - Provides update instructions when behind
 
 Usage: `/kata:whats-new`
-
-**`/kata:update`**
-Update Kata to latest version with changelog preview.
-
-- Shows what changed before updating
-- Confirms before running install
-- Better than raw `npx @gannonh/kata`
-
-Usage: `/kata:update`
 
 ## Files & Structure
 

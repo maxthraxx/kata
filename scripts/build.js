@@ -66,6 +66,15 @@ const EXCLUDES = [
 ];
 
 /**
+ * Files/directories to exclude from PLUGIN distribution only
+ * (these are NPM-specific and don't work in plugin context)
+ */
+const PLUGIN_EXCLUDES = [
+  'commands/kata/update.md',
+  'skills/kata-updating',
+];
+
+/**
  * Plugin-specific includes
  */
 const PLUGIN_INCLUDES = [
@@ -98,6 +107,16 @@ function shouldExclude(name) {
 }
 
 /**
+ * Check if path should be excluded from plugin build
+ * @param {string} relativePath - Path relative to source root
+ */
+function shouldExcludeFromPlugin(relativePath) {
+  return PLUGIN_EXCLUDES.some(excluded =>
+    relativePath === excluded || relativePath.startsWith(excluded + '/')
+  );
+}
+
+/**
  * Copy a file, optionally transforming paths in .md files
  */
 function copyFile(src, dest, transform = null) {
@@ -112,7 +131,7 @@ function copyFile(src, dest, transform = null) {
 /**
  * Recursively copy a directory with optional path transformation
  */
-function copyDir(src, dest, transform = null) {
+function copyDir(src, dest, transform = null, excludeFilter = null) {
   if (!fs.existsSync(src)) {
     console.log(`  ${amber}!${reset} Skipping ${src} (not found)`);
     return false;
@@ -130,8 +149,17 @@ function copyDir(src, dest, transform = null) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
 
+    // Check plugin-specific exclusions using relative path from ROOT
+    if (excludeFilter) {
+      const relativePath = path.relative(ROOT, srcPath);
+      if (excludeFilter(relativePath)) {
+        console.log(`  ${dim}-${reset} Excluded ${relativePath} (plugin-specific)`);
+        continue;
+      }
+    }
+
     if (entry.isDirectory()) {
-      copyDir(srcPath, destPath, transform);
+      copyDir(srcPath, destPath, transform, excludeFilter);
     } else {
       copyFile(srcPath, destPath, transform);
     }
@@ -142,9 +170,15 @@ function copyDir(src, dest, transform = null) {
 /**
  * Copy a file or directory to destination
  */
-function copyPath(src, dest, transform = null) {
+function copyPath(src, dest, transform = null, excludeFilter = null) {
   const srcPath = path.join(ROOT, src);
   const destPath = path.join(dest, src);
+
+  // Check if this specific path should be excluded
+  if (excludeFilter && excludeFilter(src)) {
+    console.log(`  ${dim}-${reset} Excluded ${src} (plugin-specific)`);
+    return true; // Return true to not trigger "not found" warning
+  }
 
   if (!fs.existsSync(srcPath)) {
     console.log(`  ${amber}!${reset} Skipping ${src} (not found)`);
@@ -153,7 +187,7 @@ function copyPath(src, dest, transform = null) {
 
   const stat = fs.statSync(srcPath);
   if (stat.isDirectory()) {
-    return copyDir(srcPath, destPath, transform);
+    return copyDir(srcPath, destPath, transform, excludeFilter);
   } else {
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
     copyFile(srcPath, destPath, transform);
@@ -210,6 +244,14 @@ function validateBuild(dest, target) {
       }
     };
     checkForOldPaths(dest);
+
+    // Verify excluded files are not present
+    for (const excluded of PLUGIN_EXCLUDES) {
+      const fullPath = path.join(dest, excluded);
+      if (fs.existsSync(fullPath)) {
+        errors.push(`Plugin build should not include: ${excluded}`);
+      }
+    }
   }
 
   // For npm target, verify install.js exists
@@ -232,9 +274,9 @@ function buildPlugin() {
   const dest = path.join(ROOT, 'dist', 'plugin');
   cleanDir(dest);
 
-  // Copy common files with path transformation
+  // Copy common files with path transformation AND plugin exclusions
   for (const item of COMMON_INCLUDES) {
-    if (copyPath(item, dest, transformPluginPaths)) {
+    if (copyPath(item, dest, transformPluginPaths, shouldExcludeFromPlugin)) {
       console.log(`  ${green}✓${reset} Copied ${item}`);
     }
   }

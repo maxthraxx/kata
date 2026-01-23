@@ -286,8 +286,8 @@ questions: [
     question: "Use PR-based release workflow?",
     multiSelect: false,
     options: [
-      { label: "Yes", description: "Protect main, create PRs, tag via GitHub Release" },
-      { label: "No (Recommended)", description: "Commit directly to main, create tags locally" }
+      { label: "Yes (Recommended)", description: "Protect main, create PRs, tag via GitHub Release" },
+      { label: "No", description: "Commit directly to main, create tags locally" }
     ]
   }
 ]
@@ -572,27 +572,7 @@ SETTINGS_EOF
 fi
 ```
 
-**Copy statusline hook to project:**
-
-```bash
-# Copy appropriate statusline hook to project's .claude/hooks/
-mkdir -p .claude/hooks
-
-# Detect install type and copy the right statusline hook
-# Plugin installs use kata-plugin-statusline.js (shows plugin update command)
-# NPM installs use kata-npm-statusline.js (shows /kata:update command)
-
-if [ -n "$CLAUDE_PLUGIN_ROOT" ] && [ -f "$CLAUDE_PLUGIN_ROOT/hooks/kata-plugin-statusline.js" ]; then
-  # Plugin install
-  cp "$CLAUDE_PLUGIN_ROOT/hooks/kata-plugin-statusline.js" .claude/hooks/kata-statusline.js
-elif [ -f ~/.claude/kata/hooks/kata-npm-statusline.js ]; then
-  # Global NPM install
-  cp ~/.claude/kata/hooks/kata-npm-statusline.js .claude/hooks/kata-statusline.js
-elif [ -f ./.claude/kata/hooks/kata-npm-statusline.js ]; then
-  # Local NPM install
-  cp ./.claude/kata/hooks/kata-npm-statusline.js .claude/hooks/kata-statusline.js
-fi
-```
+The statusline hook will be automatically installed on next session start by Kata's SessionStart hook.
 
 **If statusline = No:**
 

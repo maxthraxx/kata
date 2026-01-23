@@ -32,7 +32,7 @@ Configuration options for Kata projects in `.planning/config.json`.
 | `parallelization`     | `true`     | Run independent plans simultaneously                           |
 | `model_profile`       | `balanced` | Which AI models for agents (see model-profiles.md)             |
 | `commit_docs`         | `true`     | Whether to commit planning artifacts to git                    |
-| `pr_workflow`         | `false`    | Use PR-based release workflow vs direct commits                |
+| `pr_workflow`         | `true`     | Use PR-based release workflow vs direct commits                |
 | `display.statusline`  | `true`     | Enable Kata custom statusline in Claude Code                   |
 | `workflow.research`   | `true`     | Spawn researcher before planning each phase                    |
 | `workflow.plan_check` | `true`     | Verify plans achieve phase goals before execution              |

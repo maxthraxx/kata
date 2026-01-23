@@ -13,7 +13,8 @@ const DIST_DIR = path.join(HOOKS_DIR, 'dist');
 const HOOKS_TO_COPY = [
   'kata-check-update.js',
   'kata-npm-statusline.js',
-  'kata-plugin-statusline.js'
+  'kata-plugin-statusline.js',
+  'kata-setup-statusline.js'
 ];
 
 function build() {

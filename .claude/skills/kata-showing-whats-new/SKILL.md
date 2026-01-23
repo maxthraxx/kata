@@ -45,7 +45,7 @@ STOP here if no VERSION file.
 Fetch latest CHANGELOG.md from GitHub:
 
 Use WebFetch tool with:
-- URL: `https://raw.githubusercontent.com/gannnonh/kata/main/CHANGELOG.md`
+- URL: `https://raw.githubusercontent.com/gannonh/kata/refs/heads/main/CHANGELOG.md`
 - Prompt: "Extract all version entries with their dates and changes. Return in Keep-a-Changelog format."
 
 **If fetch fails:**
