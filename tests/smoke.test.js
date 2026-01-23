@@ -127,10 +127,10 @@ describe('NPX Install Smoke Test', () => {
     const skillPath = path.join(npxTestDir, '.claude/skills/kata-executing-phases/SKILL.md');
     if (fs.existsSync(skillPath)) {
       const content = fs.readFileSync(skillPath, 'utf8');
-      // NPM install should have ~/.claude/ paths
+      // NPM install should have ~/.claude/ paths OR $KATA_BASE for dynamic resolution
       assert.ok(
-        content.includes('@~/.claude/') || content.includes('@./'),
-        'Skill should have valid path references'
+        content.includes('@~/.claude/') || content.includes('@./') || content.includes('$KATA_BASE'),
+        'Skill should have valid path references (static or dynamic)'
       );
     }
   });
@@ -179,13 +179,15 @@ describe('Plugin Build Smoke Test', () => {
     const skillPath = path.join(ROOT, 'dist/plugin/skills/kata-executing-phases/SKILL.md');
     if (fs.existsSync(skillPath)) {
       const content = fs.readFileSync(skillPath, 'utf8');
+      // Plugin skills should NOT have hardcoded ~/.claude/kata/ paths
+      // They should use either @./kata/ (static transformation) or $KATA_BASE (dynamic)
       assert.ok(
         !content.includes('@~/.claude/kata/'),
-        'Plugin skills should NOT have ~/.claude/ paths'
+        'Plugin skills should NOT have hardcoded ~/.claude/kata/ paths'
       );
       assert.ok(
-        content.includes('@./kata/'),
-        'Plugin skills should have @./kata/ paths'
+        content.includes('@./kata/') || content.includes('$KATA_BASE'),
+        'Plugin skills should have @./kata/ paths or $KATA_BASE for dynamic resolution'
       );
     }
   });
