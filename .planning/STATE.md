@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v0.1.9 Claude Code Plugin — Phase 1.1: Document PR Workflow Behavior
+**Current focus:** v0.1.9 Claude Code Plugin — Phase 2: Marketplace Distribution
 
 ## Current Position
 
 Milestone: v0.1.9 Claude Code Plugin
-Phase: 1.1 of 4 (Document PR Workflow Behavior) — COMPLETE
-Plan: 01/01 complete
-Status: Phase 1.1 complete, ready for Phase 2
-Last activity: 2026-01-22 — Completed 01.1-01-PLAN.md
+Phase: 2 of 4 (Marketplace Distribution) — Plan 01 COMPLETE
+Plan: 01/02 complete
+Status: Marketplace infrastructure created, plugin version 0.1.9
+Last activity: 2026-01-23 — Completed 02-01-PLAN.md
 
-Progress: [################----------------] 50% (2/4 phases)
+Progress: [####################------------] 62% (2.5/4 phases)
 
 ## Performance Metrics
 
@@ -33,11 +33,11 @@ Progress: [################----------------] 50% (2/4 phases)
 | 01-migrate-todo-commands   | 3     | 19 min | 6 min    |
 | 01.1-testing-evals-harness | 2     | 6 min  | 3 min    |
 | 01.2-skill-tests           | 4     | 6 min  | 1.5 min  |
-| 01.3-discuss-phase-skill   | 2     | 5 min  | 2.5 min  |
+| 01.3-phase-discuss-skill   | 2     | 5 min  | 2.5 min  |
 | 02-create-kata-slash-cmds  | 7     | 17 min | 2.4 min  |
 
 **Recent Trend:**
-- Last 5 plans: 02-06 (2 min), 02-07 (1 min), v0.1.9-01-01 (1 min), v0.1.9-01.1-01 (1 min)
+- Last 5 plans: 02-07 (1 min), v0.1.9-01-01 (1 min), v0.1.9-01.1-01 (1 min), 02-01 (1 min)
 - Trend: Fast execution on infrastructure and documentation tasks
 
 *Updated after each plan completion*
@@ -49,6 +49,7 @@ Progress: [################----------------] 50% (2/4 phases)
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- **2026-01-23: Marketplace created** - gannonh/claude-code-plugins repository with Kata v0.1.9 entry; install via `/plugin marketplace add gannonh/claude-code-plugins` then `/plugin install kata@claude-code-plugins`
 - **2026-01-22: PR workflow spec in product** - `kata/references/planning-config.md#pr_workflow_behavior` is authoritative; v0.1.10 Phase 5 references it; kata-executing-phases needs to @-reference and implement it
 - **2026-01-22: Statusline excluded from plugin** - Statusline is user preference, not plugin functionality; not included in hooks.json
 - **2026-01-22: v0.1.9 roadmap** - 3 phases derived from 15 requirements (quick depth)
@@ -68,10 +69,10 @@ Recent decisions affecting current work:
 - `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
 - `.planning/todos/pending/2026-01-18-command-subagent-noun-verb-naming.md` - Change command and subagent naming to noun-verb
 - `.planning/todos/pending/2026-01-18-npm-release-workflow-support.md` - Add optional npm release workflow to Kata
-- `.planning/todos/pending/2026-01-18-separate-new-project-from-first-milestone.md` - Separate new-project from first milestone creation
+- `.planning/todos/pending/2026-01-18-separate-project-new-from-first-milestone.md` - Separate project-new from first milestone creation
 - `.planning/todos/pending/2026-01-18-model-config-options.md` - Add model configuration options for workflows
 - `.planning/todos/pending/2026-01-19-add-type-label-to-todo-frontmatter.md` - Add type label to todo frontmatter
-- `.planning/todos/pending/2026-01-18-claudemd-kata-onboarding.md` - Add Kata section to CLAUDE.md during new-project onboarding
+- `.planning/todos/pending/2026-01-18-claudemd-kata-onboarding.md` - Add Kata section to CLAUDE.md during project-new onboarding
 - `.planning/todos/pending/2026-01-18-new-user-ux-expectations.md` - Add new user UX expectations to onboarding
 - `.planning/todos/pending/2026-01-18-integrate-pr-skill.md` - Integrate PR skill into Kata system
 - `.planning/todos/pending/2026-01-20-folder-based-phase-state-management.md` - Folder-based phase state management
@@ -87,13 +88,13 @@ None yet.
 
 ### Quick Tasks Completed
 
-| # | Description | Date | Commit | Directory |
-|---|-------------|------|--------|-----------|
-| 001 | Add PR workflow config option | 2026-01-22 | 975f1d3 | [001-add-pr-workflow-config-option](./quick/001-add-pr-workflow-config-option/) |
-| 002 | Config schema consistency & PR workflow features | 2026-01-22 | 325d86c | [002-config-schema-consistency](./quick/002-config-schema-consistency/) |
+| #   | Description                                      | Date       | Commit  | Directory                                                                       |
+| --- | ------------------------------------------------ | ---------- | ------- | ------------------------------------------------------------------------------- |
+| 001 | Add PR workflow config option                    | 2026-01-22 | 975f1d3 | [001-add-pr-workflow-config-option](./quick/001-add-pr-workflow-config-option/) |
+| 002 | Config schema consistency & PR workflow features | 2026-01-22 | 325d86c | [002-config-schema-consistency](./quick/002-config-schema-consistency/)         |
 
 ## Session Continuity
 
-Last session: 2026-01-22T21:52:50Z
-Stopped at: Completed v0.1.9-01.1-01-PLAN.md (Document PR Workflow Behavior)
-Resume file: Ready for `/kata:plan-phase 2` (Distribution)
+Last session: 2026-01-23T03:49:47Z
+Stopped at: Completed 02-01-PLAN.md (Marketplace Distribution)
+Resume file: Ready for 02-02-PLAN.md or `/kata:phase-plan 2` if more plans needed
