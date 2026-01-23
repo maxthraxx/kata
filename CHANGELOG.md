@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-01-23
+
+### Fixed
+- **Plugin release workflow**: Changed trigger from `release` event to `workflow_run` to fix GitHub limitation where workflows using GITHUB_TOKEN don't trigger downstream workflows
+- **CI test runner**: Fixed glob pattern expansion issue on CI runners
+- **NPM publish**: Removed dev scripts from dist package.json to prevent prepublishOnly failures
+
 ## [1.0.0] - 2026-01-23
 
 Kata 1.0 ships with **Claude Code plugin support** as the recommended installation method.
