@@ -1,3 +1,14 @@
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <purpose>
 Execute a phase prompt (PLAN.md) and create the outcome summary (SUMMARY.md).
 </purpose>
@@ -6,7 +17,7 @@ Execute a phase prompt (PLAN.md) and create the outcome summary (SUMMARY.md).
 Read STATE.md before any operation to load project context.
 Read config.json for planning behavior settings.
 
-@~/.claude/kata/references/git-integration.md
+@$KATA_BASE/references/git-integration.md
 </required_reading>
 
 <process>
@@ -981,7 +992,7 @@ After TDD plan completion, ensure:
 - Standard plans: Multiple tasks, 1 commit per task, 2-4 commits total
 - TDD plans: Single feature, 2-3 commits for RED/GREEN/REFACTOR cycle
 
-See `~/.claude/kata/references/tdd.md` for TDD plan structure.
+See `$KATA_BASE/references/tdd.md` for TDD plan structure.
 </tdd_plan_execution>
 
 <task_commit>
@@ -1156,7 +1167,7 @@ I'll verify after: [verification]
 - If verification passes or N/A: continue to next task
 - If verification fails: inform user, wait for resolution
 
-See ~/.claude/kata/references/checkpoints.md for complete checkpoint guidance.
+See $KATA_BASE/references/checkpoints.md for complete checkpoint guidance.
 </step>
 
 <step name="checkpoint_return_for_orchestrator">
@@ -1290,7 +1301,7 @@ grep -A 50 "^user_setup:" .planning/phases/XX-name/{phase}-{plan}-PLAN.md | head
 
 **If user_setup exists and is not empty:**
 
-Create `.planning/phases/XX-name/{phase}-USER-SETUP.md` using template from `~/.claude/kata/templates/user-setup.md`.
+Create `.planning/phases/XX-name/{phase}-USER-SETUP.md` using template from `$KATA_BASE/templates/user-setup.md`.
 
 **Content generation:**
 
@@ -1351,7 +1362,7 @@ Set `USER_SETUP_CREATED=true` if file was generated, for use in completion messa
 
 <step name="create_summary">
 Create `{phase}-{plan}-SUMMARY.md` as specified in the prompt's `<output>` section.
-Use ~/.claude/kata/templates/summary.md for structure.
+Use $KATA_BASE/templates/summary.md for structure.
 
 **File location:** `.planning/phases/XX-name/{phase}-{plan}-SUMMARY.md`
 

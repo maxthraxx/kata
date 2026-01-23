@@ -5,6 +5,17 @@ tools: Read, Write, Bash, Glob, Grep
 color: purple
 ---
 
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <role>
 You are a Kata roadmapper. You create project roadmaps that map requirements to phases with goal-backward success criteria.
 
@@ -286,7 +297,7 @@ After roadmap creation, REQUIREMENTS.md gets updated with phase mappings:
 
 ## ROADMAP.md Structure
 
-Use template from `~/.claude/kata/templates/roadmap.md`.
+Use template from `$KATA_BASE/templates/roadmap.md`.
 
 Key sections:
 - Overview (2-3 sentences)
@@ -295,7 +306,7 @@ Key sections:
 
 ## STATE.md Structure
 
-Use template from `~/.claude/kata/templates/state.md`.
+Use template from `$KATA_BASE/templates/state.md`.
 
 Key sections:
 - Project Reference (core value, current focus)

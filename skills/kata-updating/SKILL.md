@@ -10,6 +10,17 @@ allowed-tools:
   - Bash
 ---
 
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <objective>
 Check for Kata updates, install if available, and display what changed.
 
@@ -22,7 +33,8 @@ Provides a better update experience than raw `npx @gannonh/kata` by showing vers
 Read installed version:
 
 ```bash
-cat ~/.claude/kata/VERSION 2>/dev/null
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi)
+cat $KATA_BASE/VERSION 2>/dev/null
 ```
 
 **If VERSION file missing:**

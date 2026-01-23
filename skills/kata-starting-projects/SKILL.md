@@ -12,6 +12,17 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <objective>
 
 Initialize a new project through unified flow: questioning → research (optional) → requirements → roadmap.
@@ -32,10 +43,10 @@ This is the most leveraged moment in any project. Deep questioning here means be
 
 <execution_context>
 
-@~/.claude/kata/references/questioning.md
-@~/.claude/kata/references/ui-brand.md
-@~/.claude/kata/templates/project.md
-@~/.claude/kata/templates/requirements.md
+@$KATA_BASE/references/questioning.md
+@$KATA_BASE/references/ui-brand.md
+@$KATA_BASE/templates/project.md
+@$KATA_BASE/templates/requirements.md
 
 </execution_context>
 
@@ -676,7 +687,7 @@ Your STACK.md feeds into roadmap creation. Be prescriptive:
 
 <output>
 Write to: .planning/research/STACK.md
-Use template: ~/.claude/kata/templates/research-project/STACK.md
+Use template: $KATA_BASE/templates/research-project/STACK.md
 </output>
 ", subagent_type="kata-project-researcher", model="{researcher_model}", description="Stack research")
 
@@ -715,7 +726,7 @@ Your FEATURES.md feeds into requirements definition. Categorize clearly:
 
 <output>
 Write to: .planning/research/FEATURES.md
-Use template: ~/.claude/kata/templates/research-project/FEATURES.md
+Use template: $KATA_BASE/templates/research-project/FEATURES.md
 </output>
 ", subagent_type="kata-project-researcher", model="{researcher_model}", description="Features research")
 
@@ -754,7 +765,7 @@ Your ARCHITECTURE.md informs phase structure in roadmap. Include:
 
 <output>
 Write to: .planning/research/ARCHITECTURE.md
-Use template: ~/.claude/kata/templates/research-project/ARCHITECTURE.md
+Use template: $KATA_BASE/templates/research-project/ARCHITECTURE.md
 </output>
 ", subagent_type="kata-project-researcher", model="{researcher_model}", description="Architecture research")
 
@@ -793,7 +804,7 @@ Your PITFALLS.md prevents mistakes in roadmap/planning. For each pitfall:
 
 <output>
 Write to: .planning/research/PITFALLS.md
-Use template: ~/.claude/kata/templates/research-project/PITFALLS.md
+Use template: $KATA_BASE/templates/research-project/PITFALLS.md
 </output>
 ", subagent_type="kata-project-researcher", model="{researcher_model}", description="Pitfalls research")
 ```
@@ -816,7 +827,7 @@ Read these files:
 
 <output>
 Write to: .planning/research/SUMMARY.md
-Use template: ~/.claude/kata/templates/research-project/SUMMARY.md
+Use template: $KATA_BASE/templates/research-project/SUMMARY.md
 Commit after writing.
 </output>
 ", subagent_type="kata-research-synthesizer", model="{synthesizer_model}", description="Synthesize research")

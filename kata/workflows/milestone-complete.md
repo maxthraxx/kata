@@ -1,3 +1,14 @@
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <purpose>
 
 Mark a shipped version (v1.0, v1.1, v2.0) as complete. This creates a historical record in MILESTONES.md, performs full PROJECT.md evolution review, reorganizes ROADMAP.md with milestone groupings, and tags the release in git.
@@ -423,7 +434,7 @@ Extract completed milestone details and create archive file.
 
 1. Create archive file path: `.planning/milestones/v[X.Y]-ROADMAP.md`
 
-2. Read `~/.claude/kata/templates/milestone-archive.md` template
+2. Read `$KATA_BASE/templates/milestone-archive.md` template
 
 3. Extract data from current ROADMAP.md:
    - All phases belonging to this milestone (by phase number range)

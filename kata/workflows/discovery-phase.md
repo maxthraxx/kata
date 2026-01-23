@@ -1,3 +1,14 @@
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <purpose>
 Execute discovery at the appropriate depth level.
 Produces DISCOVERY.md (for Level 2-3) that informs PLAN.md creation.
@@ -28,7 +39,7 @@ Claude's training data is 6-18 months stale. Always verify.
 2. **Official docs** - When Context7 lacks coverage
 3. **WebSearch LAST** - For comparisons and trends only
 
-See ~/.claude/kata/templates/discovery.md `<discovery_protocol>` for full protocol.
+See $KATA_BASE/templates/discovery.md `<discovery_protocol>` for full protocol.
 </source_hierarchy>
 
 <process>
@@ -107,7 +118,7 @@ For: Choosing between options, new external integration.
 
 5. **Cross-verify:** Any WebSearch finding → confirm with Context7/official docs.
 
-6. **Create DISCOVERY.md** using ~/.claude/kata/templates/discovery.md structure:
+6. **Create DISCOVERY.md** using $KATA_BASE/templates/discovery.md structure:
 
    - Summary with recommendation
    - Key findings per option
@@ -126,7 +137,7 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 **Process:**
 
-1. **Scope the discovery** using ~/.claude/kata/templates/discovery.md:
+1. **Scope the discovery** using $KATA_BASE/templates/discovery.md:
 
    - Define clear scope
    - Define include/exclude boundaries
@@ -160,7 +171,7 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 6. **Create comprehensive DISCOVERY.md:**
 
-   - Full structure from ~/.claude/kata/templates/discovery.md
+   - Full structure from $KATA_BASE/templates/discovery.md
    - Quality report with source attribution
    - Confidence by finding
    - If LOW confidence on any critical finding → add validation checkpoints
@@ -184,7 +195,7 @@ Ask: What do we need to learn before we can plan this phase?
   </step>
 
 <step name="create_discovery_scope">
-Use ~/.claude/kata/templates/discovery.md.
+Use $KATA_BASE/templates/discovery.md.
 
 Include:
 

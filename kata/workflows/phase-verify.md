@@ -1,3 +1,14 @@
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <purpose>
 Verify phase goal achievement through goal-backward analysis. Check that the codebase actually delivers what the phase promised, not just that tasks were completed.
 
@@ -18,8 +29,8 @@ Then verify each level against the actual codebase.
 </core_principle>
 
 <required_reading>
-@~/.claude/kata/references/verification-patterns.md
-@~/.claude/kata/templates/verification-report.md
+@$KATA_BASE/references/verification-patterns.md
+@$KATA_BASE/templates/verification-report.md
 </required_reading>
 
 <process>
@@ -564,7 +575,7 @@ Fill template sections:
 9. **Recommended Fix Plans:** If gaps_found
 10. **Verification Metadata:** Approach, timing, counts
 
-See ~/.claude/kata/templates/verification-report.md for complete template.
+See $KATA_BASE/templates/verification-report.md for complete template.
 </step>
 
 <step name="return_to_orchestrator">

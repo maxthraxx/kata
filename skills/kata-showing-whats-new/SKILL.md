@@ -10,6 +10,17 @@ allowed-tools:
   - Bash
 ---
 
+<kata_path>
+**IMPORTANT:** Before reading any Kata file (templates, references, workflows), resolve the base path:
+
+```bash
+KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi) && echo $KATA_BASE
+```
+
+Use the output as `$KATA_BASE` for all file paths below. For example:
+- `$KATA_BASE/templates/summary.md` instead of `~/.claude/kata/templates/summary.md`
+</kata_path>
+
 <objective>
 Display changes between installed version and latest available version.
 
@@ -57,7 +68,7 @@ Use WebFetch tool with:
 **If fetch fails:**
 Fall back to local changelog:
 ```bash
-cat ~/.claude/kata/CHANGELOG.md 2>/dev/null
+cat $KATA_BASE/CHANGELOG.md 2>/dev/null
 ```
 
 Note to user: "Couldn't check for updates (offline or GitHub unavailable). Showing local changelog."
