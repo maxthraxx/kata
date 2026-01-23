@@ -26,10 +26,33 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Publishing plugin version: $VERSION"
 
+      - name: Run tests
+        run: npm test
+
       - name: Build plugin distribution
         run: |
           npm run build:hooks
           node scripts/build.js plugin
+
+      - name: Validate plugin build
+        run: |
+          # Verify critical files exist
+          test -f dist/plugin/.claude-plugin/plugin.json
+          test -d dist/plugin/commands
+          test -d dist/plugin/skills
+          test -d dist/plugin/hooks
+          test -f dist/plugin/kata/VERSION
+          echo "✓ Plugin build validated"
+
+      - name: Validate plugin.json version matches tag
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PLUGIN_VERSION=$(node -p "require('./dist/plugin/.claude-plugin/plugin.json').version")
+          if [ "$TAG_VERSION" != "$PLUGIN_VERSION" ]; then
+            echo "Error: Tag version ($TAG_VERSION) doesn't match plugin.json ($PLUGIN_VERSION)"
+            exit 1
+          fi
+          echo "✓ Version match: $TAG_VERSION"
 
       - name: Checkout marketplace
         uses: actions/checkout@v4
