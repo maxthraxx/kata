@@ -4,9 +4,8 @@
   "type": "module",
   "description": "Spec-driven development framework for Claude Code.",
   "scripts": {
-    "test": "node --test --test-reporter spec tests/**/*.test.js",
-    "test:skills": "node --test --test-reporter spec tests/skills/*.test.js",
-    "test:skill": "node --test --test-reporter spec",
+    "test": "node --test --test-reporter spec ./tests/build.test.js",
+    "test:build": "node --test --test-reporter spec tests/build.test.js",
     "build": "node scripts/build.js all",
     "build:plugin": "node scripts/build.js plugin",
     "build:npm": "node scripts/build.js npm",
