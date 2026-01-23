@@ -48,7 +48,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### v0.1.10 GitHub Integration (Planned)
 
 - [ ] **Phase 1: Audit & Config Foundation** - Understand integration points, establish config schema
-- [ ] **Phase 2: Onboarding & Milestones** - Config during new-project, GitHub Milestone creation
+- [ ] **Phase 2: Onboarding & Milestones** - Config during project-new, GitHub Milestone creation
 - [ ] **Phase 3: Phase Issues** - Create GitHub Issues for phases with labels and metadata
 - [ ] **Phase 4: Plan Sync** - Checklist items in issues, update as plans complete
 - [ ] **Phase 5: PR Integration** - Create PRs at phase completion with auto-linking
@@ -100,10 +100,11 @@ Plans:
   4. All `/kata:*` commands accessible after marketplace installation
   5. All Kata skills respond to natural language after marketplace installation
   6. Plugin version shows v0.1.9 via semantic versioning
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD (run /kata:plan-phase to break down)
+- [ ] 02-01-PLAN.md — Create marketplace infrastructure (version bump, gannonh-plugins repo, marketplace.json)
+- [ ] 02-02-PLAN.md — Verify marketplace installation end-to-end
 
 #### Phase 3: Documentation
 **Goal**: Users can install and use Kata plugin via documented instructions
@@ -116,7 +117,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: TBD (run /kata:plan-phase to break down)
+- [ ] 03-01: TBD (run /kata:phase-plan to break down)
 
 ### v0.1.10 GitHub Integration
 
@@ -125,7 +126,7 @@ Plans:
 **Depends on**: v0.1.9 complete (Plugin Distribution)
 **Requirements**: WFA-01, CFG-01, CFG-02
 **Success Criteria** (what must be TRUE):
-  1. Integration points documented for new-milestone, execute-phase, execute-plan commands
+  1. Integration points documented for milestone-new, phase-execute, execute-plan commands
   2. `.planning/config.json` includes `github.enabled` boolean toggle
   3. `.planning/config.json` includes `github.issueMode` with values `auto | ask | never`
   4. Kata commands read config and branch on `github.enabled`
@@ -140,9 +141,9 @@ Plans:
 **Depends on**: Phase 1 (config schema exists)
 **Requirements**: CFG-03, GHM-01, GHM-02
 **Success Criteria** (what must be TRUE):
-  1. `/kata:new-project` prompts for GitHub integration preferences
+  1. `/kata:project-new` prompts for GitHub integration preferences
   2. Config choices saved to `.planning/config.json` during onboarding
-  3. `/kata:new-milestone` creates GitHub Milestone when `github.enabled = true`
+  3. `/kata:milestone-new` creates GitHub Milestone when `github.enabled = true`
   4. GitHub Milestone includes version number and description from ROADMAP.md
 **Plans**: TBD
 
@@ -170,8 +171,8 @@ Plans:
 **Depends on**: Phase 3 (phase issues exist)
 **Requirements**: GHI-04, GHI-05, WFA-02
 **Success Criteria** (what must be TRUE):
-  1. Phase issue body includes checklist of plans (after `/kata:plan-phase`)
-  2. Checklist items checked as each plan completes during `/kata:execute-phase`
+  1. Phase issue body includes checklist of plans (after `/kata:phase-plan`)
+  2. Checklist items checked as each plan completes during `/kata:phase-execute`
   3. Execute-plan workflow conditionally updates GitHub issue
   4. Plan status visible in GitHub without opening Kata
 **Plans**: TBD
@@ -186,12 +187,12 @@ Plans:
 **Requirements**: GHP-01, GHP-02, GHP-03, GHP-04, WFA-03
 **Implementation Spec**: `kata/references/planning-config.md#pr_workflow_behavior`
 **Success Criteria** (what must be TRUE):
-  1. `/kata:execute-phase` creates branch at phase start (when `pr_workflow: true`)
-  2. `/kata:execute-phase` opens draft PR at first commit
-  3. `/kata:execute-phase` marks PR ready when phase complete
+  1. `/kata:phase-execute` creates branch at phase start (when `pr_workflow: true`)
+  2. `/kata:phase-execute` opens draft PR at first commit
+  3. `/kata:phase-execute` marks PR ready when phase complete
   4. PR title follows convention: `v{milestone} Phase {N}: {Phase Name}`
   5. PR body includes phase goal, completed plans checklist, and "Closes #X" linking to phase issue
-  6. `/kata:progress` shows PR status (draft/ready/merged) when `pr_workflow: true`
+  6. `/kata:project-status` shows PR status (draft/ready/merged) when `pr_workflow: true`
 **Plans**: TBD
 
 Plans:
@@ -206,14 +207,14 @@ Plans:
 | 0-2. Skills & Documentation       | v0.1.5    | 30/30          | Complete    | 2026-01-22 |
 | 1. Plugin Structure & Validation  | v0.1.9    | 1/1            | Complete    | 2026-01-22 |
 | 1.1 Document PR Workflow (INSERT) | v0.1.9    | 1/1            | Complete    | 2026-01-22 |
-| 2. Marketplace Distribution       | v0.1.9    | 0/?            | Not started | -          |
+| 2. Marketplace Distribution       | v0.1.9    | 0/2            | Planned     | -          |
 | 3. Documentation                  | v0.1.9    | 0/?            | Not started | -          |
-| 1. Audit & Config Foundation      | v0.1.10    | 0/?            | Not planned | -          |
-| 2. Onboarding & Milestones        | v0.1.10    | 0/?            | Not started | -          |
-| 3. Phase Issues                   | v0.1.10    | 0/?            | Not started | -          |
-| 4. Plan Sync                      | v0.1.10    | 0/?            | Not started | -          |
-| 5. PR Integration                 | v0.1.10    | 0/?            | Not started | -          |
+| 1. Audit & Config Foundation      | v0.1.10   | 0/?            | Not planned | -          |
+| 2. Onboarding & Milestones        | v0.1.10   | 0/?            | Not started | -          |
+| 3. Phase Issues                   | v0.1.10   | 0/?            | Not started | -          |
+| 4. Plan Sync                      | v0.1.10   | 0/?            | Not started | -          |
+| 5. PR Integration                 | v0.1.10   | 0/?            | Not started | -          |
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-22 — Phase 1.1 complete (1 plan)*
+*Last updated: 2026-01-22 — Phase 2 planned (2 plans)*
