@@ -20,17 +20,18 @@
 ![Kata Install](assets/terminal.svg)
 
 <br>
-
-**Agent orchestration framework for spec-driven development.**
+## Agent orchestration framework for spec-driven development.
 
 </div>
-
+<div align="center">
 **Install as Claude Code plugin:**
+</div>
 ```bash
 /plugin install kata@kata-marketplace
 ```
-
+<div align="center">
 **Or via npx:**
+</div>
 ```bash
 npx @gannonh/kata
 ```
