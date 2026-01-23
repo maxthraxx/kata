@@ -41,7 +41,7 @@ jobs:
           test -d dist/plugin/commands
           test -d dist/plugin/skills
           test -d dist/plugin/hooks
-          test -f dist/plugin/kata/VERSION
+          test -f dist/plugin/VERSION
           echo "✓ Plugin build validated"
 
       - name: Validate plugin.json version matches tag
