@@ -41,7 +41,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### v0.1.9 Claude Code Plugin (In Progress)
 
 - [x] **Phase 1: Plugin Structure & Validation** - Create plugin manifest and directory structure, validate locally
-- [ ] **Phase 1.1: Document PR Workflow Behavior** (INSERTED) - Document pr_workflow config behavior in planning-config.md
+- [x] **Phase 1.1: Document PR Workflow Behavior** (INSERTED) - Document pr_workflow config behavior in planning-config.md
 - [ ] **Phase 2: Marketplace Distribution** - Publish to marketplace repository, verify installation
 - [ ] **Phase 3: Documentation** - Installation instructions and usage guide
 
@@ -84,10 +84,10 @@ Plans:
   3. PR-per-phase workflow documented (one PR per phase, merged to main)
   4. Release = milestone relationship documented (releases only at milestone completion)
   5. Workflow timing documented (when to create branch, open PR, merge)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 01.1-01: TBD (run /kata:plan-phase 1.1 to break down)
+- [x] 01.1-01-PLAN.md — Document complete pr_workflow behavior in planning-config.md ✓
 
 #### Phase 2: Marketplace Distribution
 **Goal**: Kata installable from marketplace repository via standard plugin install command
@@ -184,12 +184,14 @@ Plans:
 **Goal**: Phase completion creates well-formed PRs that link to issues and follow conventions
 **Depends on**: Phase 4 (issues exist to link to)
 **Requirements**: GHP-01, GHP-02, GHP-03, GHP-04, WFA-03
+**Implementation Spec**: `kata/references/planning-config.md#pr_workflow_behavior`
 **Success Criteria** (what must be TRUE):
-  1. `/kata:execute-phase` creates PR when all plans complete (if `github.enabled`)
-  2. PR body includes "Closes #X" linking to phase issue
-  3. PR title follows convention: `Phase N: [Phase Name]`
-  4. PR body includes summary from phase SUMMARY.md
-  5. GitHub-specific templates exist for @file loading in workflows
+  1. `/kata:execute-phase` creates branch at phase start (when `pr_workflow: true`)
+  2. `/kata:execute-phase` opens draft PR at first commit
+  3. `/kata:execute-phase` marks PR ready when phase complete
+  4. PR title follows convention: `v{milestone} Phase {N}: {Phase Name}`
+  5. PR body includes phase goal, completed plans checklist, and "Closes #X" linking to phase issue
+  6. `/kata:progress` shows PR status (draft/ready/merged) when `pr_workflow: true`
 **Plans**: TBD
 
 Plans:
@@ -203,7 +205,7 @@ Plans:
 | 0. Hard Fork & Rebrand            | v0.1.4    | 5/5            | Complete    | 2026-01-18 |
 | 0-2. Skills & Documentation       | v0.1.5    | 30/30          | Complete    | 2026-01-22 |
 | 1. Plugin Structure & Validation  | v0.1.9    | 1/1            | Complete    | 2026-01-22 |
-| 1.1 Document PR Workflow (INSERT) | v0.1.9    | 0/?            | Not planned | -          |
+| 1.1 Document PR Workflow (INSERT) | v0.1.9    | 1/1            | Complete    | 2026-01-22 |
 | 2. Marketplace Distribution       | v0.1.9    | 0/?            | Not started | -          |
 | 3. Documentation                  | v0.1.9    | 0/?            | Not started | -          |
 | 1. Audit & Config Foundation      | v0.1.10    | 0/?            | Not planned | -          |
@@ -214,4 +216,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-22 — Phase 1 planned (1 plan)*
+*Last updated: 2026-01-22 — Phase 1.1 complete (1 plan)*
