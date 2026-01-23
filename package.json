@@ -7,6 +7,9 @@
     "test": "node --test --test-reporter spec tests/**/*.test.js",
     "test:skills": "node --test --test-reporter spec tests/skills/*.test.js",
     "test:skill": "node --test --test-reporter spec",
+    "build": "node scripts/build.js all",
+    "build:plugin": "node scripts/build.js plugin",
+    "build:npm": "node scripts/build.js npm",
     "build:hooks": "node scripts/build-hooks.cjs",
     "prepublishOnly": "npm run build:hooks"
   },

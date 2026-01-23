@@ -13,3 +13,6 @@ skills.bak/
 tmp/
 .DS_Store
 .claude/plans/
+
+# build output
+dist/
