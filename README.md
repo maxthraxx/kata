@@ -20,7 +20,7 @@ Agent orchestration framework for spec-driven development.
 
 <br>
 
-![Kata Install](assets/terminal.svg)
+[![Kata Install](assets/terminal.svg)](https://kata.sh/)
 
 <br>
 
