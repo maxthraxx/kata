@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-01-24
+
+### Fixed
+- **Plugin marketplace deployment**: Fixed workflow to include hidden directories (`.claude-plugin/`) when copying to marketplace — bash glob `*` doesn't match hidden dirs
+
 ## [1.0.4] - 2026-01-24
 
 ### Fixed
