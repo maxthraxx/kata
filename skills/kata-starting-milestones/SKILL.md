@@ -28,10 +28,10 @@ This is the brownfield equivalent of project-new. The project exists, PROJECT.md
 </objective>
 
 <execution_context>
-@~/.claude/kata/references/questioning.md
-@~/.claude/kata/references/ui-brand.md
-@~/.claude/kata/templates/project.md
-@~/.claude/kata/templates/requirements.md
+@./references/questioning.md
+@./references/ui-brand.md
+@./references/project-template.md
+@./references/requirements-template.md
 </execution_context>
 
 <context>
