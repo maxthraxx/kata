@@ -85,12 +85,12 @@ jobs:
       - name: Update marketplace with plugin files
         if: steps.check_release.outputs.should_publish == 'true'
         run: |
-          # Clean existing plugin directory in marketplace
-          rm -rf marketplace/plugins/kata/*
+          # Clean existing plugin directory in marketplace (including hidden dirs)
+          rm -rf marketplace/plugins/kata
 
-          # Copy built plugin to marketplace
-          mkdir -p marketplace/plugins/kata
-          cp -r dist/plugin/* marketplace/plugins/kata/
+          # Copy built plugin to marketplace (including hidden dirs like .claude-plugin)
+          mkdir -p marketplace/plugins
+          cp -r dist/plugin marketplace/plugins/kata
 
           # Update version in marketplace.json (in .claude-plugin directory)
           MARKETPLACE_JSON="marketplace/.claude-plugin/marketplace.json"
