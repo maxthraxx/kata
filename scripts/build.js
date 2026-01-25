@@ -238,22 +238,11 @@ function transformSkillName(content) {
 }
 
 /**
- * Transform command names for plugin distribution
- * Commands use kata:name format, plugin namespace provides kata: prefix
- * Transform: name: kata:executing-phases -> name: executing-phases
- */
-function transformCommandName(content) {
-  return content.replace(/^(name:\s*)kata:/m, '$1');
-}
-
-/**
  * Combined transform for plugin .md files
- * Applies agent reference, skill name, and command name transforms
  */
 function transformPluginContent(content) {
-  let result = transformPluginPaths(content);  // Existing: subagent_type transform
+  let result = transformPluginPaths(content);  // subagent_type transform
   result = transformSkillName(result);          // Skill name transform
-  result = transformCommandName(result);        // Command name transform
   return result;
 }
 
