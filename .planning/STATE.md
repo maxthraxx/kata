@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v1.1.0 GitHub Integration — Phase 0: Develop Robust Testing Suite
+**Current focus:** v1.1.0 GitHub Integration — Phase 1: Audit & Config Foundation
 
 ## Current Position
 
@@ -32,7 +32,8 @@ Progress: [################################] 100% (7/7 plans in phase 0)
 | v0.1.5    | 6      | 30    | Shipped 2026-01-22 |
 | v1.0.0    | 4      | 5     | Shipped 2026-01-23 |
 | v1.0.8    | 1      | 5     | Shipped 2026-01-24 |
-| v1.0.9    | 1      | 3     | Phase complete |
+| v1.0.9    | 1      | 3     | Shipped 2026-01-25 |
+| v1.1.0    | 1      | 7     | Phase 0 complete |
 
 **Recent Trend:**
 - v1.0.1-v1.0.5: Rapid patch releases (5 patches in 2 days) addressing plugin distribution issues
@@ -66,6 +67,7 @@ Recent decisions affecting current work:
 - **v1.0.9 started 2026-01-25** — Command Consolidation (1 phase, 3 plans)
 - **v1.1.0 milestone planned** — GitHub Integration (6 phases planned)
 - **Phase 0 added 2026-01-25** — Develop Robust Testing Suite (inserted before Phase 1)
+- **Phase 0 complete 2026-01-25** — 7 plans, 27 skill tests, CI workflow
 
 ### Pending Todos
 
