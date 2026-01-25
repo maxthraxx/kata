@@ -208,6 +208,30 @@ function transformPluginPaths(content) {
 }
 
 /**
+ * Transform skill name in SKILL.md frontmatter for plugin distribution
+ *
+ * Plugin skills are namespaced by Claude Code as pluginname:skillname,
+ * so kata-adding-phases becomes kata:adding-phases in plugin context.
+ * We strip the kata- prefix from the name field to avoid double-prefixing.
+ */
+function transformSkillName(content) {
+  return content.replace(/^(name:\s*)kata-/m, '$1');
+}
+
+/**
+ * Rename skill directory for plugin distribution
+ *
+ * Strips kata- prefix from skill directories so they're accessible
+ * as kata:skill-name instead of kata:kata-skill-name
+ */
+function renameSkillDir(name) {
+  if (name.startsWith('kata-')) {
+    return name.slice(5);  // Remove 'kata-' (5 chars)
+  }
+  return name;
+}
+
+/**
  * Write VERSION file
  */
 function writeVersion(dest) {
@@ -271,6 +295,85 @@ function validateBuild(dest, target) {
 }
 
 /**
+ * Copy skills directory with special handling for plugin distribution:
+ * - Rename skill directories (strip kata- prefix)
+ * - Transform SKILL.md name field (strip kata- prefix)
+ * - Apply standard plugin path transforms
+ */
+function copySkillsForPlugin(dest) {
+  const srcDir = path.join(ROOT, 'skills');
+  const destDir = path.join(dest, 'skills');
+
+  if (!fs.existsSync(srcDir)) {
+    console.log(`  ${amber}!${reset} Skipping skills (not found)`);
+    return false;
+  }
+
+  fs.mkdirSync(destDir, { recursive: true });
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    if (shouldExclude(entry.name)) continue;
+
+    // Check plugin-specific exclusions
+    const relativePath = `skills/${entry.name}`;
+    if (shouldExcludeFromPlugin(relativePath)) {
+      console.log(`  ${dim}-${reset} Excluded ${relativePath} (plugin-specific)`);
+      continue;
+    }
+
+    // Rename directory: kata-adding-phases -> adding-phases
+    const newDirName = renameSkillDir(entry.name);
+    const srcPath = path.join(srcDir, entry.name);
+    const destPath = path.join(destDir, newDirName);
+
+    // Copy skill directory contents
+    fs.mkdirSync(destPath, { recursive: true });
+    copySkillContents(srcPath, destPath);
+
+    if (entry.name !== newDirName) {
+      console.log(`  ${green}✓${reset} Copied skills/${entry.name} → skills/${newDirName}`);
+    } else {
+      console.log(`  ${green}✓${reset} Copied skills/${entry.name}`);
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Copy skill directory contents with transforms
+ */
+function copySkillContents(srcDir, destDir) {
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (shouldExclude(entry.name)) continue;
+
+    const srcPath = path.join(srcDir, entry.name);
+    const destPath = path.join(destDir, entry.name);
+
+    if (entry.isDirectory()) {
+      fs.mkdirSync(destPath, { recursive: true });
+      copySkillContents(srcPath, destPath);
+    } else if (entry.name === 'SKILL.md') {
+      // Apply both skill name transform and plugin path transform
+      let content = fs.readFileSync(srcPath, 'utf8');
+      content = transformSkillName(content);
+      content = transformPluginPaths(content);
+      fs.writeFileSync(destPath, content);
+    } else if (entry.name.endsWith('.md')) {
+      // Apply plugin path transform only
+      const content = fs.readFileSync(srcPath, 'utf8');
+      fs.writeFileSync(destPath, transformPluginPaths(content));
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+/**
  * Build plugin distribution
  */
 function buildPlugin() {
@@ -279,8 +382,13 @@ function buildPlugin() {
   const dest = path.join(ROOT, 'dist', 'plugin');
   cleanDir(dest);
 
-  // Copy common files with path transformation AND plugin exclusions
+  // Copy skills with special handling (rename dirs, transform names)
+  copySkillsForPlugin(dest);
+
+  // Copy other common files with path transformation AND plugin exclusions
   for (const item of COMMON_INCLUDES) {
+    // Skip skills - handled above
+    if (item === 'skills') continue;
     if (copyPath(item, dest, transformPluginPaths, shouldExcludeFromPlugin)) {
       console.log(`  ${green}✓${reset} Copied ${item}`);
     }
