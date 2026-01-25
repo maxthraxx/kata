@@ -40,7 +40,6 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'))
  * Files/directories to include in both distributions
  */
 const COMMON_INCLUDES = [
-  'commands/kata',
   'skills',
   'agents',
   'hooks',
@@ -69,7 +68,6 @@ const EXCLUDES = [
  * (these are NPM-specific and don't work in plugin context)
  */
 const PLUGIN_EXCLUDES = [
-  'commands/kata/update.md',
   'skills/kata-updating',
 ];
 
