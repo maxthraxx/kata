@@ -39,11 +39,11 @@ git status
 
 Ask the user what type of release this is:
 
-| Type | When to Use | Example |
-|------|-------------|---------|
-| `patch` | Bug fixes, small improvements | 1.0.5 → 1.0.6 |
+| Type    | When to Use                       | Example       |
+| ------- | --------------------------------- | ------------- |
+| `patch` | Bug fixes, small improvements     | 1.0.5 → 1.0.6 |
 | `minor` | New features, backward compatible | 1.0.5 → 1.1.0 |
-| `major` | Breaking changes | 1.0.5 → 2.0.0 |
+| `major` | Breaking changes                  | 1.0.5 → 2.0.0 |
 
 ## Step 3: Bump Versions
 
@@ -61,8 +61,9 @@ cat package.json | jq -r '.version'
 # After updating both files, verify they match
 diff <(jq -r '.version' package.json) <(jq -r '.version' .claude-plugin/plugin.json)
 ```
+## Step 4: Update Docs
 
-## Step 4: Update CHANGELOG
+### 1: Update CHANGELOG
 
 Add entry to `CHANGELOG.md` following Keep a Changelog format:
 
@@ -84,6 +85,15 @@ Add entry to `CHANGELOG.md` following Keep a Changelog format:
 - Group changes by type (Added, Fixed, Changed, Removed)
 - Write user-facing descriptions (what changed, not how)
 - Reference issue numbers if applicable
+
+### 2: Update README (if needed)
+
+If there are significant changes affecting usage, update `README.md` accordingly.
+
+### 3: Update Website (if needed)
+
+If there are significant changes affecting documentation, update the website docs accordingly.
+`~/Users/gannonhall~/dev/oss/kata-site/src`
 
 ## Step 5: Run Tests Again
 
