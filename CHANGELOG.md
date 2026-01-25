@@ -2,60 +2,19 @@
 
 ## [Unreleased]
 
-## [1.1.7] - 2026-01-25
+## [1.1.8] - 2026-01-25
 
 ### Fixed
-- **Plugin Skill() invocations (v2)**: Transform `Skill("kata-*")` to `Skill("*")` (not `kata:*`). Commands were calling themselves recursively because `kata:inserting-phases` is the command name, not the skill name. Skills are named `inserting-phases` (without prefix).
+- **Reverted skills-only architecture**: Rolled back to v1.0.8 codebase. The v1.1.x skills-only changes broke natural language invocation entirely — skills with `user-invocable: false` were hidden from the Skill tool, and commands with `disable-model-invocation: true` were blocked.
 
-## [1.1.6] - 2026-01-25
+### Architecture
+- Commands + Skills architecture restored (commands for autocomplete, skills for implementation)
+- Skills: `user-invocable: false`, `disable-model-invocation: false`
+- Commands delegate to skills via Task tool
 
-### Fixed
-- **Plugin Skill() invocations**: Transform `Skill("kata-*")` to `Skill("kata:*")` in plugin commands. Plugin skills are namespaced, so commands need to use `kata:inserting-phases` not `kata-inserting-phases`.
+## [1.1.0 - 1.1.7] - 2026-01-25 (REVERTED)
 
-## [1.1.5] - 2026-01-25
-
-### Fixed
-- **Plugin command namespace**: Keep `kata:` prefix in command names for plugin build. Plugin system doesn't auto-prefix, so `/kata:executing-phases` now works instead of just `/executing-phases`.
-
-## [1.1.4] - 2026-01-25
-
-### Fixed
-- **Duplicate autocomplete entries**: Set all skills to `user-invocable: false`. Commands provide autocomplete, skills provide implementation. Previously skills had `user-invocable: true` which could cause duplicate entries.
-
-## [1.1.3] - 2026-01-25
-
-### Fixed
-- **Autocomplete not working**: Restored `commands/` layer as thin wrappers for skills. Skills provide the implementation, commands provide `/` menu autocomplete. This fixes autocomplete that broke in 1.1.0 when commands were removed.
-- **Command→skill mapping mismatch**: Fixed `executing-quick-tasks` command referencing wrong skill (`kata-executing-task-executes` → `kata-executing-quick-tasks`)
-- **Stale command references**: Removed references to non-existent `/kata:discussing-milestones` skill, fixed `/kata:update` → `/kata:updating`, fixed `/kata:analyze-codebase` → `/kata:mapping-codebases`
-
-### Changed
-- **Command naming convention**: All 27 commands renamed from old syntax to new gerund form (e.g., `phase-execute.md` → `executing-phases.md`, `project-new.md` → `starting-projects.md`)
-- **Build system**: Added commands to both NPM and plugin builds. Plugin build lifts `commands/kata/*` to `commands/*` and strips `kata:` prefix from command names.
-- **Tests and CI/CD**: Updated to validate commands directory exists in distributions
-
-## [1.1.2] - 2026-01-25
-
-### Fixed
-- **Stale command references**: Updated 286 references from old command syntax (`/kata:phase-execute`, `/kata:project-new`, etc.) to new skill syntax (`/kata:executing-phases`, `/kata:starting-projects`, etc.) across skills, agents, and documentation
-- **zsh glob compatibility**: Fixed bash commands with glob patterns (like `ls *.md 2>/dev/null`) that fail in zsh when no matches exist. Added `|| true` and subshell wrappers for zsh compatibility
-
-## [1.1.0] - 2026-01-25
-
-**Skills-only architecture.** Commands layer removed — skills are now the primary interface.
-
-### Changed
-- **Skills-only distribution**: All 27 commands removed. Skills are now the sole interface for all Kata functionality
-- **Skill naming convention**: Changed from verb-noun (`/kata:planning-phases`) to gerund form (`/kata:planning-phases`) for natural language matching
-- **All skills user-invocable**: Skills appear directly in `/` menu for explicit invocation and respond to natural language
-- **Build.js prefix transformation**: Plugin build strips `kata-` prefix from skill directories for clean `/kata:skill-name` invocation
-
-### Removed
-- **Commands directory**: 27 command wrapper files deleted — skills handle everything now
-- **`commands/` from package.json files array**: No longer needed in NPM distribution
-
-### Fixed
-- **Test suite updated**: Tests now verify skills-only architecture (no commands directory expected)
+**These releases attempted a skills-only architecture that broke natural language invocation. Reverted in 1.1.8.**
 
 ## [1.0.8] - 2026-01-24
 
