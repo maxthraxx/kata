@@ -195,16 +195,27 @@ function copyPath(src, dest, transform = null, excludeFilter = null) {
 }
 
 /**
- * Transform agent references for plugin distribution
+ * Transform references for plugin distribution
  *
  * Plugin agents are namespaced by Claude Code as pluginname:agentname,
  * so kata-executor becomes kata:kata-executor in plugin context.
+ *
+ * Plugin skills are namespaced as pluginname:skillname. Since skill
+ * directories are renamed (kata-xxx → xxx), Skill() invocations need
+ * to be transformed from Skill("kata-xxx") to Skill("kata:xxx").
  *
  * Note: @~/.claude/kata/ path transformation removed in v1.0.6 Phase 2.1.
  * Skills now use relative paths to bundled resources.
  */
 function transformPluginPaths(content) {
-  return content.replace(/subagent_type="kata-/g, 'subagent_type="kata:kata-');
+  // Transform agent references: subagent_type="kata-xxx" → subagent_type="kata:kata-xxx"
+  content = content.replace(/subagent_type="kata-/g, 'subagent_type="kata:kata-');
+
+  // Transform Skill invocations: Skill("kata-xxx") → Skill("kata:xxx")
+  // Skill dirs renamed kata-xxx → xxx, so plugin skill name is kata:xxx
+  content = content.replace(/Skill\("kata-/g, 'Skill("kata:');
+
+  return content;
 }
 
 /**
