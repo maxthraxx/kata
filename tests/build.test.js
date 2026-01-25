@@ -85,9 +85,8 @@ describe('Plugin build', () => {
     assert.ok(fs.existsSync(path.join(ROOT, 'dist/plugin/.claude-plugin/plugin.json')));
   });
 
-  test('does NOT include commands directory (skills handle everything)', () => {
-    // Commands excluded from plugin - skills are user-invocable and handle everything
-    assert.ok(!fs.existsSync(path.join(ROOT, 'dist/plugin/commands')));
+  test('includes commands directory', () => {
+    assert.ok(fs.existsSync(path.join(ROOT, 'dist/plugin/commands')));
   });
 
   test('includes skills directory', () => {
@@ -219,7 +218,7 @@ describe('Version consistency', () => {
 describe('No stale references', () => {
   test('no kata-cc references in source', () => {
     const result = execSync(
-      'grep -r "kata-cc" skills/ kata/ agents/ 2>/dev/null || true',
+      'grep -r "kata-cc" commands/ skills/ kata/ agents/ 2>/dev/null || true',
       { cwd: ROOT, encoding: 'utf8' }
     );
     assert.strictEqual(result.trim(), '', 'Should not have stale kata-cc references');
@@ -227,7 +226,7 @@ describe('No stale references', () => {
 
   test('no GSD references in source', () => {
     const result = execSync(
-      'grep -ri "get-shit-done\\|glittercowboy/gsd" skills/ kata/ agents/ 2>/dev/null || true',
+      'grep -ri "get-shit-done\\|glittercowboy/gsd" commands/ skills/ kata/ agents/ 2>/dev/null || true',
       { cwd: ROOT, encoding: 'utf8' }
     );
     // Allow references in README or historical docs, but not in functional code
@@ -236,18 +235,20 @@ describe('No stale references', () => {
   });
 });
 
-describe('Skill structure (Phase 2.2)', () => {
-  test('all skills have kata- prefix in directory name', () => {
-    const skillsDir = path.join(ROOT, 'skills');
-    if (fs.existsSync(skillsDir)) {
-      const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true })
-        .filter(e => e.isDirectory())
-        .map(e => e.name);
-      for (const dir of skillDirs) {
-        assert.ok(
-          dir.startsWith('kata-'),
-          `Skill directory ${dir} should have kata- prefix`
-        );
+describe('Command structure', () => {
+  test('all commands have kata: prefix', () => {
+    const commandsDir = path.join(ROOT, 'commands/kata');
+    if (fs.existsSync(commandsDir)) {
+      const commands = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+      for (const cmd of commands) {
+        const content = fs.readFileSync(path.join(commandsDir, cmd), 'utf8');
+        const nameMatch = content.match(/^name:\s*(.+)$/m);
+        if (nameMatch) {
+          assert.ok(
+            nameMatch[1].startsWith('kata:'),
+            `Command ${cmd} should have kata: prefix, got: ${nameMatch[1]}`
+          );
+        }
       }
     }
   });
@@ -509,7 +510,7 @@ describe('Workflow @-reference validation', () => {
   });
 });
 
-describe('Skill and command validation', () => {
+describe('Command validation', () => {
   /**
    * Parse YAML frontmatter from markdown content
    */
@@ -529,39 +530,51 @@ describe('Skill and command validation', () => {
     return frontmatter;
   }
 
-  test('all skills are user-invocable (plugin has no commands)', () => {
-    // Skills are user-invocable for plugin distribution (no commands to conflict)
-    const skillsDir = path.join(ROOT, 'skills');
-    if (!fs.existsSync(skillsDir)) return;
+  test('commands with $ARGUMENTS have argument-hint', () => {
+    const commandsDir = path.join(ROOT, 'commands/kata');
+    if (!fs.existsSync(commandsDir)) return;
 
+    const commandFiles = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
     const errors = [];
-    const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true })
-      .filter(e => e.isDirectory())
-      .map(e => e.name);
 
-    for (const dir of skillDirs) {
-      const skillFile = path.join(skillsDir, dir, 'SKILL.md');
-      if (!fs.existsSync(skillFile)) continue;
+    for (const file of commandFiles) {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
 
-      const content = fs.readFileSync(skillFile, 'utf8');
-      const frontmatter = parseFrontmatter(content);
-
-      if (frontmatter && frontmatter['user-invocable'] === 'false') {
-        errors.push(`${dir}: user-invocable should be true (no commands in plugin)`);
+      // Check if command uses $ARGUMENTS
+      if (content.includes('$ARGUMENTS')) {
+        const frontmatter = parseFrontmatter(content);
+        if (frontmatter && !frontmatter['argument-hint']) {
+          errors.push(`${file}: Uses $ARGUMENTS but missing 'argument-hint' in frontmatter`);
+        }
       }
     }
 
     if (errors.length > 0) {
-      assert.fail(`Non-invocable skills found:\n${errors.join('\n')}`);
+      assert.fail(`Command argument-hint errors:\n${errors.join('\n')}`);
     }
   });
 
-  test('commands directory exists with kata subdirectory (for NPM)', () => {
-    // Commands exist for NPM distribution (npx @gannonh/kata)
-    assert.ok(
-      fs.existsSync(path.join(ROOT, 'commands/kata')),
-      'commands/kata/ directory should exist for NPM distribution'
-    );
+  test('all commands have description', () => {
+    const commandsDir = path.join(ROOT, 'commands/kata');
+    if (!fs.existsSync(commandsDir)) return;
+
+    const commandFiles = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+    const errors = [];
+
+    for (const file of commandFiles) {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
+      const frontmatter = parseFrontmatter(content);
+
+      if (!frontmatter) {
+        errors.push(`${file}: Missing frontmatter`);
+      } else if (!frontmatter.description) {
+        errors.push(`${file}: Missing 'description' in frontmatter`);
+      }
+    }
+
+    if (errors.length > 0) {
+      assert.fail(`Command description errors:\n${errors.join('\n')}`);
+    }
   });
 });
 
