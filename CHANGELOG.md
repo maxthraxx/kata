@@ -2,13 +2,19 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-01-25
+
+### Fixed
+- **Stale command references**: Updated 286 references from old command syntax (`/kata:phase-execute`, `/kata:project-new`, etc.) to new skill syntax (`/kata:executing-phases`, `/kata:starting-projects`, etc.) across skills, agents, and documentation
+- **zsh glob compatibility**: Fixed bash commands with glob patterns (like `ls *.md 2>/dev/null`) that fail in zsh when no matches exist. Added `|| true` and subshell wrappers for zsh compatibility
+
 ## [1.1.0] - 2026-01-25
 
 **Skills-only architecture.** Commands layer removed — skills are now the primary interface.
 
 ### Changed
 - **Skills-only distribution**: All 27 commands removed. Skills are now the sole interface for all Kata functionality
-- **Skill naming convention**: Changed from verb-noun (`/kata:phase-plan`) to gerund form (`/kata:planning-phases`) for natural language matching
+- **Skill naming convention**: Changed from verb-noun (`/kata:planning-phases`) to gerund form (`/kata:planning-phases`) for natural language matching
 - **All skills user-invocable**: Skills appear directly in `/` menu for explicit invocation and respond to natural language
 - **Build.js prefix transformation**: Plugin build strips `kata-` prefix from skill directories for clean `/kata:skill-name` invocation
 
@@ -87,7 +93,7 @@
 Kata 1.0 ships with **Claude Code plugin support** as the recommended installation method.
 
 ### Added
-- **Claude Code plugin distribution**: Install via `/plugin marketplace add gannonh/kata-marketplace` + `/plugin install kata@kata-marketplace`
+- **Claude Code plugin distribution**: Install via `/plugin marketplace add gannonh/kata-marketplace` + `/plugin install kata@gannonh-kata-marketplace`
 - **Dual build system**: `node scripts/build.js` produces both NPM and plugin distributions
 - **Plugin-aware statusline**: Detects installation method (NPM vs plugin) and shows appropriate update commands
 - **CI validation pipelines**: Tests and build artifact validation run before NPM publish and plugin release
@@ -95,7 +101,7 @@ Kata 1.0 ships with **Claude Code plugin support** as the recommended installati
 
 ### Changed
 - **Plugin install is now recommended**: Getting Started section leads with marketplace install, NPM moved to collapsible alternative
-- **Command namespace**: All commands now use `kata:` prefix (e.g., `/kata:help`, `/kata:phase-plan`)
+- **Command namespace**: All commands now use `kata:` prefix (e.g., `/kata:providing-help`, `/kata:planning-phases`)
 - **Hook scripts converted to ES modules**: All hooks now use ESM syntax
 - **Staying Updated section**: Split into separate commands for plugin and NPM users
 

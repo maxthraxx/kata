@@ -30,7 +30,7 @@ Agent orchestration framework for spec-driven development.
 ```bash
 # Install as Claude Code plugin
 /plugin marketplace add gannonh/kata-marketplace
-/plugin install kata@kata-marketplace
+/plugin install kata@gannonh-kata-marketplace
 
 # Or install via NPM
 npx @gannonh/kata
@@ -72,7 +72,7 @@ Teams and individuals that want to describe what they want and have it built cor
 
 ```bash
 /plugin marketplace add gannonh/kata-marketplace
-/plugin install kata@kata-marketplace
+/plugin install kata@gannonh-kata-marketplace
 ```
 
 Verify with `/kata:providing-help` (plugin) or `/kata-providing-help` (NPX) inside Claude Code.
@@ -99,7 +99,7 @@ Kata evolves fast. Check for updates periodically:
 
 **Plugin users:**
 ```bash
-claude plugin update kata@kata-marketplace
+claude plugin update kata@gannonh-kata-marketplace
 ```
 
 **NPM users:**

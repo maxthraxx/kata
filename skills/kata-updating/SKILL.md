@@ -23,7 +23,7 @@ Read installed version:
 
 ```bash
 KATA_BASE=$(if [ -n "$CLAUDE_PLUGIN_ROOT" ]; then echo "$CLAUDE_PLUGIN_ROOT/kata"; elif [ -d ~/.claude/kata ]; then echo ~/.claude/kata; else echo ./.claude/kata; fi)
-cat $KATA_BASE/VERSION 2>/dev/null
+cat $KATA_BASE/VERSION 2>/dev/null || true
 ```
 
 **If VERSION file missing:**
@@ -44,7 +44,7 @@ Proceed to install step (treat as version 0.0.0 for comparison).
 Check npm for latest version:
 
 ```bash
-npm view @gannonh/kata version 2>/dev/null
+npm view @gannonh/kata version 2>/dev/null || true
 ```
 
 **If npm check fails:**

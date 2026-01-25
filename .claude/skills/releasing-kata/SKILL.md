@@ -204,14 +204,14 @@ claude
 In Claude Code:
 ```
 /plugin install kata@kata-marketplace
-/kata:help
-/kata:whats-new
+/kata:providing-help
+/kata:showing-whats-new
 ```
 
 **Verify:**
 - Plugin installs without errors
-- `/kata:help` shows all commands
-- `/kata:whats-new` shows new version changelog
+- `/kata:providing-help` shows all commands
+- `/kata:showing-whats-new` shows new version changelog
 - No path resolution errors
 
 ```bash
@@ -242,4 +242,4 @@ See `./release-troubleshooting.md` for common issues:
 - [ ] NPM shows new version (`npm view @gannonh/kata version`)
 - [ ] Smoke tests pass against published version (`KATA_VERSION=X.Y.Z npm run test:smoke`)
 - [ ] Marketplace shows new version (`gh api` check)
-- [ ] Manual plugin test passes (`/plugin install kata@kata-marketplace` + `/kata:help`)
+- [ ] Manual plugin test passes (`/plugin install kata@kata-marketplace` + `/kata:providing-help`)

@@ -79,7 +79,7 @@ For each file path:
 
 4. **Check if entity exists:**
    ```bash
-   ls .planning/intel/entities/{slug}.md 2>/dev/null
+   (ls .planning/intel/entities/{slug}.md 2>/dev/null || true) || true
    ```
    If exists, increment already_existed and skip to next file.
 

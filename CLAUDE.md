@@ -23,7 +23,7 @@ Kata is a **spec-driven development framework** for Claude Code. It's a meta-pro
 node bin/install.js --local
 
 # Verify installation (in Claude Code)
-/kata:help      # plugin
+/kata:providing-help      # plugin
 /kata-help      # NPX
 
 # Update local install after changes
@@ -55,7 +55,7 @@ ls .planning/phases/[current-phase]/
 ```
 
 **Common workflow when working on Kata:**
-1. Check progress: "What's the status?" or `/kata:project-status`
+1. Check progress: "What's the status?" or `/kata:tracking-progress`
 2. Plan phase: "Plan phase [N]" or `/kata:planning-phases [N]`
 3. Execute: "Execute phase [N]" or `/kata:executing-phases [N]`
 4. Verify: "Verify phase [N]" or `/kata:verifying-phases [N]`
@@ -109,7 +109,7 @@ Skills are installed to:
 | `kata-managing-milestones` | `/kata:managing-milestones` | Milestone operations | kata-roadmapper |
 | `kata-managing-roadmap` | `/kata:managing-roadmap` | Phase operations | kata-roadmapper |
 | `kata-researching-phases` | `/kata:researching-phases` | Domain research | kata-phase-researcher |
-| `kata-project-status` | `/kata:project-status` | Progress, debug, mapping | kata-debugger, kata-codebase-mapper |
+| `kata-project-status` | `/kata:tracking-progress` | Progress, debug, mapping | kata-debugger, kata-codebase-mapper |
 
 ### Skill Naming Best Practices
 

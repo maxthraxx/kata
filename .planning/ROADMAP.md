@@ -112,9 +112,9 @@ Plans:
 **Depends on**: Phase 1 (config schema exists)
 **Requirements**: CFG-03, GHM-01, GHM-02
 **Success Criteria** (what must be TRUE):
-  1. `/kata:project-new` prompts for GitHub integration preferences
+  1. `/kata:starting-projects` prompts for GitHub integration preferences
   2. Config choices saved to `.planning/config.json` during onboarding
-  3. `/kata:milestone-new` creates GitHub Milestone when `github.enabled = true`
+  3. `/kata:starting-milestones` creates GitHub Milestone when `github.enabled = true`
   4. GitHub Milestone includes version number and description from ROADMAP.md
 **Plans**: TBD
 
@@ -142,8 +142,8 @@ Plans:
 **Depends on**: Phase 3 (phase issues exist)
 **Requirements**: GHI-04, GHI-05, WFA-02
 **Success Criteria** (what must be TRUE):
-  1. Phase issue body includes checklist of plans (after `/kata:phase-plan`)
-  2. Checklist items checked as each plan completes during `/kata:phase-execute`
+  1. Phase issue body includes checklist of plans (after `/kata:planning-phases`)
+  2. Checklist items checked as each plan completes during `/kata:executing-phases`
   3. Execute-plan workflow conditionally updates GitHub issue
   4. Plan status visible in GitHub without opening Kata
 **Plans**: TBD
@@ -158,12 +158,12 @@ Plans:
 **Requirements**: GHP-01, GHP-02, GHP-03, GHP-04, WFA-03
 **Implementation Spec**: `kata/references/planning-config.md#pr_workflow_behavior`
 **Success Criteria** (what must be TRUE):
-  1. `/kata:phase-execute` creates branch at phase start (when `pr_workflow: true`)
-  2. `/kata:phase-execute` opens draft PR at first commit
-  3. `/kata:phase-execute` marks PR ready when phase complete
+  1. `/kata:executing-phases` creates branch at phase start (when `pr_workflow: true`)
+  2. `/kata:executing-phases` opens draft PR at first commit
+  3. `/kata:executing-phases` marks PR ready when phase complete
   4. PR title follows convention: `v{milestone} Phase {N}: {Phase Name}`
   5. PR body includes phase goal, completed plans checklist, and "Closes #X" linking to phase issue
-  6. `/kata:project-status` shows PR status (draft/ready/merged) when `pr_workflow: true`
+  6. `/kata:tracking-progress` shows PR status (draft/ready/merged) when `pr_workflow: true`
 **Plans**: TBD
 
 Plans:
