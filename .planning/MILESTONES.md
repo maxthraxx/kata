@@ -1,6 +1,6 @@
 # Project Milestones: Kata
 
-## v1.0.6 Plugin Stability (Shipped: 2026-01-24)
+## v1.0.8 Plugin Stability (Shipped: 2026-01-24)
 
 **Delivered:** Skill self-containment architecture for stable plugin distribution
 
@@ -19,9 +19,9 @@
 - 53 files deleted, 28 files created
 - 1 phase, 5 plans
 - 1 day (2026-01-24) — single-day stabilization sprint
-- Includes patches v1.0.6, v1.0.7
+- Includes patches v1.0.8, v1.0.7
 
-**Git range:** `v1.0.5` → `v1.0.7`
+**Git range:** `v1.0.5` → `v1.0.8`
 
 **What's next:** v1.1.0 GitHub Integration
 
@@ -49,7 +49,7 @@
 
 **Git range:** `v0.1.8` → `v1.0.0`
 
-**What's next:** v1.0.6 Plugin Stability (stabilize after rapid patches)
+**What's next:** v1.0.8 Plugin Stability (stabilize after rapid patches)
 
 ---
 

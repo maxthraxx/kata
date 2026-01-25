@@ -13,7 +13,7 @@ Milestone: v1.1.0 GitHub Integration
 Phase: 1 (Audit & Config Foundation)
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-01-24 — v1.0.6 milestone shipped
+Last activity: 2026-01-24 — v1.0.8 milestone shipped
 
 Progress: [                                ] 0% (starting v1.1.0)
 
@@ -31,7 +31,7 @@ Progress: [                                ] 0% (starting v1.1.0)
 | v0.1.4    | 1      | 5     | Shipped 2026-01-18 |
 | v0.1.5    | 6      | 30    | Shipped 2026-01-22 |
 | v1.0.0    | 4      | 5     | Shipped 2026-01-23 |
-| v1.0.6    | 1      | 5     | Shipped 2026-01-24 |
+| v1.0.8    | 1      | 5     | Shipped 2026-01-24 |
 
 **Recent Trend:**
 - v1.0.1-v1.0.5: Rapid patch releases (5 patches in 2 days) addressing plugin distribution issues
@@ -46,7 +46,7 @@ Progress: [                                ] 0% (starting v1.1.0)
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- **2026-01-24: Roadmap realigned** — Updated to reflect actual release history; v0.1.9 became v1.0.0, added v1.0.6 milestone for stability work
+- **2026-01-24: Roadmap realigned** — Updated to reflect actual release history; v0.1.9 became v1.0.0, added v1.0.8 milestone for stability work
 - **2026-01-24: Phase 2.1 inserted** — Skill-Centric Resource Restructure to support npx-based skill distribution (Vercel model)
 - **2026-01-23: Marketplace created** - gannonh/kata-marketplace repository with Kata v1.0.0 entry
 - **2026-01-22: PR workflow spec in product** - `kata/references/planning-config.md#pr_workflow_behavior` is authoritative
@@ -57,7 +57,7 @@ Recent decisions affecting current work:
 - **v0.1.5 shipped 2026-01-22** — Skills & Documentation (6 phases, 30 plans)
 - **v1.0.0 shipped 2026-01-23** — Claude Code Plugin (was v0.1.9 in planning)
 - **v1.0.1-v1.0.5 patches 2026-01-23/24** — Plugin stability fixes
-- **v1.0.6 shipped 2026-01-24** — Plugin Stability (1 phase, 5 plans) — skills now self-contained
+- **v1.0.8 shipped 2026-01-24** — Plugin Stability (1 phase, 5 plans) — skills now self-contained
 - **v1.1.0 milestone started 2026-01-24** — GitHub Integration (5 phases planned)
 
 ### Pending Todos
@@ -94,5 +94,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-24
-Stopped at: v1.0.6 milestone completed and archived
+Stopped at: v1.0.8 milestone completed and archived
 Resume file: None - ready for v1.1.0 milestone
