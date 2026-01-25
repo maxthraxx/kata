@@ -219,28 +219,84 @@ The mapping is cached for efficiency within a test run.
 
 ### GitHub Workflow
 
-The CI workflow (defined in `.github/workflows/kata-skills.yml`) uses affected test detection to minimize costs:
+The CI workflow (`.github/workflows/test-skills.yml`) uses affected test detection to minimize costs:
 
-```yaml
-- name: Run affected skill tests
-  env:
-    ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-  run: npm run test:affected
 ```
+┌─────────────┐     ┌───────────────────┐     ┌─────────────────┐
+│   PR Push   │────▶│  detect-changes   │────▶│  test-affected  │
+│             │     │  (find changed    │     │  (run tests for │
+│             │     │   skills)         │     │   those skills) │
+└─────────────┘     └───────────────────┘     └─────────────────┘
+
+┌─────────────┐     ┌───────────────────┐     ┌─────────────────┐
+│ Push to     │────▶│  detect-changes   │────▶│   test-full     │
+│   main      │     │  (run_full=true)  │     │  (all tests)    │
+└─────────────┘     └───────────────────┘     └─────────────────┘
+```
+
+**Workflow jobs:**
+
+| Job | Trigger | What it does |
+|-----|---------|--------------|
+| `detect-changes` | Always | Identifies affected skills using `affected.js` |
+| `test-affected` | PR has affected tests | Runs only tests for changed skills |
+| `test-full` | Push to main | Runs full test suite |
+
+Test results appear as **PR annotations** via `mikepenz/action-junit-report`.
 
 ### Cost Control
 
-Each test invokes Claude Code, which costs money. Affected test detection ensures:
+Each test invokes Claude Code, which costs money. The CI workflow controls costs by:
 
-1. PRs only run tests for changed skills
-2. Agent changes cascade to dependent skill tests
-3. Full test suite runs only on main branch merges
+1. **PRs run only affected tests** — Changes to `skills/kata-foo/` only run `foo.test.js`
+2. **Agent changes cascade** — Changes to `agents/kata-bar.md` trigger tests for all skills using that agent
+3. **Full suite on main only** — Complete test suite runs only on merge to main
+
+To run affected tests locally:
+
+```bash
+npm run test:affected
+```
+
+### Budget Tiers
+
+Tests use tiered budgets from `harness/runner.js`:
+
+| Tier | Budget | Use Case |
+|------|--------|----------|
+| `quick` | $0.50 | Simple skill trigger verification |
+| `standard` | $2.00 | Full workflow execution |
+| `expensive` | $5.00 | Multi-agent orchestrator tests |
+
+Choose the appropriate tier based on what your test needs to verify.
 
 ### Required Secrets
 
-| Secret | Purpose |
-|--------|---------|
-| `ANTHROPIC_API_KEY` | Claude API access for test execution |
+| Secret | Purpose | How to Set |
+|--------|---------|------------|
+| `ANTHROPIC_API_KEY` | Claude API access for test execution | Repository Settings > Secrets > Actions |
+
+**Missing API key symptoms:**
+- Tests fail with "Error: API key not found"
+- `invokeClaude()` returns error object
+
+### Troubleshooting CI
+
+**Tests pass locally but fail in CI:**
+- Check `ANTHROPIC_API_KEY` secret is set
+- Verify test files are in `tests/skills/` directory
+- Check workflow logs for timeout issues
+
+**No tests run on PR:**
+- Affected detection found no matching tests
+- Verify test file naming: `{skill-name-without-kata-prefix}.test.js`
+- Check git diff includes skill or agent files
+
+**Workflow logs location:**
+- GitHub repo > Actions tab > Select workflow run > Select job > View logs
+
+**Manual workflow trigger:**
+- Not supported — workflow runs automatically on PR/push
 
 ## Writing Skill Tests
 
