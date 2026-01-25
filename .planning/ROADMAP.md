@@ -82,7 +82,7 @@ Plans:
 
 ### v1.1.0 GitHub Integration (Planned)
 
-- [ ] **Phase 0: Develop Robust Testing Suite** - Establish testing infrastructure before integration work
+- [x] **Phase 0: Develop Robust Testing Suite** - Establish testing infrastructure before integration work — completed 2026-01-25
 - [ ] **Phase 1: Audit & Config Foundation** - Understand integration points, establish config schema
 - [ ] **Phase 2: Onboarding & Milestones** - Config during project-new, GitHub Milestone creation
 - [ ] **Phase 3: Phase Issues** - Create GitHub Issues for phases with labels and metadata
@@ -104,13 +104,13 @@ Plans:
 **Plans:** 7 plans
 
 Plans:
-- [ ] 00-01-PLAN.md — Extend test harness with affected-test detection and assertions
-- [ ] 00-02-PLAN.md — Skill tests for status/info skills (Wave 1)
-- [ ] 00-03-PLAN.md — Skill tests for project management skills (Wave 2)
-- [ ] 00-04-PLAN.md — Skill tests for phase/milestone skills (Wave 3)
-- [ ] 00-05-PLAN.md — Skill tests for execution workflow skills (Wave 4)
-- [ ] 00-06-PLAN.md — Skill tests for utility skills (Wave 5)
-- [ ] 00-07-PLAN.md — CI/CD integration with GitHub Actions
+- [x] 00-01-PLAN.md — Extend test harness with affected-test detection and assertions
+- [x] 00-02-PLAN.md — Skill tests for status/info skills (Wave 1)
+- [x] 00-03-PLAN.md — Skill tests for project management skills (Wave 2)
+- [x] 00-04-PLAN.md — Skill tests for phase/milestone skills (Wave 3)
+- [x] 00-05-PLAN.md — Skill tests for execution workflow skills (Wave 4)
+- [x] 00-06-PLAN.md — Skill tests for utility skills (Wave 5)
+- [x] 00-07-PLAN.md — CI/CD integration with GitHub Actions
 
 #### Phase 1: Audit & Config Foundation
 **Goal**: Understand where GitHub integration hooks into existing Kata workflows and establish config schema
@@ -121,11 +121,11 @@ Plans:
   2. `.planning/config.json` includes `github.enabled` boolean toggle
   3. `.planning/config.json` includes `github.issueMode` with values `auto | ask | never`
   4. Kata commands read config and branch on `github.enabled`
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Document integration points and extend config schema
+- [ ] 01-02-PLAN.md — Add github namespace to config.json and verify
 
 #### Phase 2: Onboarding & Milestones
 **Goal**: New projects can configure GitHub integration and milestones create corresponding GitHub Milestones
@@ -199,8 +199,8 @@ Plans:
 | 1-3. Claude Code Plugin            | v1.0.0    | 5/5            | Complete    | 2026-01-23 |
 | 2.1 Skill Resource Restructure     | v1.0.8    | 5/5            | Shipped     | 2026-01-24 |
 | 2.2 Normalize on Skills            | v1.0.9    | 3/3            | Complete    | 2026-01-25 |
-| 0. Develop Robust Testing Suite    | v1.1.0    | 0/7            | Planned     | -          |
-| 1. Audit & Config Foundation       | v1.1.0    | 0/?            | Not planned | -          |
+| 0. Develop Robust Testing Suite    | v1.1.0    | 7/7            | Complete    | 2026-01-25 |
+| 1. Audit & Config Foundation       | v1.1.0    | 0/2            | Planned     | -          |
 | 2. Onboarding & Milestones         | v1.1.0    | 0/?            | Not started | -          |
 | 3. Phase Issues                    | v1.1.0    | 0/?            | Not started | -          |
 | 4. Plan Sync                       | v1.1.0    | 0/?            | Not started | -          |
@@ -208,4 +208,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-25 — Phase 0 planned with 7 plans*
+*Last updated: 2026-01-25 — Phase 1 planned (2 plans)*
