@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-22)
+See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v1.0.6 Plugin Stability — Phase 2.1: Skill-Centric Resource Restructure
+**Current focus:** v1.1.0 GitHub Integration (planning)
 
 ## Current Position
 
-Milestone: v1.0.6 Plugin Stability
-Phase: 2.1 (Skill-Centric Resource Restructure)
-Plan: 5/5 complete
-Status: Phase complete
-Last activity: 2026-01-24 — Completed 02.1-05-PLAN.md (remove shared kata/ directories)
+Milestone: v1.1.0 GitHub Integration
+Phase: 1 (Audit & Config Foundation)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-24 — v1.0.6 milestone shipped
 
-Progress: [################################] 100% (v1.0.0 shipped, phase 2.1 complete)
+Progress: [                                ] 0% (starting v1.1.0)
 
 ## Performance Metrics
 
@@ -31,7 +31,7 @@ Progress: [################################] 100% (v1.0.0 shipped, phase 2.1 com
 | v0.1.4    | 1      | 5     | Shipped 2026-01-18 |
 | v0.1.5    | 6      | 30    | Shipped 2026-01-22 |
 | v1.0.0    | 4      | 5     | Shipped 2026-01-23 |
-| v1.0.6    | 1      | 5     | Complete |
+| v1.0.6    | 1      | 5     | Shipped 2026-01-24 |
 
 **Recent Trend:**
 - v1.0.1-v1.0.5: Rapid patch releases (5 patches in 2 days) addressing plugin distribution issues
@@ -57,8 +57,8 @@ Recent decisions affecting current work:
 - **v0.1.5 shipped 2026-01-22** — Skills & Documentation (6 phases, 30 plans)
 - **v1.0.0 shipped 2026-01-23** — Claude Code Plugin (was v0.1.9 in planning)
 - **v1.0.1-v1.0.5 patches 2026-01-23/24** — Plugin stability fixes
-- **v1.0.6 milestone started 2026-01-24** — Plugin Stability (Phase 2.1 insertion)
-- **Phase 2.1 complete (2026-01-24)** — Skill-Centric Resource Restructure complete - all skills now self-contained with local resources, shared kata/ directories removed
+- **v1.0.6 shipped 2026-01-24** — Plugin Stability (1 phase, 5 plans) — skills now self-contained
+- **v1.1.0 milestone started 2026-01-24** — GitHub Integration (5 phases planned)
 
 ### Pending Todos
 
@@ -94,5 +94,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-24
-Stopped at: Completed 02.1-05-PLAN.md (remove shared kata/ directories) - Phase 2.1 complete
-Resume file: None - ready for next milestone
+Stopped at: v1.0.6 milestone completed and archived
+Resume file: None - ready for v1.1.0 milestone

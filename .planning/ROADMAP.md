@@ -9,7 +9,7 @@ Kata is a spec-driven development framework for Claude Code. This roadmap tracks
 - **v0.1.4 Hard Fork & Rebrand** — Phase 0 (shipped 2026-01-18) — [archive](milestones/v0.1.4-ROADMAP.md)
 - **v0.1.5 Skills & Documentation** — Phases 0-2 (shipped 2026-01-22) — [archive](milestones/v0.1.5-ROADMAP.md)
 - **v1.0.0 Claude Code Plugin** — Phases 1-3 (shipped 2026-01-23)
-- **v1.0.6 Plugin Stability** — Phase 2.1 (complete)
+- **v1.0.6 Plugin Stability** — Phase 2.1 (shipped 2026-01-24) — [archive](milestones/v1.0.6-ROADMAP.md)
 - **v1.1.0 GitHub Integration** — Phases 1-5 (planned)
 
 ## Phases
@@ -56,16 +56,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 </details>
 
-<details>
-<summary>v1.0.6 Plugin Stability (Phase 2.1) — COMPLETE 2026-01-24</summary>
-
-- [x] Phase 2.1: Skill-Centric Resource Restructure (5/5 plans) — completed 2026-01-24
-
-**Patch releases:**
-- v1.0.6: Agent namespacing fix (2026-01-24)
-- v1.0.7: Agent namespacing in build system (2026-01-24)
-
-</details>
+- **v1.0.6 Plugin Stability** — Phase 2.1 (shipped 2026-01-24) — [archive](milestones/v1.0.6-ROADMAP.md)
 
 ### v1.1.0 GitHub Integration (Planned)
 
@@ -164,7 +155,7 @@ Plans:
 | 0. Hard Fork & Rebrand             | v0.1.4    | 5/5            | Complete    | 2026-01-18 |
 | 0-2. Skills & Documentation        | v0.1.5    | 30/30          | Complete    | 2026-01-22 |
 | 1-3. Claude Code Plugin            | v1.0.0    | 5/5            | Complete    | 2026-01-23 |
-| 2.1 Skill Resource Restructure     | v1.0.6    | 5/5            | Complete    | 2026-01-24 |
+| 2.1 Skill Resource Restructure     | v1.0.6    | 5/5            | Shipped     | 2026-01-24 |
 | 1. Audit & Config Foundation       | v1.1.0    | 0/?            | Not planned | -          |
 | 2. Onboarding & Milestones         | v1.1.0    | 0/?            | Not started | -          |
 | 3. Phase Issues                    | v1.1.0    | 0/?            | Not started | -          |
@@ -173,4 +164,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-24 — Phase 2.1 complete (5/5 plans, skills now self-contained)*
+*Last updated: 2026-01-24 — v1.0.6 milestone shipped*
