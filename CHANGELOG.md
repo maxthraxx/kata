@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-01-25
+
+### Fixed
+- **Plugin command namespace**: Keep `kata:` prefix in command names for plugin build. Plugin system doesn't auto-prefix, so `/kata:executing-phases` now works instead of just `/executing-phases`.
+
 ## [1.1.4] - 2026-01-25
 
 ### Fixed
