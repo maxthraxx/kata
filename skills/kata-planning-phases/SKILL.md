@@ -396,8 +396,8 @@ Task(
 ## 11. Handle Checker Return
 
 **If `## VERIFICATION PASSED`:**
-- Display: `Plans verified. Ready for execution.`
-- Proceed to step 13
+- Display: `Plans verified. Checking GitHub integration...`
+- **Execute Step 13 now** — run the GitHub config check and issue update
 
 **If `## ISSUES FOUND`:**
 - Display: `Checker found issues:`
@@ -466,7 +466,7 @@ Offer options:
 
 Wait for user response.
 
-## 13. Update GitHub Issue with Plan Checklist (if enabled)
+## 13. GitHub Integration Check
 
 **Check config guards:**
 
@@ -573,6 +573,8 @@ gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
 **Track result for display:**
 
 Store `ISSUE_NUMBER` and `PLAN_COUNT` for display in `<offer_next>` if update succeeded.
+
+**After GitHub check completes (success or skip), proceed to Step 14.**
 
 **Error handling principle:** All GitHub operations are non-blocking. Missing issue, auth issues, or update failures warn but do not stop the planning workflow.
 
