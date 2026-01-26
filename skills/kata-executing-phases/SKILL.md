@@ -77,6 +77,70 @@ Phase: $ARGUMENTS
    - Spawn `kata-executor` for each plan in wave (parallel Task calls)
    - Wait for completion (Task blocks)
    - Verify SUMMARYs created
+   - **Update GitHub issue checkboxes (if enabled):**
+
+     Build COMPLETED_PLANS_IN_WAVE from SUMMARY.md files created this wave:
+     ```bash
+     # Get plan numbers from SUMMARYs that exist after this wave
+     COMPLETED_PLANS_IN_WAVE=""
+     for summary in ${PHASE_DIR}/*-SUMMARY.md; do
+       # Extract plan number from filename (e.g., 04-01-SUMMARY.md -> 01)
+       plan_num=$(basename "$summary" | sed -E 's/^[0-9]+-([0-9]+)-SUMMARY\.md$/\1/')
+       # Check if this plan was in the current wave (from frontmatter we read earlier)
+       if echo "${WAVE_PLANS}" | grep -q "plan-${plan_num}"; then
+         COMPLETED_PLANS_IN_WAVE="${COMPLETED_PLANS_IN_WAVE} ${plan_num}"
+       fi
+     done
+     ```
+
+     Check github.enabled and issueMode:
+     ```bash
+     GITHUB_ENABLED=$(cat .planning/config.json 2>/dev/null | grep -o '"enabled"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "false")
+     ISSUE_MODE=$(cat .planning/config.json 2>/dev/null | grep -o '"issueMode"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "never")
+     ```
+
+     **If `GITHUB_ENABLED != true` OR `ISSUE_MODE = never`:** Skip GitHub update.
+
+     **Otherwise:**
+
+     1. Find phase issue number:
+     ```bash
+     VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v')
+     ISSUE_NUMBER=$(gh issue list \
+       --label "phase" \
+       --milestone "v${VERSION}" \
+       --json number,title \
+       --jq ".[] | select(.title | startswith(\"Phase ${PHASE}:\")) | .number" \
+       2>/dev/null)
+     ```
+
+     If issue not found: Warn and skip (non-blocking).
+
+     2. Read current issue body:
+     ```bash
+     ISSUE_BODY=$(gh issue view "$ISSUE_NUMBER" --json body --jq '.body' 2>/dev/null)
+     ```
+
+     3. For each completed plan in this wave, update checkbox:
+     ```bash
+     for plan_num in ${COMPLETED_PLANS_IN_WAVE}; do
+       # Format: Plan 01, Plan 02, etc.
+       PLAN_ID="Plan $(printf "%02d" $plan_num):"
+       # Update checkbox: - [ ] -> - [x]
+       ISSUE_BODY=$(echo "$ISSUE_BODY" | sed "s/^- \[ \] ${PLAN_ID}/- [x] ${PLAN_ID}/")
+     done
+     ```
+
+     4. Write and update:
+     ```bash
+     printf '%s\n' "$ISSUE_BODY" > /tmp/phase-issue-body.md
+     gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
+       && echo "Updated issue #${ISSUE_NUMBER}: checked off Wave ${WAVE_NUM} plans" \
+       || echo "Warning: Failed to update issue #${ISSUE_NUMBER}"
+     ```
+
+     This update happens ONCE per wave (after all plans in wave complete), not per-plan, avoiding race conditions.
+
    - Proceed to next wave
 
 5. **Aggregate results**
