@@ -470,6 +470,116 @@ Wait for user response.
 
 Route to `<offer_next>`.
 
+## 14. Update GitHub Issue with Plan Checklist (if enabled)
+
+**Check config guards:**
+
+```bash
+GITHUB_ENABLED=$(cat .planning/config.json 2>/dev/null | grep -o '"enabled"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "false")
+ISSUE_MODE=$(cat .planning/config.json 2>/dev/null | grep -o '"issueMode"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "never")
+```
+
+**If `GITHUB_ENABLED != true` OR `ISSUE_MODE = never`:**
+- Log: `Skipping GitHub issue update (github.enabled=${GITHUB_ENABLED}, issueMode=${ISSUE_MODE})`
+- Skip to `<offer_next>`
+
+**If enabled, find phase issue:**
+
+```bash
+# Get milestone version from ROADMAP.md
+VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v' || echo "")
+
+if [ -z "$VERSION" ]; then
+  echo "Warning: Could not determine milestone version. Skipping GitHub issue update."
+  # Continue to offer_next (non-blocking)
+fi
+
+# Find phase issue number
+ISSUE_NUMBER=$(gh issue list \
+  --label "phase" \
+  --milestone "v${VERSION}" \
+  --json number,title \
+  --jq ".[] | select(.title | startswith(\"Phase ${PHASE}:\")) | .number" \
+  2>/dev/null)
+
+if [ -z "$ISSUE_NUMBER" ]; then
+  echo "Warning: Could not find GitHub Issue for Phase ${PHASE}. Skipping checklist update."
+  # Continue to offer_next (non-blocking)
+fi
+```
+
+**Build plan checklist from PLAN.md files:**
+
+```bash
+PLAN_CHECKLIST=""
+PLAN_COUNT=0
+for plan_file in $(ls "${PHASE_DIR}"/*-PLAN.md 2>/dev/null | sort); do
+  PLAN_NUM=$(basename "$plan_file" | sed -E 's/.*-([0-9]+)-PLAN\.md/\1/')
+  # Extract brief objective from plan (first line after <objective>)
+  PLAN_OBJECTIVE=$(grep -A2 "<objective>" "$plan_file" | head -2 | tail -1 | sed 's/^ *//' | head -c 60)
+  # Fallback if objective extraction fails
+  if [ -z "$PLAN_OBJECTIVE" ]; then
+    PLAN_OBJECTIVE=$(basename "$plan_file" .md | sed 's/-PLAN$//' | sed 's/-/ /g')
+  fi
+  PLAN_CHECKLIST="${PLAN_CHECKLIST}- [ ] Plan ${PLAN_NUM}: ${PLAN_OBJECTIVE}
+"
+  PLAN_COUNT=$((PLAN_COUNT + 1))
+done
+```
+
+**Update issue body with plan checklist:**
+
+```bash
+# Read current issue body
+ISSUE_BODY=$(gh issue view "$ISSUE_NUMBER" --json body --jq '.body' 2>/dev/null)
+
+if [ -z "$ISSUE_BODY" ]; then
+  echo "Warning: Could not read issue #${ISSUE_NUMBER} body. Skipping update."
+  # Continue to offer_next (non-blocking)
+fi
+
+# Remove placeholder line and add checklist after ## Plans section
+# Using awk for multiline manipulation
+NEW_BODY=$(echo "$ISSUE_BODY" | awk -v checklist="$PLAN_CHECKLIST" '
+  /^## Plans$/ {
+    print
+    print ""
+    print checklist
+    getline  # Skip blank line after ## Plans if exists
+    if ($0 ~ /^_Plans will be added/) next  # Skip placeholder
+    if ($0 ~ /^<!-- Checklist/) next  # Skip comment
+    if ($0 == "") next  # Skip blank line before placeholder
+    print
+    next
+  }
+  /^_Plans will be added/ { next }  # Remove placeholder anywhere
+  { print }
+')
+
+# Check if Plans section exists, if not append it
+if ! echo "$ISSUE_BODY" | grep -q "^## Plans"; then
+  NEW_BODY="${ISSUE_BODY}
+
+## Plans
+
+${PLAN_CHECKLIST}"
+fi
+
+# Write to temp file (handles special characters safely)
+printf '%s\n' "$NEW_BODY" > /tmp/phase-issue-body.md
+
+# Update issue
+gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
+  && GITHUB_UPDATE_SUCCESS=true \
+  || echo "Warning: Failed to update issue #${ISSUE_NUMBER}"
+```
+
+**Track result for display:**
+
+Store `ISSUE_NUMBER` and `PLAN_COUNT` for display in `<offer_next>` if update succeeded.
+
+**Error handling principle:** All GitHub operations are non-blocking. Missing issue, auth issues, or update failures warn but do not stop the planning workflow.
+
 </process>
 
 <offer_next>
