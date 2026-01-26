@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync, cpSync, existsSync, mkdirSync, writeFileSync, read
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 import { invokeClaude } from '../harness/claude-cli.js';
 import {
@@ -143,7 +144,6 @@ None.
     writeFileSync(statePath, stateContent);
 
     // Initialize git repo for commit tests
-    const { execSync } = require('node:child_process');
     try {
       execSync('git init', { cwd: testDir, stdio: 'pipe' });
       execSync('git config user.email "test@test.com"', { cwd: testDir, stdio: 'pipe' });
