@@ -206,11 +206,12 @@ Plans:
   2. Checklist items checked as each plan completes during `/kata:executing-phases`
   3. Execute-plan workflow conditionally updates GitHub issue
   4. Plan status visible in GitHub without opening Kata
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md — Add GitHub issue update to kata-planning-phases
+- [ ] 04-02-PLAN.md — Add GitHub issue update to kata-executing-phases
+- [ ] 04-03-PLAN.md — Tests and documentation
 
 #### Phase 5: PR Integration
 **Goal**: Milestone completion creates well-formed PRs that link to issues and follow conventions
@@ -260,10 +261,10 @@ Plans:
 | 2.1 GitHub Repo Setup (INSERTED)         | v1.1.0    | 2/2            | Complete    | 2026-01-26 |
 | 2.2 Decouple Init & Milestone (INSERTED) | v1.1.0    | 4/4            | Complete    | 2026-01-26 |
 | 3. Phase Issues                          | v1.1.0    | 2/2            | Complete    | 2026-01-26 |
-| 4. Plan Sync                             | v1.1.0    | 0/?            | Not started | -          |
+| 4. Plan Sync                             | v1.1.0    | 0/3            | Not started | -          |
 | 5. PR Integration                        | v1.1.0    | 0/?            | Not started | -          |
 | 6. PR Review Workflow Skill              | v1.1.0    | 0/?            | Not started | -          |
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-26 — Phase 3 complete (2 plans)*
+*Last updated: 2026-01-26 — Phase 4 planned (3 plans)*
