@@ -123,28 +123,87 @@ GitHub Integration:
 - issueMode: [auto/ask/never]
 ```
 
-### Phase 3-4: Planning & Issue Creation
+### Phase 3: Phase Issues (Implemented)
+
+**Skill:** `kata-adding-milestones`
+**When:** After ROADMAP.md committed and GitHub Milestone created (Phase 9.5 of milestone workflow)
+**GitHub Action:** Create Issue for each phase in milestone
+
+**Flow:**
+1. Check `github.enabled` (skip if false)
+2. Check `github.issueMode` (auto/ask/never)
+3. Create `phase` label (idempotent with `--force`)
+4. Get milestone number from API
+5. Parse phases from ROADMAP.md for this milestone
+6. For each phase:
+   - Check if issue exists (idempotent via `gh issue list`)
+   - Create issue with goal, success criteria, requirement IDs
+   - Assign to milestone, apply `phase` label
+
+**Config Keys Checked:**
+- `github.enabled` — Master toggle
+- `github.issueMode` — Issue creation mode (auto/ask/never)
+
+**Issue Body Structure:**
+```markdown
+## Goal
+
+${PHASE_GOAL}
+
+## Success Criteria
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Requirements
+
+${REQUIREMENT_IDS}
+
+## Plans
+
+<!-- Checklist added by /kata:planning-phases (Phase 4) -->
+_Plans will be added after phase planning completes._
+```
+
+**CLI Pattern (uses --body-file for special character safety):**
+```bash
+# Create temp file with issue body
+cat > /tmp/phase-issue-body.md << PHASE_EOF
+## Goal
+...
+PHASE_EOF
+
+# Create issue using file
+gh issue create \
+  --title "Phase ${PHASE_NUM}: ${PHASE_NAME}" \
+  --body-file /tmp/phase-issue-body.md \
+  --label "phase" \
+  --milestone "v${VERSION}"
+```
+
+### Phase 4: Plan Updates (Planned)
 
 #### `kata-planning-phases`
 
 **Hook:** After phase plan created, before returning
-**Action:** Create or update GitHub Issue for the phase
+**Action:** Update existing GitHub Issue with plan checklist
 **Config checked:** `github.enabled`, `github.issueMode`
 
 ```bash
 if [ "$GITHUB_ENABLED" = "true" ] && [ "$ISSUE_MODE" != "never" ]; then
-  # For 'ask' mode, check/prompt for milestone decision
-  # Create issue with phase objective as body
-  gh issue create \
-    --title "Phase ${PHASE}: ${PHASE_NAME}" \
-    --milestone "v${MILESTONE}" \
-    --body "## Objective\n${OBJECTIVE}\n\n## Plans\n- [ ] Plan 01\n- [ ] Plan 02"
+  # Find existing phase issue
+  ISSUE_NUMBER=$(gh issue list --label phase --milestone "v${MILESTONE}" \
+    --json number,title --jq ".[] | select(.title | startswith(\"Phase ${PHASE}:\")) | .number")
+
+  # Update issue body with plan checklist
+  gh issue edit $ISSUE_NUMBER --body "..."
 fi
 ```
 
-**Issue body format:**
-- Objective from CONTEXT.md
-- Checkbox list of plans (unchecked)
+**Issue body updates:**
+- Adds plan checklist under `## Plans` section
+- `- [ ] Plan 01: {plan-name}`
+- `- [ ] Plan 02: {plan-name}`
 
 ### Phase 4-5: Execution & Tracking
 
@@ -375,14 +434,15 @@ fi
 
 ## Skills Affected Summary
 
-| Skill                      | Phase | GitHub Action                    | Config Keys Checked                    |
-| -------------------------- | ----- | -------------------------------- | -------------------------------------- |
-| `kata-starting-projects`   | 2     | Config onboarding                | None (creates config)                  |
-| `kata-starting-milestones` | 2     | Create GitHub Milestone          | `github.enabled`                       |
-| `kata-configuring-settings`| 2     | Display/update github.* settings | N/A                                    |
-| `kata-planning-phases`     | 3-4   | Create/update phase Issue        | `github.enabled`, `github.issueMode`   |
-| `kata-executing-phases`    | 4-5   | Update Issue checklist, create PR| `github.enabled`, `pr_workflow`        |
-| `kata-tracking-progress`   | 5     | Show GH issue/milestone/PR status| `github.enabled`, `pr_workflow`        |
+| Skill                      | Phase | GitHub Action                       | Config Keys Checked                    | Status      |
+| -------------------------- | ----- | ----------------------------------- | -------------------------------------- | ----------- |
+| `kata-starting-projects`   | 2     | Config onboarding                   | None (creates config)                  | Implemented |
+| `kata-adding-milestones`   | 2     | Create GitHub Milestone             | `github.enabled`                       | Implemented |
+| `kata-configuring-settings`| 2     | Display/update github.* settings    | N/A                                    | Implemented |
+| `kata-adding-milestones`   | 3     | Create phase Issues (Phase 9.5)     | `github.enabled`, `github.issueMode`   | Implemented |
+| `kata-planning-phases`     | 4     | Update phase Issue with plan list   | `github.enabled`, `github.issueMode`   | Planned     |
+| `kata-executing-phases`    | 5     | Update Issue checklist, create PR   | `github.enabled`, `pr_workflow`        | Planned     |
+| `kata-tracking-progress`   | 6     | Show GH issue/milestone/PR status   | `github.enabled`, `pr_workflow`        | Planned     |
 
 **See:** [planning-config.md](planning-config.md) for config schema and reading patterns.
 
