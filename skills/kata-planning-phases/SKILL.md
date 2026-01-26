@@ -466,11 +466,7 @@ Offer options:
 
 Wait for user response.
 
-## 13. Present Final Status
-
-Route to `<offer_next>`.
-
-## 14. Update GitHub Issue with Plan Checklist (if enabled)
+## 13. Update GitHub Issue with Plan Checklist (if enabled)
 
 **Check config guards:**
 
@@ -579,6 +575,10 @@ gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
 Store `ISSUE_NUMBER` and `PLAN_COUNT` for display in `<offer_next>` if update succeeded.
 
 **Error handling principle:** All GitHub operations are non-blocking. Missing issue, auth issues, or update failures warn but do not stop the planning workflow.
+
+## 14. Present Final Status
+
+Display the planning summary and route to `<offer_next>`.
 
 </process>
 
