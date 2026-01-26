@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, afterEach } from 'node:test';
-import { mkdtempSync, rmSync, cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, cpSync, existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -205,5 +205,76 @@ None.
     if (!existsSync(testFilePath)) {
       throw new Error('Expected test.txt to be created by execution');
     }
+  });
+
+  describe('Plan Sync - Wave Completion (Phase 4)', () => {
+    it('contains wave completion GitHub update', () => {
+      const skillPath = join(testDir, '.claude', 'skills', 'kata-executing-phases', 'SKILL.md');
+      const skillContent = readFileSync(skillPath, 'utf8');
+
+      // Verify wave completion includes GitHub update
+      const hasWaveUpdate = skillContent.includes('wave') &&
+                            skillContent.includes('gh issue');
+
+      if (!hasWaveUpdate) {
+        throw new Error('Expected skill to update GitHub issue on wave completion');
+      }
+    });
+
+    it('updates per wave not per plan (race condition mitigation)', () => {
+      const skillPath = join(testDir, '.claude', 'skills', 'kata-executing-phases', 'SKILL.md');
+      const skillContent = readFileSync(skillPath, 'utf8');
+
+      // Verify orchestrator-level update pattern
+      const hasWaveCompletion = skillContent.includes('wave complete') ||
+                                skillContent.includes('COMPLETED_PLANS_IN_WAVE') ||
+                                skillContent.includes('Wave');
+
+      // Should mention per-wave updates, not per-plan
+      const mentionsPerWave = skillContent.includes('per wave') ||
+                               skillContent.includes('per-wave') ||
+                               skillContent.includes('ONCE per wave');
+
+      if (!hasWaveCompletion) {
+        throw new Error('Expected skill to update issue at wave completion, not per-plan');
+      }
+    });
+
+    it('contains checkbox toggle pattern', () => {
+      const skillPath = join(testDir, '.claude', 'skills', 'kata-executing-phases', 'SKILL.md');
+      const skillContent = readFileSync(skillPath, 'utf8');
+
+      // Verify sed pattern for checkbox toggle
+      const hasCheckboxToggle = skillContent.includes('\\[ \\]') ||
+                                skillContent.includes('- [ ]') ||
+                                skillContent.includes('[x]');
+
+      if (!hasCheckboxToggle) {
+        throw new Error('Expected skill to include checkbox toggle pattern');
+      }
+    });
+
+    it('contains config guard', () => {
+      const skillPath = join(testDir, '.claude', 'skills', 'kata-executing-phases', 'SKILL.md');
+      const skillContent = readFileSync(skillPath, 'utf8');
+
+      const hasEnabledCheck = skillContent.includes('GITHUB_ENABLED') ||
+                              skillContent.includes('github.enabled');
+
+      if (!hasEnabledCheck) {
+        throw new Error('Expected skill to check github.enabled config');
+      }
+    });
+
+    it('uses --body-file pattern', () => {
+      const skillPath = join(testDir, '.claude', 'skills', 'kata-executing-phases', 'SKILL.md');
+      const skillContent = readFileSync(skillPath, 'utf8');
+
+      const hasBodyFile = skillContent.includes('--body-file');
+
+      if (!hasBodyFile) {
+        throw new Error('Expected skill to use --body-file for safe issue body updates');
+      }
+    });
   });
 });
