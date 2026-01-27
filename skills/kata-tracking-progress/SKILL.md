@@ -332,10 +332,13 @@ Read ROADMAP.md to get the next phase's name and goal.
 ---
 
 ## ✓ Phase {Z} Complete
-{If PR_WORKFLOW is true AND PR exists: PR #[number] ready for review — merge before continuing}
 
 ## ▶ Next Up
 
+{If PR_WORKFLOW is true AND PR exists:
+**⚠️ Merge PR #[number] first** — [url]
+Then continue with:
+}
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
 `/kata:discuss-phase {Z+1}` — gather context and clarify approach
@@ -361,10 +364,12 @@ Read ROADMAP.md to get the next phase's name and goal.
 ## 🎉 Milestone Complete
 
 All {N} phases finished!
-{If PR_WORKFLOW is true: All phase PRs should be merged before completing milestone}
 
 ## ▶ Next Up
 
+{If PR_WORKFLOW is true: **⚠️ Merge all phase PRs first** before completing milestone
+Then continue with:
+}
 **Complete Milestone** — archive and prepare for next
 
 `/kata:complete-milestone`

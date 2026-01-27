@@ -23,7 +23,7 @@
 | # | Test | Expected | Status | Notes |
 |---|------|----------|--------|-------|
 | 8 | Progress shows PR status section | PR #, state (Draft/Ready/Merged), URL displayed | ✅ | |
-| 9 | Routes include PR context | Route A shows PR info, Routes C/D remind to merge | ⚠️ | Merge reminder exists but easily missed - not in Next Up section |
+| 9 | Routes include PR context | Route A shows PR info, Routes C/D remind to merge | ✅ | Fixed: merged reminder INTO Next Up section |
 
 ### From 05-03-SUMMARY.md (Tests and Documentation)
 
@@ -36,17 +36,10 @@
 ## Session
 
 **Completed:** 2026-01-27
-**Result:** 11/12 passed, 1 issue
+**Result:** 12/12 passed
 
-## Issues Found
+## Issues Found & Fixed
 
-| # | Test | Severity | Description |
-|---|------|----------|-------------|
-| 9 | Routes include PR context | Minor | Merge reminder exists but easily missed - appears before "Next Up" section rather than integrated into it |
-
-## Recommended Fix
-
-**Test 9 - PR merge reminder prominence:**
-- Move "PR #X ready for review — merge before continuing" INTO the Next Up section
-- Consider making it a blocking callout or integrating into the command suggestion
-- Example: `/kata:discuss-phase 2` could become `merge PR #5 first, then /kata:discuss-phase 2`
+| # | Test | Issue | Fix |
+|---|------|-------|-----|
+| 9 | Routes include PR context | Merge reminder not prominent | Moved INTO Next Up section with ⚠️ callout |
