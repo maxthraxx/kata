@@ -189,6 +189,69 @@ Phase: $ARGUMENTS
 
      This update happens ONCE per wave (after all plans in wave complete), not per-plan, avoiding race conditions.
 
+   - **Open Draft PR (first wave only, pr_workflow only):**
+
+     After first wave completion:
+     ```bash
+     if [ "$PR_WORKFLOW" = "true" ] && [ "$WAVE_NUM" = "1" ]; then
+       # Check if PR already exists (re-run protection)
+       EXISTING_PR=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null)
+       if [ -n "$EXISTING_PR" ]; then
+         echo "PR #${EXISTING_PR} already exists, skipping creation"
+         PR_NUMBER="$EXISTING_PR"
+       else
+         # Push branch and create draft PR
+         git push -u origin "$BRANCH"
+
+         # Get phase name from ROADMAP.md
+         PHASE_NAME=$(grep -E "^Phase ${PHASE_NUM}:" .planning/ROADMAP.md | sed -E 's/^Phase [0-9]+: //' | cut -d'—' -f1 | xargs)
+
+         # Build PR body
+         PHASE_GOAL=$(grep -A 2 "^Phase ${PHASE_NUM}:" .planning/ROADMAP.md | grep "Goal:" | sed 's/.*Goal: //')
+
+         # Get phase issue number for linking (if github.enabled)
+         CLOSES_LINE=""
+         if [ "$GITHUB_ENABLED" = "true" ] && [ "$ISSUE_MODE" != "never" ]; then
+           PHASE_ISSUE=$(gh issue list --label phase --milestone "v${MILESTONE}" \
+             --json number,title --jq ".[] | select(.title | startswith(\"Phase ${PHASE_NUM}:\")) | .number" 2>/dev/null)
+           [ -n "$PHASE_ISSUE" ] && CLOSES_LINE="Closes #${PHASE_ISSUE}"
+         fi
+
+         # Build plans checklist (all unchecked initially)
+         PLANS_CHECKLIST=""
+         for plan in ${PHASE_DIR}/*-PLAN.md; do
+           plan_name=$(grep -m1 "<name>" "$plan" | sed 's/.*<name>//;s/<\/name>.*//' || basename "$plan" | sed 's/-PLAN.md//')
+           plan_num=$(basename "$plan" | sed -E 's/^[0-9]+-([0-9]+)-PLAN\.md$/\1/')
+           PLANS_CHECKLIST="${PLANS_CHECKLIST}- [ ] Plan ${plan_num}: ${plan_name}\n"
+         done
+
+         cat > /tmp/pr-body.md << PR_EOF
+## Phase Goal
+
+${PHASE_GOAL}
+
+## Plans
+
+${PLANS_CHECKLIST}
+${CLOSES_LINE}
+PR_EOF
+
+         # Create draft PR
+         gh pr create --draft \
+           --base main \
+           --title "v${MILESTONE} Phase ${PHASE_NUM}: ${PHASE_NAME}" \
+           --body-file /tmp/pr-body.md
+
+         PR_NUMBER=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number')
+         echo "Created draft PR #${PR_NUMBER}"
+       fi
+     fi
+     ```
+
+     Store PR_NUMBER for step 10.5.
+
+     **Note:** PR body checklist items remain unchecked throughout execution. The PR body is static after creation — it does NOT update as plans complete. The GitHub issue (updated after each wave above) is the source of truth for plan progress during execution.
+
    - Proceed to next wave
 
 5. **Aggregate results**
