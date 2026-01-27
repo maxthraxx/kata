@@ -1,7 +1,8 @@
 ---
 name: kata-starting-projects
 description: Use this skill when initialize a new project with deep context gathering and project.md. Triggers include "new project", "start project", "initialize project", "create project", "begin project", "setup project".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
@@ -721,10 +722,10 @@ fi
 
 **[Project Name]**
 
-| Artifact     | Location                |
-| ------------ | ----------------------- |
-| Project      | `.planning/PROJECT.md`  |
-| Config       | `.planning/config.json` |
+| Artifact | Location                |
+| -------- | ----------------------- |
+| Project  | `.planning/PROJECT.md`  |
+| Config   | `.planning/config.json` |
 
 Ready for milestone planning ✓
 

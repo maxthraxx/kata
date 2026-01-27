@@ -1,7 +1,8 @@
 ---
 name: kata-adding-milestones
 description: Use this skill when adding a milestone to an existing project, starting a new milestone cycle, creating the first milestone after project init, or defining what's next after completing work. Triggers include "add milestone", "new milestone", "start milestone", "create milestone", "first milestone", "next milestone", and "milestone cycle".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: true
 disable-model-invocation: false
 allowed-tools:

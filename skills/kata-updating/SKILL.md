@@ -1,7 +1,8 @@
 ---
 name: kata-updating
 description: Use this skill when update kata to latest version with changelog display. Triggers include "update".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:

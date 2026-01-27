@@ -1,7 +1,8 @@
 ---
 name: kata-listing-phase-assumptions
 description: Use this skill when surfacing Claude's assumptions about a phase approach before planning, checking what Claude thinks, or validating understanding before planning. Triggers include "list assumptions", "what are you thinking", "show assumptions", "phase assumptions", and "what's the plan".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
