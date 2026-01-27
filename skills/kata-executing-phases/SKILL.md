@@ -49,10 +49,14 @@ Phase: $ARGUMENTS
 
    **Model lookup table:**
 
-   | Agent         | quality | balanced | budget |
-   | ------------- | ------- | -------- | ------ |
-   | kata-executor | opus    | sonnet   | sonnet |
-   | kata-verifier | sonnet  | sonnet   | haiku  |
+   | Agent              | quality | balanced | budget |
+   | ------------------ | ------- | -------- | ------ |
+   | kata-executor      | opus    | sonnet   | sonnet |
+   | kata-verifier      | sonnet  | sonnet   | haiku  |
+   | kata-code-reviewer | opus    | sonnet   | sonnet |
+   | kata-*-analyzer    | sonnet  | sonnet   | haiku  |
+
+   *Note: Review agents (kata-code-reviewer, kata-*-analyzer) are spawned by the kata-reviewing-pull-requests skill, which handles its own model selection based on the agents' frontmatter. The table above documents expected model usage for cost planning.*
 
    Store resolved models for use in Task calls below.
 
@@ -361,6 +365,70 @@ PR_EOF
 
     Store PR_URL for offer_next output.
 
+10.6. **Run PR Review (pr_workflow only, optional)**
+
+    After marking PR ready, offer to run automated review:
+
+    Use AskUserQuestion:
+    - header: "PR Review"
+    - question: "Run automated PR review before team review?"
+    - options:
+      - "Yes, run full review" — Run kata-reviewing-pull-requests with all aspects
+      - "Quick review (code only)" — Run kata-reviewing-pull-requests with "code" aspect only
+      - "Skip" — Proceed without review
+
+    **If user chooses review:**
+    1. Invoke skill: `Skill("kata-reviewing-pull-requests", "<aspect>")`
+    2. Display review summary with counts: {N} critical, {M} important, {P} suggestions
+    3. **STOP and ask what to do with findings** (see below)
+
+    **If user chooses "Skip":**
+    Continue to step 11 without review.
+
+10.7. **Handle Review Findings (required after review completes)**
+
+    **STOP here. Do not proceed to step 11 until user chooses an action.**
+
+    Use AskUserQuestion with options based on what was found:
+    - header: "Review Findings"
+    - question: "How do you want to handle the review findings?"
+    - options (show only applicable ones):
+      - "Fix critical issues" — (if critical > 0) Fix critical, then offer to add remaining to backlog
+      - "Fix critical & important" — (if critical + important > 0) Fix both, then offer to add suggestions to backlog
+      - "Fix all issues" — (if any issues) Fix everything
+      - "Add to backlog" — Create todos for all issues without fixing
+      - "Ignore and continue" — Skip all issues
+
+    **After user chooses:**
+
+    **Path A: "Fix critical issues"**
+    1. Fix each critical issue
+    2. If important or suggestions remain, ask: "Add remaining {N} issues to backlog?"
+       - "Yes" → Create todos, store TODOS_CREATED count
+       - "No" → Continue
+    3. Continue to step 11
+
+    **Path B: "Fix critical & important"**
+    1. Fix each critical and important issue
+    2. If suggestions remain, ask: "Add {N} suggestions to backlog?"
+       - "Yes" → Create todos, store TODOS_CREATED count
+       - "No" → Continue
+    3. Continue to step 11
+
+    **Path C: "Fix all issues"**
+    1. Fix all critical, important, and suggestion issues
+    2. Continue to step 11
+
+    **Path D: "Add to backlog"**
+    1. Create todos for all issues using `/kata:add-todo`
+    2. Store TODOS_CREATED count
+    3. Continue to step 11
+
+    **Path E: "Ignore and continue"**
+    1. Continue to step 11
+
+    Store REVIEW_SUMMARY and TODOS_CREATED for offer_next output.
+
 11. **Offer next steps**
     - Route to next action (see `<offer_next>`)
 </process>
@@ -379,6 +447,26 @@ Output this markdown directly (not as a code block). Route based on status:
 
 **Route A: Phase verified, more phases remain**
 
+**Step 1: If PR_WORKFLOW=true, STOP and ask about merge BEFORE showing completion output.**
+
+Use AskUserQuestion:
+- header: "PR Ready for Merge"
+- question: "PR #{pr_number} is ready. Merge before continuing to next phase?"
+- options:
+  - "Yes, merge now" — merge PR, then show completion
+  - "No, continue without merging" — show completion with PR status
+
+**Step 2: Handle merge response (if PR_WORKFLOW=true)**
+
+If user chose "Yes, merge now":
+```bash
+gh pr merge "$PR_NUMBER" --squash --delete-branch
+git checkout main && git pull
+```
+Set MERGED=true for output below.
+
+**Step 3: Show completion output**
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Kata ► PHASE {Z} COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -388,7 +476,10 @@ Output this markdown directly (not as a code block). Route based on status:
 {Y} plans executed
 Goal verified ✓
 {If github.enabled: GitHub Issue: #{issue_number} ({checked}/{total} plans checked off)}
-{If pr_workflow: PR: #{pr_number} ({pr_url}) — ready for review}
+{If PR_WORKFLOW and MERGED: PR: #{pr_number} — merged ✓}
+{If PR_WORKFLOW and not MERGED: PR: #{pr_number} ({pr_url}) — ready for review}
+{If REVIEW_SUMMARY: PR Review: {summary_stats}}
+{If TODOS_CREATED: Backlog: {N} todos created from review suggestions}
 
 ───────────────────────────────────────────────────────────────
 
@@ -396,15 +487,16 @@ Goal verified ✓
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-/kata:discuss-phase {Z+1} — gather context and clarify approach
+`/kata:discuss-phase {Z+1}` — gather context and clarify approach
 
-<sub>/clear first → fresh context window</sub>
+<sub>`/clear` first → fresh context window</sub>
 
 ───────────────────────────────────────────────────────────────
 
 **Also available:**
-- /kata:plan-phase {Z+1} — skip discussion, plan directly
-- /kata:verify-work {Z} — manual acceptance testing before continuing
+- `/kata:plan-phase {Z+1}` — skip discussion, plan directly
+- `/kata:verify-work {Z}` — manual acceptance testing before continuing
+{If PR_WORKFLOW and not MERGED: - `gh pr view --web` — review PR in browser before next phase}
 
 ───────────────────────────────────────────────────────────────
 
@@ -488,22 +580,18 @@ After user runs /kata:plan-phase {Z} --gaps:
 <wave_execution>
 **Parallel spawning:**
 
-Before spawning, read file contents. The `@` syntax does not work across Task() boundaries.
+Before spawning, read file contents using Read tool. The `@` syntax does not work across Task() boundaries - content must be inlined in the Task prompt.
 
-```bash
-# Read each plan and STATE.md
-PLAN_01_CONTENT=$(cat "{plan_01_path}")
-PLAN_02_CONTENT=$(cat "{plan_02_path}")
-PLAN_03_CONTENT=$(cat "{plan_03_path}")
-STATE_CONTENT=$(cat .planning/STATE.md)
-```
+**Read these files:**
+- Each plan file in the wave (e.g., `{plan_01_path}`, `{plan_02_path}`, etc.)
+- `.planning/STATE.md`
 
 Spawn all plans in a wave with a single message containing multiple Task calls, with inlined content:
 
 ```
-Task(prompt="Execute plan at {plan_01_path}\n\nPlan:\n{plan_01_content}\n\nProject state:\n{state_content}", subagent_type="kata-executor", model="{executor_model}")
-Task(prompt="Execute plan at {plan_02_path}\n\nPlan:\n{plan_02_content}\n\nProject state:\n{state_content}", subagent_type="kata-executor", model="{executor_model}")
-Task(prompt="Execute plan at {plan_03_path}\n\nPlan:\n{plan_03_content}\n\nProject state:\n{state_content}", subagent_type="kata-executor", model="{executor_model}")
+Task(prompt="Execute plan at {plan_01_path}\n\n<plan>\n{plan_01_content}\n</plan>\n\n<project_state>\n{state_content}\n</project_state>", subagent_type="kata-executor", model="{executor_model}")
+Task(prompt="Execute plan at {plan_02_path}\n\n<plan>\n{plan_02_content}\n</plan>\n\n<project_state>\n{state_content}\n</project_state>", subagent_type="kata-executor", model="{executor_model}")
+Task(prompt="Execute plan at {plan_03_path}\n\n<plan>\n{plan_03_content}\n</plan>\n\n<project_state>\n{state_content}\n</project_state>", subagent_type="kata-executor", model="{executor_model}")
 ```
 
 All three run in parallel. Task tool blocks until all complete.

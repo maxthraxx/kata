@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v1.1.0 GitHub Integration — Phase 5: PR Integration (complete)
+**Current focus:** v1.1.0 GitHub Integration — Phase 6: PR Review Workflow Skill & Agents
 
 ## Current Position
 
 Milestone: v1.1.0 GitHub Integration
-Phase: 5 (PR Integration)
-Plan: 03 of 3 complete
-Status: Phase complete
-Last activity: 2026-01-27 — Completed 05-03-PLAN.md (49bd9b2)
+Phase: 6 (PR Review Workflow Skill & Agents)
+Plan: 04 of 4 complete
+Status: Verified ✓
+Last activity: 2026-01-27 — Phase 6 UAT verified (9/9 tests passing)
 
-Progress: [████████████████████████████████████████████████] 100% (3/3 plans in phase 5)
+Progress: [████████████████████████████████████████████████] 100% (6/6 phases in v1.1.0)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 56
+- Total plans completed: 60
 - Average duration: 3 min
-- Total execution time: 147 min
+- Total execution time: 155 min
 
 **By Milestone:**
 
@@ -33,12 +33,12 @@ Progress: [███████████████████████
 | v1.0.0    | 4      | 5     | Shipped 2026-01-23 |
 | v1.0.8    | 1      | 5     | Shipped 2026-01-24 |
 | v1.0.9    | 1      | 3     | Shipped 2026-01-25 |
-| v1.1.0    | 6      | 21    | Phase 5 complete (3/3 plans) |
+| v1.1.0    | 6      | 25    | Complete (6/6 phases, +1 gap closure) |
 
 **Recent Trend:**
 - v1.0.1-v1.0.5: Rapid patch releases (5 patches in 2 days) addressing plugin distribution issues
 - Focus shifted from planned features to stability
-- v1.0.9: Command consolidation - normalizing on skills-only distribution
+- v1.0.9: Command consolidation - skills made user-invocable alongside commands
 
 *Updated after each plan completion*
 
@@ -49,9 +49,8 @@ Progress: [███████████████████████
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- **2026-01-25: Commands layer removed** — Deleted 27 command wrapper files, updated README and CLAUDE.md for skills-only architecture
+- **2026-01-25: Commands/Skills architecture** — Commands are user-invocable (via `/kata:`), skills are agent-invocable (via `Skill()`). Commands invoke skills. Users → Commands → Skills → Agents.
 - **2026-01-25: Build.js skill prefix transformation** — Plugin build strips `kata-` prefix from skill directories and names for clean `/kata:skill-name` invocation
-- **2026-01-25: Skills made user-invocable** — All 27 skills changed from `user-invocable: false` to `user-invocable: true` for direct / menu access
 - **2026-01-24: Roadmap realigned** — Updated to reflect actual release history; v0.1.9 became v1.0.0, added v1.0.8 milestone for stability work
 - **2026-01-24: Phase 2.1 inserted** — Skill-Centric Resource Restructure to support npx-based skill distribution (Vercel model)
 - **2026-01-23: Marketplace created** - gannonh/kata-marketplace repository with Kata v1.0.0 entry
@@ -74,6 +73,8 @@ Recent decisions affecting current work:
 - **Phase 4 complete 2026-01-26** — Plan sync (plan checklist in issues, execution checkbox updates, test coverage)
 - **Phase 4 GAP fix 2026-01-26** — Fixed step ordering bug in kata-planning-phases (UAT finding)
 - **Phase 5 complete 2026-01-27** — PR Integration (branch creation, draft PR, ready automation, tests, docs)
+- **Phase 6 complete 2026-01-27** — PR Review Workflow Skill & Agents (3/3 plans)
+- **Phase 6 UAT fix 2026-01-27** — Gap closure plan for backlog todo prompt and merge-first workflow
 
 ### Pending Todos
 
@@ -109,5 +110,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-27
-Stopped at: Phase 5 complete — PR Integration verified
-Resume file: .planning/phases/06-pr-review-workflow/06-01-PLAN.md
+Stopped at: Phase 6 verified — all 9 UAT tests passing
+Next action: /kata:audit-milestone to verify v1.1.0 requirements coverage
