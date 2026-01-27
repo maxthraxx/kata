@@ -304,6 +304,24 @@ PR_EOF
     - Stage REQUIREMENTS.md if updated: `git add .planning/REQUIREMENTS.md`
     - Commit: `docs({phase}): complete {phase-name} phase`
 
+10.5. **Mark PR Ready (pr_workflow only)**
+
+    After phase completion commit:
+    ```bash
+    if [ "$PR_WORKFLOW" = "true" ]; then
+      # Push final commits
+      git push origin "$BRANCH"
+
+      # Mark PR ready for review
+      gh pr ready
+
+      PR_URL=$(gh pr view --json url --jq '.url')
+      echo "PR marked ready: $PR_URL"
+    fi
+    ```
+
+    Store PR_URL for offer_next output.
+
 11. **Offer next steps**
     - Route to next action (see `<offer_next>`)
 </process>
@@ -331,6 +349,7 @@ Output this markdown directly (not as a code block). Route based on status:
 {Y} plans executed
 Goal verified ✓
 {If github.enabled: GitHub Issue: #{issue_number} ({checked}/{total} plans checked off)}
+{If pr_workflow: PR: #{pr_number} ({pr_url}) — ready for review}
 
 ───────────────────────────────────────────────────────────────
 
@@ -362,6 +381,7 @@ Goal verified ✓
 
 {N} phases completed
 All phase goals verified ✓
+{If pr_workflow: Phase PRs ready — merge to prepare for release}
 
 ───────────────────────────────────────────────────────────────
 
