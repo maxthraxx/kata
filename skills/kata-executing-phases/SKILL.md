@@ -61,6 +61,54 @@ Phase: $ARGUMENTS
    - Count PLAN.md files
    - Error if no plans found
 
+1.5. **Create Phase Branch (pr_workflow only)**
+
+   Read pr_workflow config:
+   ```bash
+   PR_WORKFLOW=$(cat .planning/config.json 2>/dev/null | grep -o '"pr_workflow"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "false")
+   ```
+
+   **If PR_WORKFLOW=false:** Skip to step 2.
+
+   **If PR_WORKFLOW=true:**
+   1. Get milestone version from ROADMAP.md:
+      ```bash
+      MILESTONE=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v')
+      ```
+   2. Get phase number and slug from PHASE_DIR:
+      ```bash
+      PHASE_NUM=$(basename "$PHASE_DIR" | sed -E 's/^([0-9]+)-.*/\1/')
+      SLUG=$(basename "$PHASE_DIR" | sed -E 's/^[0-9]+-//')
+      ```
+   3. Infer branch type from phase goal (feat/fix/docs/refactor/chore, default feat):
+      ```bash
+      PHASE_GOAL=$(grep -A 5 "Phase ${PHASE_NUM}:" .planning/ROADMAP.md | grep "Goal:" | head -1 || echo "")
+      if echo "$PHASE_GOAL" | grep -qi "fix\|bug\|patch"; then
+        BRANCH_TYPE="fix"
+      elif echo "$PHASE_GOAL" | grep -qi "doc\|readme\|comment"; then
+        BRANCH_TYPE="docs"
+      elif echo "$PHASE_GOAL" | grep -qi "refactor\|restructure\|reorganize"; then
+        BRANCH_TYPE="refactor"
+      elif echo "$PHASE_GOAL" | grep -qi "chore\|config\|setup"; then
+        BRANCH_TYPE="chore"
+      else
+        BRANCH_TYPE="feat"
+      fi
+      ```
+   4. Create branch with re-run protection:
+      ```bash
+      BRANCH="${BRANCH_TYPE}/v${MILESTONE}-${PHASE_NUM}-${SLUG}"
+      if git show-ref --verify --quiet refs/heads/"$BRANCH"; then
+        git checkout "$BRANCH"
+        echo "Branch $BRANCH exists, resuming on it"
+      else
+        git checkout -b "$BRANCH"
+        echo "Created branch $BRANCH"
+      fi
+      ```
+
+   Store BRANCH variable for use in step 4.5 and step 10.5.
+
 2. **Discover plans**
    - List all *-PLAN.md files in phase directory
    - Check which have *-SUMMARY.md (already complete)
