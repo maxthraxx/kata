@@ -1,9 +1,9 @@
 name: Publish Plugin to Marketplace
 
 on:
-  workflow_run:
-    workflows: ["Publish to npm"]
-    types: [completed]
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       reason:
@@ -14,8 +14,6 @@ on:
 jobs:
   publish-plugin:
     runs-on: ubuntu-latest
-    # Run if: (1) triggered by successful npm publish, or (2) manually dispatched
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
     steps:
@@ -27,39 +25,52 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Get version from package.json
+      - name: Get plugin version
         id: version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Publishing plugin version: $VERSION"
+          PLUGIN_VERSION=$(node -p "require('./.claude-plugin/plugin.json').version")
+          echo "plugin_version=$PLUGIN_VERSION" >> $GITHUB_OUTPUT
+          echo "Local plugin version: $PLUGIN_VERSION"
 
-      - name: Check if release exists for this version
-        id: check_release
+      - name: Get marketplace version
+        id: marketplace
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          if gh release view "v$VERSION" &>/dev/null; then
-            echo "Release v$VERSION exists, proceeding with plugin publish"
+          # Fetch marketplace.json from kata-marketplace repo
+          MARKETPLACE_VERSION=$(gh api repos/gannonh/kata-marketplace/contents/.claude-plugin/marketplace.json --jq '.content' | base64 -d | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin', 'utf8')).plugins.find(p => p.name === 'kata')?.version || ''")
+          echo "marketplace_version=$MARKETPLACE_VERSION" >> $GITHUB_OUTPUT
+          echo "Marketplace version: $MARKETPLACE_VERSION"
+
+      - name: Check if should publish
+        id: check
+        run: |
+          LOCAL="${{ steps.version.outputs.plugin_version }}"
+          PUBLISHED="${{ steps.marketplace.outputs.marketplace_version }}"
+
+          if [ -z "$PUBLISHED" ]; then
+            echo "Plugin not yet in marketplace, will publish"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          elif [ "$LOCAL" != "$PUBLISHED" ]; then
+            echo "Version changed ($PUBLISHED -> $LOCAL), will publish"
             echo "should_publish=true" >> $GITHUB_OUTPUT
           else
-            echo "No release for v$VERSION, skipping plugin publish"
+            echo "Version unchanged ($LOCAL), skipping publish"
             echo "should_publish=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Run tests
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         run: npm test
 
       - name: Build plugin distribution
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         run: |
           npm run build:hooks
           node scripts/build.js plugin
 
       - name: Validate plugin build
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         run: |
           # Verify critical files exist
           test -f dist/plugin/.claude-plugin/plugin.json
@@ -70,19 +81,8 @@ jobs:
           test -f dist/plugin/VERSION
           echo "✓ Plugin build validated"
 
-      - name: Validate plugin.json version matches package.json
-        if: steps.check_release.outputs.should_publish == 'true'
-        run: |
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          PLUGIN_VERSION=$(node -p "require('./dist/plugin/.claude-plugin/plugin.json').version")
-          if [ "$PKG_VERSION" != "$PLUGIN_VERSION" ]; then
-            echo "Error: package.json version ($PKG_VERSION) doesn't match plugin.json ($PLUGIN_VERSION)"
-            exit 1
-          fi
-          echo "✓ Version match: $PKG_VERSION"
-
       - name: Checkout marketplace
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         uses: actions/checkout@v4
         with:
           repository: gannonh/kata-marketplace
@@ -90,7 +90,7 @@ jobs:
           path: marketplace
 
       - name: Update marketplace with plugin files
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         run: |
           # Clean existing plugin directory in marketplace (including hidden dirs)
           rm -rf marketplace/plugins/kata
@@ -108,9 +108,9 @@ jobs:
               const m = JSON.parse(fs.readFileSync('$MARKETPLACE_JSON', 'utf8'));
               const plugin = m.plugins.find(p => p.name === 'kata');
               if (plugin) {
-                plugin.version = '${{ steps.version.outputs.version }}';
+                plugin.version = '${{ steps.version.outputs.plugin_version }}';
                 fs.writeFileSync('$MARKETPLACE_JSON', JSON.stringify(m, null, 2) + '\n');
-                console.log('Updated kata version to ${{ steps.version.outputs.version }}');
+                console.log('Updated kata version to ${{ steps.version.outputs.plugin_version }}');
               }
             "
           else
@@ -118,11 +118,11 @@ jobs:
           fi
 
       - name: Commit and push to marketplace
-        if: steps.check_release.outputs.should_publish == 'true'
+        if: steps.check.outputs.should_publish == 'true'
         working-directory: marketplace
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --staged --quiet || git commit -m "chore: update kata plugin to v${{ steps.version.outputs.version }}"
+          git diff --staged --quiet || git commit -m "chore: update kata plugin to v${{ steps.version.outputs.plugin_version }}"
           git push
