@@ -223,6 +223,7 @@ Read its `<objective>` section.
 ## ▶ Next Up
 
 **{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
+{If PR_WORKFLOW is true AND PR exists: PR #[number] ([state]) — [url]}
 
 `/kata:execute-phase {phase}`
 
@@ -331,6 +332,7 @@ Read ROADMAP.md to get the next phase's name and goal.
 ---
 
 ## ✓ Phase {Z} Complete
+{If PR_WORKFLOW is true AND PR exists: PR #[number] ready for review — merge before continuing}
 
 ## ▶ Next Up
 
@@ -359,6 +361,7 @@ Read ROADMAP.md to get the next phase's name and goal.
 ## 🎉 Milestone Complete
 
 All {N} phases finished!
+{If PR_WORKFLOW is true: All phase PRs should be merged before completing milestone}
 
 ## ▶ Next Up
 
