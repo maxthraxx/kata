@@ -149,7 +149,11 @@ Plans:
 5. Version bump script updates `.claude-plugin/plugin.json` version field
 6. Changelog generation preserves manual curation quality (review gate before publish)
 
-**Plans:** TBD (estimate 4-6 plans)
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Create version detection and changelog generation references
+- [ ] 01-02-PLAN.md — Integrate release workflow into completing-milestones skill
 
 ---
 
@@ -177,8 +181,8 @@ Plans:
 | 6. PR Review Workflow Skill              | v1.1.0    | 4/4            | Complete | 2026-01-27 |
 | 7. Deprecate NPX Support                 | v1.1.0    | 6/6            | Complete | 2026-01-27 |
 | 0. Foundation & CI Hardening             | v1.3.0    | 2/2            | Complete | 2026-01-28 |
-| 1. Release Automation                    | v1.3.0    | —              | Pending  | —          |
+| 1. Release Automation                    | v1.3.0    | 0/2            | Planned  | —          |
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-28 — Phase 0 complete (2 plans)*
+*Last updated: 2026-01-28 — Phase 1 planned (2 plans)*
