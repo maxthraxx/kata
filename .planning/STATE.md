@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Teams get reliable AI-driven development without abandoning their existing GitHub workflow
-**Current focus:** v1.3.0 Release Automation & Workflow Docs — roadmap created, ready to plan Phase 0
+**Current focus:** v1.3.0 Release Automation — milestone complete, ready for release
 
 ## Current Position
 
 Milestone: v1.3.0 Release Automation & Workflow Docs
-Phase: Phase 0 (Foundation & CI Hardening) - COMPLETE
+Phase: Phase 1 (Release Automation) - COMPLETE
 Plan: 02 of 2
-Status: Phase 0 complete, ready for Phase 1
-Last activity: 2026-01-28 — Completed 00-02-PLAN.md (CI workflow integration)
+Status: Milestone complete, ready for /kata:complete-milestone
+Last activity: 2026-01-28 — Completed 01-02-PLAN.md (release workflow integration into completing-milestones skill)
 
-Progress: [██████████████████████████████████████████████████] 100% (2/2 plans in Phase 0)
+Progress: [██████████████████████████████████████████████████] 100% (2/2 plans in Phase 1)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 68
+- Total plans completed: 70
 - Average duration: 3 min
-- Total execution time: 171 min
+- Total execution time: 175 min
 
 **By Milestone:**
 
@@ -36,7 +36,7 @@ Progress: [███████████████████████
 | v1.1.0    | 10     | 33    | Shipped 2026-01-27 |
 | v1.2.0    | 1      | 2     | Shipped 2026-01-27 |
 | v1.2.1    | 1      | 1     | Shipped 2026-01-28 |
-| v1.3.0    | 4      | —     | In Progress        |
+| v1.3.0    | 2      | 4     | Complete           |
 
 **Recent Trend:**
 - v1.0.1-v1.0.5: Rapid patch releases (5 patches in 2 days) addressing plugin distribution issues
@@ -90,10 +90,14 @@ Recent decisions affecting current work:
 - **Phase 0 plan 01 complete 2026-01-28** — Artifact validation test suite (13 tests)
 - **Phase 0 plan 02 complete 2026-01-28** — CI workflow integration (validation before release)
 - **Phase 0 COMPLETE 2026-01-28** — Foundation & CI Hardening (2 plans)
+- **Phase 1 plan 01 complete 2026-01-28** — Version detection and changelog reference files
+- **Phase 1 plan 02 complete 2026-01-28** — Release workflow integration into completing-milestones skill
+- **Phase 1 COMPLETE 2026-01-28** — Release Automation (2 plans, REL-01 through REL-04 satisfied)
+- **v1.3.0 milestone complete 2026-01-28** — Ready for release
 
 ### Pending Todos
 
-24 pending todos:
+26 pending todos:
 - `.planning/todos/pending/2026-01-18-statusline-kata-project-info.md` - Add kata project info to statusline
 - `.planning/todos/pending/2026-01-18-create-move-phase-command.md` - Create move-phase command
 - `.planning/todos/pending/2026-01-18-command-subagent-noun-verb-naming.md` - Change command and subagent naming to noun-verb
@@ -118,6 +122,8 @@ Recent decisions affecting current work:
 - `.planning/todos/pending/2026-01-28-linear-integration-research.md` - Linear integration research
 - `.planning/todos/pending/2026-01-28-encourage-small-milestones.md` - Encourage small milestones in workflow skill
 - `.planning/todos/pending/2026-01-28-extract-inline-scripts-to-files.md` - Extract inline scripts from Markdown to standalone files
+- `.planning/todos/pending/2026-01-28-offer-readme-revision-after-execution.md` - Offer README revision after execution phase
+- `.planning/todos/pending/2026-01-28-demo-projects-for-uat-testing.md` - Create demo projects in various states for UAT testing
 
 ### Blockers/Concerns
 
@@ -133,5 +139,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 00-02-PLAN.md (Phase 0 complete)
-Next action: Plan Phase 1 (Workflow Documentation)
+Stopped at: Completed Phase 1 (Release Automation), milestone complete
+Next action: Complete milestone v1.3.0 (/kata:complete-milestone)
