@@ -52,9 +52,10 @@ claude plugin install kata@kata-marketplace
 
 **All features are optional.** Enable what you need via `/kata:configure-settings`.
 
-<div align="center">
+<figure align="center">
 <img src="assets/project-config-flow.gif" alt="GitHub Integration Setup">
-</div>
+<figcaption><em>Interactive setup for PR workflows, GitHub tracking, issue creation, and CI scaffolding</em></figcaption>
+</figure>
 
 ---
 
