@@ -11,7 +11,7 @@ Kata is a spec-driven development framework for Claude Code. This roadmap tracks
 - **v1.0.0 Claude Code Plugin** — Phases 1-3 (shipped 2026-01-23)
 - **v1.0.8 Plugin Stability** — Phase 2.1 (shipped 2026-01-24) — [archive](milestones/v1.0.8-ROADMAP.md)
 - **v1.0.9 Command Consolidation** — Phase 2.2 (complete)
-- **v1.1.0 GitHub Integration** — Phases 0-7 (planned)
+- **v1.1.0 GitHub Integration** — Phases 0-7 (shipped 2026-01-27) — [archive](milestones/v1.1.0-ROADMAP.md)
 
 ## Phases
 
@@ -80,193 +80,25 @@ Plans:
 - [x] 02.2-02-PLAN.md — Update build.js to strip kata- prefix for plugin
 - [x] 02.2-03-PLAN.md — Delete commands, update documentation
 
-### v1.1.0 GitHub Integration (Planned)
+<details>
+<summary>v1.1.0 GitHub Integration (Phases 0-7) — SHIPPED 2026-01-27</summary>
 
-- [x] **Phase 0: Develop Robust Testing Suite** - Establish testing infrastructure before integration work — completed 2026-01-25
-- [x] **Phase 1: Audit & Config Foundation** - Understand integration points, establish config schema — completed 2026-01-25
-- [x] **Phase 2: Onboarding & Milestones** - Config during project-new, GitHub Milestone creation — completed 2026-01-25
-- [x] **Phase 2.1: GitHub Repo Setup** (INSERTED) - Detect/create GitHub repo before milestone creation — completed 2026-01-26
-- [x] **Phase 2.2: Decouple Project Init & Milestone Setup** (INSERTED) - Separate project creation from first milestone, establish Kata↔GitHub mapping — completed 2026-01-26
-- [x] **Phase 3: Phase Issues** - Create GitHub Issues for phases with labels and metadata — completed 2026-01-26
-- [x] **Phase 4: Plan Sync** - Checklist items in issues, update as plans complete — completed 2026-01-26
-- [x] **Phase 5: PR Integration** - Create PRs at phase start with auto-linking — completed 2026-01-27
-- [x] **Phase 6: PR Review Workflow Skill & Agents** - Integrate PR review skill and agents into phase execution workflow — completed 2026-01-27
-- [x] **Phase 7: Deprecate NPX Support** - Remove NPX distribution path, plugin-only going forward — completed 2026-01-27
+- [x] Phase 0: Develop Robust Testing Suite (7/7 plans) — completed 2026-01-25
+- [x] Phase 1: Audit & Config Foundation (2/2 plans) — completed 2026-01-25
+- [x] Phase 2: Onboarding & Milestones (3/3 plans) — completed 2026-01-25
+- [x] Phase 2.1: GitHub Repo Setup (INSERTED) (2/2 plans) — completed 2026-01-26
+- [x] Phase 2.2: Decouple Project Init & Milestone Setup (INSERTED) (4/4 plans) — completed 2026-01-26
+- [x] Phase 3: Phase Issues (2/2 plans) — completed 2026-01-26
+- [x] Phase 4: Plan Sync (3/3 plans) — completed 2026-01-26
+- [x] Phase 5: PR Integration (3/3 plans) — completed 2026-01-27
+- [x] Phase 6: PR Review Workflow Skill & Agents (4/4 plans) — completed 2026-01-27
+- [x] Phase 7: Deprecate NPX Support (6/6 plans) — completed 2026-01-27
+
+</details>
 
 ## Phase Details
 
-### v1.1.0 GitHub Integration
-
-#### Phase 0: Develop Robust Testing Suite
-**Goal**: Establish comprehensive testing infrastructure to validate Kata skills and agents using CLI-based testing with affected-test detection for CI cost control
-**Depends on**: v1.0.9 complete (Command Consolidation)
-**Success Criteria** (what must be TRUE):
-  1. Testing framework established for Kata skills and agents
-  2. Test patterns documented for integration testing
-  3. CI/CD pipeline includes test execution
-  4. Baseline test coverage for existing functionality (27 skills)
-**Plans:** 7 plans
-
-Plans:
-- [x] 00-01-PLAN.md — Extend test harness with affected-test detection and assertions
-- [x] 00-02-PLAN.md — Skill tests for status/info skills (Wave 1)
-- [x] 00-03-PLAN.md — Skill tests for project management skills (Wave 2)
-- [x] 00-04-PLAN.md — Skill tests for phase/milestone skills (Wave 3)
-- [x] 00-05-PLAN.md — Skill tests for execution workflow skills (Wave 4)
-- [x] 00-06-PLAN.md — Skill tests for utility skills (Wave 5)
-- [x] 00-07-PLAN.md — CI/CD integration with GitHub Actions
-
-#### Phase 1: Audit & Config Foundation
-**Goal**: Understand where GitHub integration hooks into existing Kata workflows and establish config schema
-**Depends on**: Phase 0 complete (testing in place)
-**Requirements**: WFA-01, CFG-01, CFG-02
-**Success Criteria** (what must be TRUE):
-  1. Integration points documented for milestone-new, phase-execute, execute-plan commands
-  2. `.planning/config.json` includes `github.enabled` boolean toggle
-  3. `.planning/config.json` includes `github.issueMode` with values `auto | ask | never`
-  4. Kata commands read config and branch on `github.enabled`
-**Plans:** 2 plans
-
-Plans:
-- [x] 01-01-PLAN.md — Document integration points and extend config schema
-- [x] 01-02-PLAN.md — Add github namespace to config.json and verify
-
-#### Phase 2: Onboarding & Milestones
-**Goal**: New projects can configure GitHub integration and milestones create corresponding GitHub Milestones
-**Depends on**: Phase 1 (config schema exists)
-**Requirements**: CFG-03, GHM-01, GHM-02
-**Success Criteria** (what must be TRUE):
-  1. `/kata:starting-projects` prompts for GitHub integration preferences
-  2. Config choices saved to `.planning/config.json` during onboarding
-  3. `/kata:adding-milestones` creates GitHub Milestone when `github.enabled = true`
-  4. GitHub Milestone includes version number and description from ROADMAP.md
-**Plans:** 3 plans
-
-Plans:
-- [x] 02-01-PLAN.md — Add GitHub integration questions to kata-starting-projects
-- [x] 02-02-PLAN.md — Add GitHub Milestone creation to kata-starting-milestones
-- [x] 02-03-PLAN.md — Integration tests for GitHub features
-
-#### Phase 2.1: GitHub Repo Setup (INSERTED)
-**Goal**: Ensure GitHub repository exists before milestone/issue creation can proceed
-**Depends on**: Phase 2 complete (GitHub config questions exist)
-**Success Criteria** (what must be TRUE):
-  1. `/kata:starting-projects` checks for existing GitHub remote (`git remote -v`)
-  2. If no remote and `github.enabled=true`, prompts to create repo with `gh repo create`
-  3. If user declines repo creation, `github.enabled` set to `false` with explanation
-  4. GitHub Milestone creation in `/kata:adding-milestones` only runs when remote exists
-**Plans:** 2 plans
-
-Plans:
-- [x] 02.1-01-PLAN.md — Add remote detection and repo creation to kata-starting-projects
-- [x] 02.1-02-PLAN.md — Add remote validation guard to kata-starting-milestones
-
-#### Phase 2.2: Decouple Project Init & Milestone Setup (INSERTED)
-**Goal**: Separate project initialization from first milestone creation; establish clear Kata↔GitHub primitive mapping
-**Depends on**: Phase 2.1 complete (repo setup exists)
-**Success Criteria** (what must be TRUE):
-  1. `starting-projects` creates only PROJECT.md + config.json (no ROADMAP, no requirements)
-  2. New `add-milestone` skill (renamed from `starting-milestones` for consistency with add-phase, add-todo)
-  3. `add-milestone` creates ROADMAP.md with first milestone definition
-  4. `add-milestone` creates GitHub Milestone when `github.enabled=true`
-  5. Kata↔GitHub mapping documented:
-     - Milestone → GitHub Milestone (native GitHub primitive)
-     - Phase → GitHub Issue (assigned to milestone)
-     - Plan → Checklist items in phase issue body
-     - (Future: Sub-issues for plans if gh-subissue extension available)
-  6. After project init, next action prompt is `add-milestone`
-**Plans:** 4 plans
-
-Plans:
-- [x] 02.2-01-PLAN.md — Reduce starting-projects scope to PROJECT.md + config.json
-- [x] 02.2-02-PLAN.md — Create kata-adding-milestones skill with full milestone flow
-- [x] 02.2-03-PLAN.md — Delete starting-milestones, rename tests
-- [x] 02.2-04-PLAN.md — Update documentation and mark todo complete
-
-#### Phase 3: Phase Issues
-**Goal**: Phases become GitHub Issues with proper labels, metadata, and milestone assignment
-**Depends on**: Phase 2.2 (kata-adding-milestones exists with GitHub Milestone creation)
-**Requirements**: GHI-01, GHI-02, GHI-03
-**Success Criteria** (what must be TRUE):
-  1. Phase issues created with `phase` label when milestone created
-  2. Issue body includes phase goal and success criteria from ROADMAP.md
-  3. Phase issues assigned to corresponding GitHub Milestone
-  4. Issues created respecting `github.issueMode` config setting
-**Plans:** 2 plans
-
-Plans:
-- [x] 03-01-PLAN.md — Add phase issue creation to kata-adding-milestones
-- [x] 03-02-PLAN.md — Add tests and update integration documentation
-
-#### Phase 4: Plan Sync
-**Goal**: Phase issues track plan progress as checklist items that update during execution
-**Depends on**: Phase 3 (phase issues exist)
-**Requirements**: GHI-04, GHI-05, WFA-02
-**Success Criteria** (what must be TRUE):
-  1. Phase issue body includes checklist of plans (after `/kata:planning-phases`)
-  2. Checklist items checked as each plan completes during `/kata:executing-phases`
-  3. Execute-plan workflow conditionally updates GitHub issue
-  4. Plan status visible in GitHub without opening Kata
-**Plans:** 3 plans
-
-Plans:
-- [x] 04-01-PLAN.md — Add GitHub issue update to kata-planning-phases
-- [x] 04-02-PLAN.md — Add GitHub issue update to kata-executing-phases
-- [x] 04-03-PLAN.md — Tests and documentation
-
-#### Phase 5: PR Integration
-**Goal**: Phase execution creates well-formed PRs that link to issues and follow conventions
-**Depends on**: Phase 4 (issues exist to link to)
-**Requirements**: GHP-01, GHP-02, GHP-03, GHP-04, WFA-03
-**Implementation Spec**: `kata/references/planning-config.md#pr_workflow_behavior`
-**Success Criteria** (what must be TRUE):
-  1. `/kata:executing-phases` creates branch at phase start (when `pr_workflow: true`)
-  2. `/kata:executing-phases` opens draft PR after first wave commits
-  3. `/kata:executing-phases` marks PR ready when phase complete
-  4. PR title follows convention: `v{milestone} Phase {N}: {Phase Name}`
-  5. PR body includes phase goal, plans checklist, and "Closes #X" linking to phase issue
-  6. `/kata:tracking-progress` shows PR status (draft/ready/merged) when `pr_workflow: true`
-**Plans:** 3 plans
-
-Plans:
-- [x] 05-01-PLAN.md — Add PR workflow to kata-executing-phases (branch, draft PR, ready)
-- [x] 05-02-PLAN.md — Add PR status display to kata-tracking-progress
-- [x] 05-03-PLAN.md — Tests and documentation updates
-
-#### Phase 6: PR Review Workflow Skill & Agents
-**Goal**: Integrate PR review skill and agents into phase execution workflow
-**Depends on**: Phase 5 (PR Integration complete)
-**Success Criteria** (what must be TRUE):
-  1. PR review command accessible via `/kata:review-pr`
-  2. Review agents available for code review workflows
-  3. Phase execution offers optional review after `gh pr ready`
-  4. README documents PR review workflow usage
-**Plans:** 4 plans
-
-Plans:
-- [x] 06-01-PLAN.md — Update skill frontmatter and command wrapper
-- [x] 06-02-PLAN.md — Add PR review integration to kata-executing-phases
-- [x] 06-03-PLAN.md — Add skill test and README documentation
-- [x] 06-04-PLAN.md — UAT fix: backlog todo prompt + merge before next phase
-
-#### Phase 7: Deprecate NPX Support
-**Goal**: Remove NPX distribution path; Kata becomes plugin-only
-**Depends on**: Phase 6 (PR Review complete)
-**Success Criteria** (what must be TRUE):
-  1. All 27 skill directories renamed (kata-* -> *)
-  2. Build system simplified (NPM target removed, plugin build retained)
-  3. NPX-specific files deleted (update skill, check hooks, publish workflow)
-  4. Documentation updated (README, CLAUDE.md, KATA-STYLE.md)
-  5. Final NPM deprecation package published manually
-**Plans:** 6 plans
-
-Plans:
-- [x] 07-01-PLAN.md — Rename skill directories and update frontmatter
-- [x] 07-02-PLAN.md — Delete NPX-specific files
-- [x] 07-03-PLAN.md — Simplify build system to plugin-only
-- [x] 07-04-PLAN.md — Update documentation for plugin-only
-- [x] 07-05-PLAN.md — Replace bin/install.js with deprecation stub
-- [x] 07-06-PLAN.md — Gap closure: Fix development workflow documentation
+(See milestone archives in `.planning/milestones/` for full phase details of shipped milestones)
 
 ## Progress
 
@@ -290,4 +122,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-18*
-*Last updated: 2026-01-27 — Phase 7 complete (gap closure plan 07-06 executed)*
+*Last updated: 2026-01-27 — v1.1.0 milestone shipped*

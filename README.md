@@ -11,6 +11,9 @@
 Agent orchestration framework for spec-driven development.
 <br>
 
+**v1.1.0** — GitHub-integrated workflows: Milestones, Issues, PRs, and code review.
+<br>
+
 [kata.sh](https://kata.sh)
 
 <br>
@@ -43,14 +46,14 @@ Drive your entire workflow with **natural language**.
 
 Say what you want:
 
-| You say...               | Kata does...                           |
-| ------------------------ | -------------------------------------- |
-| "Start a new project"    | Launches full project initialization   |
-| "What's the status?"     | Shows progress, next steps, blockers   |
-| "Plan phase 2"           | Researches and creates execution plans |
-| "Execute the phase"      | Runs all plans with parallel agents    |
-| "I'm done for today"     | Creates handoff for session resumption |
-| "Debug this login issue" | Spawns systematic debugging workflow   |
+| You say...               | Kata does...                                         |
+| ------------------------ | ---------------------------------------------------- |
+| "Start a new project"    | Launches project init with GitHub repo setup         |
+| "What's the status?"     | Shows progress, PR status, next steps, blockers      |
+| "Plan phase 2"           | Researches and creates execution plans               |
+| "Execute the phase"      | Runs plans, creates PR, updates GitHub Issues        |
+| "Review my PR"           | Spawns 6 specialized review agents                   |
+| "I'm done for today"     | Creates handoff for session resumption               |
 
 Every workflow responds to natural language. Slash commands exist for precision when you want them (`/kata:plan-phase 2`), but you never *need* them.
 
@@ -61,6 +64,15 @@ Every workflow responds to natural language. Slash commands exist for precision 
 ## Who This Is For
 
 Teams and individuals who want to describe what they want and have it built correctly.
+
+**v1.1.0 brings native GitHub integration:**
+
+- **Milestones** → GitHub Milestones
+- **Phases** → GitHub Issues with `phase` label
+- **Plans** → Checklist items in issues, checked as work completes
+- **PRs** → Created automatically with "Closes #X" linking
+
+Your work is visible in GitHub as it happens. Team members see progress without opening Kata.
 
 ---
 
@@ -242,14 +254,23 @@ Each plan fits in a fresh context window.
 
 The system:
 
-1. **Runs plans in waves**: Parallel where possible, sequential when dependent
-2. **Fresh context per plan**: 200k tokens for implementation, zero accumulated garbage
-3. **Commits per task**: Every task gets its own atomic commit
-4. **Verifies against goals**: Checks the codebase delivers what the phase promised
+1. **Creates branch and PR**: `feat/v1.0-1-project-foundation` with draft PR
+2. **Runs plans in waves**: Parallel where possible, sequential when dependent
+3. **Updates GitHub Issue**: Checks off plans as they complete
+4. **Fresh context per plan**: 200k tokens for implementation, zero accumulated garbage
+5. **Commits per task**: Every task gets its own atomic commit
+6. **Marks PR ready**: When phase complete, auto-links to phase issue with "Closes #X"
+7. **Verifies against goals**: Checks the codebase delivers what the phase promised
 
-Walk away, come back to completed work with clean git history.
+Walk away, come back to completed work with clean git history and a ready-for-review PR.
 
-**Creates:** `{phase}-{N}-SUMMARY.md`, `{phase}-VERIFICATION.md`
+**Creates:** `{phase}-{N}-SUMMARY.md`, `{phase}-VERIFICATION.md`, GitHub PR
+
+**GitHub Integration:**
+- PR title: `v{milestone} Phase {N}: {Phase Name}`
+- PR body includes phase goal and plan checklist
+- Phase issue checkboxes update as each plan completes
+- PR links to issue with "Closes #X" for automatic closure on merge
 
 ---
 
@@ -293,9 +314,15 @@ Loop **discuss → plan → execute → verify** until milestone is complete.
 
 Each phase gets your input (discuss), proper research (plan), clean execution (execute), and human verification (verify). Context stays fresh. Quality stays high.
 
-When all phases are done, "complete the milestone" archives the milestone and tags the release.
+**GitHub workflow integration:**
+- Each phase creates its own PR (reviewed independently)
+- Merge PR after review, then continue to next phase
+- Phase issues close automatically when PR merges
+- GitHub Milestone tracks overall progress
 
-Then "start the next milestone" kicks off the next version. Same flow as project initialization for your existing codebase. You describe what you want to build next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → build → ship.
+When all phases are done, "complete the milestone" archives the milestone and closes the GitHub Milestone.
+
+Then "start the next milestone" kicks off the next version with a new GitHub Milestone. Same flow as project initialization. Each milestone is a clean cycle: define → build → ship → repeat.
 
 ---
 
@@ -490,6 +517,30 @@ Use `/kata:configure-settings` to toggle these, or override per-invocation:
 - `/kata:plan-phase --skip-research`
 - `/kata:plan-phase --skip-verify`
 
+### GitHub Integration
+
+Enable GitHub-integrated workflows during project initialization or via settings.
+
+| Setting              | Options               | Default | What it controls                          |
+| -------------------- | --------------------- | ------- | ----------------------------------------- |
+| `github.enabled`     | `true`, `false`       | `false` | Enable GitHub Milestone/Issue/PR features |
+| `github.issueMode`   | `auto`, `ask`, `never`| `auto`  | When to create GitHub Issues for phases   |
+| `pr_workflow`        | `true`, `false`       | `false` | Create PRs per phase vs commit to main    |
+
+**When `github.enabled` and `pr_workflow` are both true:**
+
+1. **Project init** → Creates GitHub repo if needed
+2. **Add milestone** → Creates GitHub Milestone
+3. **Add phases** → Creates GitHub Issues with `phase` label
+4. **Plan phase** → Updates issue with plan checklist
+5. **Execute phase** → Creates branch, draft PR, updates checkboxes, marks PR ready
+6. **Track progress** → Shows PR status (Draft/Ready/Merged)
+
+**Issue mode options:**
+- `auto`: Create issues automatically (default)
+- `ask`: Prompt before creating each issue
+- `never`: Skip issue creation (milestone-only mode)
+
 ### Execution
 
 | Setting                   | Default | What it controls                     |
@@ -524,6 +575,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 **Kata adds structure to Claude Code.**
 
-*Tell it what you want.*
+*Tell it what you want. Track progress in GitHub.*
 
 </div>

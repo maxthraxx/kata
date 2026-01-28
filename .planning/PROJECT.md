@@ -4,7 +4,7 @@
 
 A spec-driven development framework for Claude Code. Brings structured, reliable AI development to teams without changing their existing tools. Teams use Kata's quality-producing process inside the tools they already love.
 
-**Current state:** v1.0.6 shipped — Plugin stability through skill self-containment. 10 skills now bundle their own resources.
+**Current state:** v1.1.0 shipped — GitHub Integration. Config-driven GitHub Milestone, Issue, and PR workflows. Plugin-only distribution.
 
 ## Core Value
 
@@ -20,15 +20,17 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 - Test harness — v0.1.5 (CLI-based skill testing with `claude "prompt"`)
 - Claude Code plugin — v1.0.0 (plugin manifest, marketplace distribution)
 - Skill self-containment — v1.0.6 (skills bundle own resources, no shared kata/ dependencies)
+- Config-driven integration — v1.1.0 (enable/disable via .planning/config.json)
+- GitHub Milestone creation — v1.1.0 (milestone-new creates GH Milestone)
+- Phase issue creation — v1.1.0 (phases become GitHub Issues with `phase` label)
+- Plan checklist sync — v1.1.0 (plans shown as checklist items in phase issues)
+- PR creation at phase completion — v1.1.0 (phase-execute creates PR, auto-links with "Closes #X")
+- Workflow audit — v1.1.0 (integration points documented in github-integration.md)
+- Plugin-only distribution — v1.1.0 (NPX deprecated, 27 skills renamed)
 
-### Active (v1.1.0 GitHub Integration)
+### Active
 
-- [ ] Config-driven integration — enable/disable via .planning/config.json
-- [ ] GitHub Milestone creation — milestone-new creates GH Milestone
-- [ ] Phase issue creation — phases become GitHub Issues with `phase` label
-- [ ] Plan checklist sync — plans shown as checklist items in phase issues
-- [ ] PR creation at phase completion — phase-execute creates PR, auto-links with "Closes #X"
-- [ ] Workflow audit — document integration points in existing Kata workflows
+(No active requirements — run `/kata:adding-milestones` to define next milestone)
 
 ### Out of Scope
 
@@ -101,29 +103,28 @@ Teams get reliable AI-driven development without abandoning their existing GitHu
 | **Skills as orchestrators**           | Skills contain full workflow logic, spawn sub-agents via Task tool           | Good — v0.1.5 |
 | **Command delegation**                | Slash commands delegate to skills with disable-model-invocation              | Good — v0.1.5 |
 | **Skill naming**                      | Gerund style with exhaustive triggers for autonomous matching                | Good — v0.1.5 |
-| GitHub integration first              | Prove integration pattern before IDE adapters                                | — Pending     |
-| Config-driven integrations            | Modular, can enable/disable without affecting core Kata                      | — Pending     |
-| Phase-level PRs                       | One PR per phase (not per plan) — complete reviewable units                  | — Pending     |
-| Kata Milestone → GH Milestone         | Use GitHub's native feature for version tracking                             | — Pending     |
-| Phase → Issue, Plan → Checklist       | Right granularity — phases are coordination unit, plans are execution detail | — Pending     |
+| GitHub integration first              | Prove integration pattern before IDE adapters                                | Good — v1.1.0 |
+| Config-driven integrations            | Modular, can enable/disable without affecting core Kata                      | Good — v1.1.0 |
+| Phase-level PRs                       | One PR per phase (not per plan) — complete reviewable units                  | Good — v1.1.0 |
+| Kata Milestone → GH Milestone         | Use GitHub's native feature for version tracking                             | Good — v1.1.0 |
+| Phase → Issue, Plan → Checklist       | Right granularity — phases are coordination unit, plans are execution detail | Good — v1.1.0 |
+| Plugin-only distribution              | Simplify maintenance, NPX deprecated                                         | Good — v1.1.0 |
 
-## Next Milestone: v1.1.0 GitHub Integration
+## Shipped: v1.1.0 GitHub Integration
 
-**Goal:** Enable GitHub-integrated development workflow for teams
+**Delivered:** Config-driven GitHub Milestone, Issue, and PR workflows. Plugin-only distribution.
 
-**Target features:**
-- Config-driven integration — enable/disable via `.planning/config.json`
-- GitHub Milestone creation — `/kata:adding-milestones` creates GH Milestone
-- Phase issue creation — phases become GitHub Issues with `phase` label
-- Plan checklist sync — plans shown as checklist items in phase issues
-- PR creation at phase completion — `/kata:executing-phases` creates PR with auto-linking
+**Key accomplishments:**
+- GitHub Milestone/Issue/PR integration with auto-linking
+- Test harness with 27 skill tests and CI/CD integration
+- PR review workflow with 6 specialized agents
+- Deprecate NPX, simplify to plugin-only
 
-**Approach:**
-- Phase 1: Audit existing workflows, establish config schema
-- Phase 2: Onboarding integration, milestone creation
-- Phase 3: Phase issues with labels and metadata
-- Phase 4: Plan sync with checklist updates
-- Phase 5: PR integration with auto-linking
+See `.planning/milestones/v1.1.0-ROADMAP.md` for full archive.
+
+## Next Milestone
+
+Run `/kata:adding-milestones` to define the next milestone.
 
 ---
-*Last updated: 2026-01-24 — v1.0.6 milestone shipped*
+*Last updated: 2026-01-27 — v1.1.0 milestone shipped*

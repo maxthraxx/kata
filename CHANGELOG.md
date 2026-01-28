@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-01-27 — GitHub Integration
+
+Kata v1.1.0 ships **GitHub Integration**: config-driven GitHub Milestone, Issue, and PR workflows.
+
+### Added
+- **GitHub config namespace**: `.planning/config.json` now includes `github.enabled` and `github.issueMode` settings
+- **GitHub Milestone creation**: `/kata:adding-milestones` creates GitHub Milestones via `gh api`
+- **Phase issue creation**: Phases become GitHub Issues with `phase` label, assigned to milestone
+- **Plan checklist sync**: Plans shown as checklist items in phase issues, checked as plans complete
+- **PR integration**: `/kata:executing-phases` creates branches, draft PRs with "Closes #X" linking, marks ready on completion
+- **PR status display**: `/kata:tracking-progress` shows PR status (Draft/Ready/Merged)
+- **PR review workflow**: `/kata:review-pr` command with 6 specialized review agents
+- **Test harness**: 27 skill tests with affected-test detection and CI/CD integration
+
+### Changed
+- **Plugin-only distribution**: NPX support deprecated; install via Claude Code plugin marketplace
+- **Skill directory naming**: Renamed from `kata-*` to `*` (27 skills)
+- **Build system simplified**: NPM target removed, plugin build retained
+
+### Removed
+- **NPX distribution path**: `bin/install.js` now shows deprecation message
+- **Update skill**: Removed `kata-updating` (plugin updates via marketplace)
+- **NPX hooks**: Removed `kata-check-update.js`, `kata-npm-statusline.js`
+
+---
+
 ## [1.1.15] - 2026-01-25
 
 ### Fixed
