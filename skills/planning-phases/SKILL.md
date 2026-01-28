@@ -524,20 +524,19 @@ done
 
 **Update issue body with plan checklist:**
 
+Use the script at `./scripts/update-issue-plans.py` relative to this skill's base directory.
+
+Construct the full path from the "Base directory for this skill" shown at invocation, then run:
+
 ```bash
 # Write checklist to temp file
 printf '%s\n' "$PLAN_CHECKLIST" > /tmp/phase-plan-checklist.md
 
-# Use Python script for reliable multiline manipulation
-# Script handles: reading issue body, inserting checklist, updating issue
-SCRIPT_PATH="$HOME/.claude/plugins/kata/skills/planning-phases/scripts/update-issue-plans.py"
-if [ -f "$SCRIPT_PATH" ]; then
-  python3 "$SCRIPT_PATH" "$ISSUE_NUMBER" /tmp/phase-plan-checklist.md \
-    && GITHUB_UPDATE_SUCCESS=true \
-    || echo "Warning: Script failed, but continuing (non-blocking)"
-else
-  echo "Warning: Script not found at $SCRIPT_PATH. Skipping issue update."
-fi
+# SKILL_BASE_DIR should be set to the base directory from skill invocation header
+# e.g., SKILL_BASE_DIR="/path/to/skills/planning-phases"
+python3 "${SKILL_BASE_DIR}/scripts/update-issue-plans.py" "$ISSUE_NUMBER" /tmp/phase-plan-checklist.md \
+  && GITHUB_UPDATE_SUCCESS=true \
+  || echo "Warning: Script failed, but continuing (non-blocking)"
 
 # Clean up
 rm -f /tmp/phase-plan-checklist.md
