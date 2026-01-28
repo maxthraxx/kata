@@ -479,8 +479,10 @@ ISSUE_MODE=$(cat .planning/config.json 2>/dev/null | grep -o '"issueMode"[[:spac
 **If enabled, find phase issue:**
 
 ```bash
-# Get milestone version from ROADMAP.md
-VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v' || echo "")
+# Get milestone version from ROADMAP.md (the one marked "In Progress")
+VERSION=$(grep -E "^### v[0-9]+\.[0-9]+.*\(In Progress\)" .planning/ROADMAP.md | grep -oE "v[0-9]+\.[0-9]+(\.[0-9]+)?" | head -1 | tr -d 'v' || echo "")
+# Fallback: try to find any version if no "In Progress" found
+[ -z "$VERSION" ] && VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v' || echo "")
 
 if [ -z "$VERSION" ]; then
   echo "Warning: Could not determine milestone version. Skipping GitHub issue update."
@@ -523,48 +525,22 @@ done
 **Update issue body with plan checklist:**
 
 ```bash
-# Read current issue body
-ISSUE_BODY=$(gh issue view "$ISSUE_NUMBER" --json body --jq '.body' 2>/dev/null)
+# Write checklist to temp file
+printf '%s\n' "$PLAN_CHECKLIST" > /tmp/phase-plan-checklist.md
 
-if [ -z "$ISSUE_BODY" ]; then
-  echo "Warning: Could not read issue #${ISSUE_NUMBER} body. Skipping update."
-  # Continue to offer_next (non-blocking)
+# Use Python script for reliable multiline manipulation
+# Script handles: reading issue body, inserting checklist, updating issue
+SCRIPT_PATH="$HOME/.claude/plugins/kata/skills/planning-phases/scripts/update-issue-plans.py"
+if [ -f "$SCRIPT_PATH" ]; then
+  python3 "$SCRIPT_PATH" "$ISSUE_NUMBER" /tmp/phase-plan-checklist.md \
+    && GITHUB_UPDATE_SUCCESS=true \
+    || echo "Warning: Script failed, but continuing (non-blocking)"
+else
+  echo "Warning: Script not found at $SCRIPT_PATH. Skipping issue update."
 fi
 
-# Remove placeholder line and add checklist after ## Plans section
-# Using awk for multiline manipulation
-NEW_BODY=$(echo "$ISSUE_BODY" | awk -v checklist="$PLAN_CHECKLIST" '
-  /^## Plans$/ {
-    print
-    print ""
-    print checklist
-    getline  # Skip blank line after ## Plans if exists
-    if ($0 ~ /^_Plans will be added/) next  # Skip placeholder
-    if ($0 ~ /^<!-- Checklist/) next  # Skip comment
-    if ($0 == "") next  # Skip blank line before placeholder
-    print
-    next
-  }
-  /^_Plans will be added/ { next }  # Remove placeholder anywhere
-  { print }
-')
-
-# Check if Plans section exists, if not append it
-if ! echo "$ISSUE_BODY" | grep -q "^## Plans"; then
-  NEW_BODY="${ISSUE_BODY}
-
-## Plans
-
-${PLAN_CHECKLIST}"
-fi
-
-# Write to temp file (handles special characters safely)
-printf '%s\n' "$NEW_BODY" > /tmp/phase-issue-body.md
-
-# Update issue
-gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
-  && GITHUB_UPDATE_SUCCESS=true \
-  || echo "Warning: Failed to update issue #${ISSUE_NUMBER}"
+# Clean up
+rm -f /tmp/phase-plan-checklist.md
 ```
 
 **Track result for display:**
