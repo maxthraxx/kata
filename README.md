@@ -54,10 +54,8 @@ claude plugin install kata@kata-marketplace
 
 <div align="center">
 <img src="assets/project-config-flow.gif" alt="GitHub Integration Setup">
-<br>
-*Interactive setup for PR workflows, GitHub tracking, issue creation, and CI scaffolding*
-<br>
 </div>
+
 ---
 
 ## Voice-First: Conversational Interface
