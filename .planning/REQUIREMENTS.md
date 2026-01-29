@@ -6,6 +6,7 @@
 
 - [ ] **TOOL-01**: User can view Mermaid flow diagrams documenting Kata's major workflow paths (orchestration, lifecycle, planning, execution, verification, PR)
 - [ ] **TOOL-02**: User can reference a Kata glossary defining key terms (milestone, phase, issue, plan, etc.) with clear relationships
+- [ ] **TOOL-03**: ROADMAP.md format is clear — current milestone visible at top, "where are we now?" obvious, consistent structure throughout
 
 ---
 
@@ -58,8 +59,9 @@
 | ----------- | ------- | ---- | ------- |
 | TOOL-01     | Phase 2 | TBD  | Pending |
 | TOOL-02     | Phase 2 | TBD  | Pending |
+| TOOL-03     | Phase 2 | TBD  | Pending |
 
-**Coverage:** 2/2 requirements mapped to phases (100%)
+**Coverage:** 3/3 requirements mapped to phases (100%)
 
 ---
 *Created: 2026-01-28*

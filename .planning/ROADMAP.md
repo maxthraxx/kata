@@ -103,7 +103,7 @@ Plans:
 **Goal:** Create internal documentation and terminology reference for Kata.
 
 **Phases:** 1
-**Requirements:** 2 (TOOL-01, TOOL-02)
+**Requirements:** 3 (TOOL-01, TOOL-02, TOOL-03)
 **Depth:** Quick
 
 - [ ] **Phase 2: Internal Documentation** — Flow diagrams and glossary for Kata internals
@@ -112,11 +112,11 @@ Plans:
 
 #### Phase 2: Internal Documentation
 
-**Goal:** Create Mermaid flow diagrams and terminology glossary for Kata
+**Goal:** Create Mermaid flow diagrams, terminology glossary, and fix ROADMAP.md format
 
 **Depends on:** v1.3.0 complete
 
-**Requirements:** TOOL-01, TOOL-02
+**Requirements:** TOOL-01, TOOL-02, TOOL-03
 
 **Success Criteria** (what must be TRUE):
 1. Mermaid diagrams exist for major workflow paths (orchestration, lifecycle, planning, execution, verification, PR)
@@ -124,6 +124,7 @@ Plans:
 3. Kata glossary defines all key terms (milestone, phase, issue, plan, etc.)
 4. Glossary shows relationships between concepts
 5. Documentation is usable by both humans and future Claude instances
+6. ROADMAP.md format is clear — current milestone at top, obvious "where are we now?", consistent structure
 
 **Plans:** TBD (created during phase planning)
 
