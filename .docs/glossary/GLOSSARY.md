@@ -19,6 +19,7 @@ Authoritative terminology reference for Kata. This document defines key terms, s
 ## Relationship Diagram
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
     subgraph "Project Hierarchy"
         PROJECT[Project]
