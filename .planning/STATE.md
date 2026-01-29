@@ -9,11 +9,11 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 
 ## Current Position
 
-Milestone: v1.4.0 Tooling & Issue Management
+Milestone: v1.3.3 Internal Tooling
 Phase: Not started (defining requirements)
 Plan: —
 Status: Defining requirements
-Last activity: 2026-01-29 — Milestone v1.4.0 started
+Last activity: 2026-01-29 — Milestone v1.3.3 started
 
 Progress: [                                                  ] 0%
 
