@@ -7,6 +7,7 @@ Mermaid flow diagrams documenting Kata's major workflow paths.
 How users interact with skills, which orchestrate agents.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     subgraph User["User Interface"]
         CMD["/kata:skill-name"]
@@ -73,6 +74,7 @@ flowchart TD
 State machine from project creation to milestone completion.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     subgraph Init["Project Initialization"]
         NP["/kata:new-project"]
@@ -124,6 +126,7 @@ flowchart TD
 The planning-phases skill workflow with research and verification loop.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     START["/kata:plan-phase N"]
 
@@ -189,6 +192,7 @@ flowchart TD
 The executing-phases skill workflow with wave parallelization.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     START["/kata:execute-phase N"]
 
@@ -260,6 +264,7 @@ flowchart TD
 The verifying-work skill workflow for UAT and gap closure.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     START["/kata:verify-work N"]
 
@@ -340,6 +345,7 @@ flowchart TD
 Branch-based pull request workflow with GitHub integration.
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TD
     subgraph Config["Configuration"]
         CFG{"pr_workflow: true?"}
